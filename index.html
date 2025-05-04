@@ -434,11 +434,11 @@
         }
 
         .team-avatar {
-            font-size: 3rem; /* Задаем размер смайликов */
+            font-size: 3rem;
             margin: 0 auto 1rem;
         }
 
-        /* Табы для проектов */
+        /* Табы */
         .tabs {
             display: flex;
             justify-content: center;
@@ -472,6 +472,11 @@
 
         .tab-content.active {
             display: block;
+        }
+
+        /* Страница озвучек */
+        .voice-page {
+            padding: 2rem 0;
         }
 
         footer {
@@ -642,8 +647,8 @@
                 <li><a href="#" onclick="showPage('news')"><i class="fas fa-newspaper"></i> Новости</a></li>
                 <li><a href="#" onclick="showPage('projects')"><i class="fas fa-film"></i> Проекты</a></li>
                 <li><a href="#" onclick="showPage('team')"><i class="fas fa-users"></i> Команда</a></li>
+                <li><a href="#" onclick="showPage('voice')"><i class="fas fa-headphones"></i> Озвучки</a></li>
                 <li><a href="#" onclick="showPage('donate')"><i class="fas fa-donate"></i> Поддержать</a></li>
-                <li><a href="#"><i class="fas fa-headphones"></i> Озвучки</a></li>
                 <li><a href="#"><i class="fas fa-envelope"></i> Контакты</a></li>
             </ul>
         </nav>
@@ -741,60 +746,88 @@
                 <div class="team-grid">
                     <!-- Владелец -->
                     <div class="team-card">
-                        <div class="team-avatar">👑</div> <!-- Смайлик -->
+                        <div class="team-avatar">👑</div>
                         <div class="team-role">Владелец</div>
                         <div class="team-name">Ведун</div>
                     </div>
 
                     <!-- Заместитель -->
                     <div class="team-card">
-                        <div class="team-avatar">🦸‍♂️</div> <!-- Смайлик -->
+                        <div class="team-avatar">🦸‍♂️</div>
                         <div class="team-role">Зам. владельца</div>
                         <div class="team-name">Фируко</div>
                     </div>
 
                     <!-- Правая рука -->
                     <div class="team-card">
-                        <div class="team-avatar">🤝</div> <!-- Смайлик -->
+                        <div class="team-avatar">🤝</div>
                         <div class="team-role">Правая рука</div>
                         <div class="team-name">Yorichi</div>
                     </div>
 
                     <!-- Левая рука -->
                     <div class="team-card">
-                        <div class="team-avatar">🤝</div> <!-- Смайлик -->
+                        <div class="team-avatar">🤝</div>
                         <div class="team-role">Левая рука</div>
                         <div class="team-name">чел123</div>
                     </div>
                     <div class="team-card">
                         <div class="team-avatar">🦔</div>
-                        <div class="team-role">прогромист\дизайнер</div>   <!-- Смайлик ежа -->
+                        <div class="team-role">прогромист\дизайнер</div>
                         <div class="team-name">Яжидзе</div>
                     </div>
                     <!-- Остальные участники команды -->
                     <div class="team-card">
-                        <div class="team-avatar">👥</div> <!-- Смайлик -->
+                        <div class="team-avatar">👥</div>
                         <div class="team-name">Аяко</div>
                     </div>
 
                     <div class="team-card">
-                        <div class="team-avatar">👥</div> <!-- Смайлик -->
+                        <div class="team-avatar">👥</div>
                         <div class="team-name">Мяфка</div>
                     </div>
 
                     <div class="team-card">
-                        <div class="team-avatar">👥</div> <!-- Смайлик -->
+                        <div class="team-avatar">👥</div>
                         <div class="team-name">Скарик</div>
                     </div>
 
                     <div class="team-card">
-                        <div class="team-avatar">👥</div> <!-- Смайлик -->
+                        <div class="team-avatar">👥</div>
                         <div class="team-name">Mrsobra</div>
                     </div>
 
                     <div class="team-card">
-                        <div class="team-avatar">👥</div> <!-- Смайлик -->
+                        <div class="team-avatar">👥</div>
                         <div class="team-name">Genko</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Страница озвучек -->
+            <div id="voice-page" class="hidden">
+                <h2 class="page-title">Наши озвучки</h2>
+
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('manga-tab')">Манга</div>
+                    <div class="tab" onclick="switchTab('manhwa-tab')">Манхва</div>
+                </div>
+
+                <!-- Вкладка с мангой -->
+                <div id="manga-tab" class="tab-content active">
+                    <div class="empty-state">
+                        <i class="fas fa-book"></i>
+                        <h3>Манги пока нет</h3>
+                        <p>В этом разделе будут появляться озвученные нами манги</p>
+                    </div>
+                </div>
+
+                <!-- Вкладка с манхвой -->
+                <div id="manhwa-tab" class="tab-content">
+                    <div class="empty-state">
+                        <i class="fas fa-book-open"></i>
+                        <h3>Манхвы пока нет</h3>
+                        <p>В этом разделе будут появляться озвученные нами манхвы</p>
                     </div>
                 </div>
             </div>
@@ -865,6 +898,7 @@
                     </div>
                 </div>
             </div>
+                  
         </div>
 
         <footer>
@@ -889,7 +923,7 @@
         // Функция для переключения между страницами
         function showPage(pageId) {
             // Скрыть все страницы
-            const pages = ['home', 'news', 'projects', 'team', 'anime', 'donate'];
+            const pages = ['home', 'news', 'projects', 'team', 'voice', 'donate', 'anime'];
             pages.forEach(page => {
                 const element = document.getElementById(`${page}-page`);
                 if(element) element.classList.add('hidden');
@@ -919,6 +953,7 @@
             document.getElementById('news-page').classList.add('hidden');
             document.getElementById('projects-page').classList.add('hidden');
             document.getElementById('team-page').classList.add('hidden');
+            document.getElementById('voice-page').classList.add('hidden');
             document.getElementById('donate-page').classList.add('hidden');
 
             // Показать страницу аниме
@@ -942,7 +977,7 @@
 
             // Убрать active у всех контентов
             document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
+                                   content.classList.remove('active');
             });
 
             // Добавить active к выбранной вкладке и контенту
@@ -954,6 +989,8 @@
         window.onload = function() {
             showPage('home');
         };
+
+
     </script>
 </body>
 </html>
