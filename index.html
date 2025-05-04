@@ -642,6 +642,7 @@
                 <li><a href="#" onclick="showPage('news')"><i class="fas fa-newspaper"></i> Новости</a></li>
                 <li><a href="#" onclick="showPage('projects')"><i class="fas fa-film"></i> Проекты</a></li>
                 <li><a href="#" onclick="showPage('team')"><i class="fas fa-users"></i> Команда</a></li>
+                <li><a href="#" onclick="showPage('donate')"><i class="fas fa-donate"></i> Поддержать</a></li>
                 <li><a href="#"><i class="fas fa-headphones"></i> Озвучки</a></li>
                 <li><a href="#"><i class="fas fa-envelope"></i> Контакты</a></li>
             </ul>
@@ -766,36 +767,11 @@
                         <div class="team-name">чел123</div>
                     </div>
                     <div class="team-card">
-    <div class="team-avatar">🦔</div>
-    <div class="team-role">прогромист\дизайнер</div>   <!-- Смайлик ежа -->
-    <div class="team-name">Яжидзе</div>
-</div>
+                        <div class="team-avatar">🦔</div>
+                        <div class="team-role">прогромист\дизайнер</div>   <!-- Смайлик ежа -->
+                        <div class="team-name">Яжидзе</div>
+                    </div>
                     <!-- Остальные участники команды -->
-                    <div class="team-card">
-                        <div class="team-avatar">👥</div> <!-- Смайлик -->
-                        <div class="team-name">Kowa</div>
-                    </div>
-
-                    <div class="team-card">
-                        <div class="team-avatar">👥</div> <!-- Смайлик -->
-                        <div class="team-name">Снежный</div>
-                    </div>
-
-                    <div class="team-card">
-                        <div class="team-avatar">👥</div> <!-- Смайлик -->
-                        <div class="team-name">Arhi</div>
-                    </div>
-
-                    <div class="team-card">
-                        <div class="team-avatar">👥</div> <!-- Смайлик -->
-                        <div class="team-name">Kiri</div>
-                    </div>
-
-                    <div class="team-card">
-                        <div class="team-avatar">👥</div> <!-- Смайлик -->
-                        <div class="team-name">deforced</div>
-                    </div>
-
                     <div class="team-card">
                         <div class="team-avatar">👥</div> <!-- Смайлик -->
                         <div class="team-name">Аяко</div>
@@ -819,6 +795,20 @@
                     <div class="team-card">
                         <div class="team-avatar">👥</div> <!-- Смайлик -->
                         <div class="team-name">Genko</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Страница пожертвований -->
+            <div id="donate-page" class="hidden">
+                <h2 class="page-title">Поддержите нас</h2>
+                <div class="empty-state">
+                    <i class="fas fa-donate"></i>
+                    <h3>Ваши пожертвования помогут нам развиваться!</h3>
+                    <p>Если вам нравится наш проект и вы хотите поддержать нашу команду, это можно сделать через следующие ссылки:</p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem;">
+                        <a href="https://www.donationalerts.com/r/soradubanime" target="_blank" class="btn">DonationAlerts</a>
+                        <a href="https://boosty.to/soradubanime" target="_blank" class="btn">Boosty</a>
                     </div>
                 </div>
             </div>
@@ -899,11 +889,11 @@
         // Функция для переключения между страницами
         function showPage(pageId) {
             // Скрыть все страницы
-            document.getElementById('home-page').classList.add('hidden');
-            document.getElementById('news-page').classList.add('hidden');
-            document.getElementById('projects-page').classList.add('hidden');
-            document.getElementById('team-page').classList.add('hidden');
-            document.getElementById('anime-page').classList.add('hidden');
+            const pages = ['home', 'news', 'projects', 'team', 'anime', 'donate'];
+            pages.forEach(page => {
+                const element = document.getElementById(`${page}-page`);
+                if(element) element.classList.add('hidden');
+            });
 
             // Убрать active у всех ссылок
             document.querySelectorAll('.sidebar-nav a').forEach(link => {
@@ -929,6 +919,7 @@
             document.getElementById('news-page').classList.add('hidden');
             document.getElementById('projects-page').classList.add('hidden');
             document.getElementById('team-page').classList.add('hidden');
+            document.getElementById('donate-page').classList.add('hidden');
 
             // Показать страницу аниме
             document.getElementById('anime-page').classList.remove('hidden');
