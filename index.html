@@ -204,7 +204,6 @@
             height: 400px;
             object-fit: cover;
             position: relative;
-            cursor: pointer;
         }
 
         .anime-cover::after {
@@ -435,67 +434,46 @@
         }
 
         .team-avatar {
-            font-size: 3rem;
+            font-size: 3rem; /* Задаем размер смайликов */
             margin: 0 auto 1rem;
         }
 
-        /* Секция поддержки */
-        .support-section {
-            background-color: var(--card-bg);
-            padding: 2rem;
-            border-radius: 10px;
-            margin: 2rem 0;
-            text-align: center;
-            border: 1px solid var(--primary);
+        /* Табы для проектов */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 1rem;
         }
 
-        .support-title {
+        .tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            color: #ccc;
+            font-weight: 500;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
             color: var(--primary);
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
+            border-bottom: 3px solid var(--primary);
             text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
         }
 
-        .support-text {
-            margin-bottom: 1.5rem;
-            color: #cccccc;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
+        .tab:hover {
+            color: var(--primary);
         }
 
-        .support-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
+        .tab-content {
+            display: none;
         }
 
-        .support-btn {
-            display: inline-flex;
-            align-items: center;
-            background: linear-gradient(135deg, var(--primary), #990000);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3), 0 0 8px rgba(255, 0, 0, 0.2);
+        .tab-content.active {
+            display: block;
         }
 
-        .support-btn i {
-            margin-right: 0.5rem;
-            font-size: 1.2rem;
-        }
-
-        .support-btn:hover {
-            background: linear-gradient(135deg, #ff3333, #990000);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(255, 0, 0, 0.5), 0 0 12px rgba(255, 0, 0, 0.3);
-        }
-
-        /* Футер */
         footer {
             background-color: #000000;
             color: white;
@@ -624,19 +602,27 @@
                 grid-template-columns: 1fr 1fr;
             }
 
-            .support-buttons {
+            .tabs {
                 flex-direction: column;
                 align-items: center;
+            }
+
+            .tab {
+                width: 100%;
+                text-align: center;
+                border-bottom: none;
+                border-left: 3px solid transparent;
+            }
+
+            .tab.active {
+                border-bottom: none;
+                border-left: 3px solid var(--primary);
             }
         }
 
         @media (max-width: 480px) {
             .team-grid {
                 grid-template-columns: 1fr;
-            }
-            
-            .anime-name {
-                font-size: 1.8rem;
             }
         }
     </style>
@@ -681,7 +667,7 @@
 
                 <div style="text-align: center; margin-bottom: 2.5rem;">
                     <p style="max-width: 800px; margin: 0 auto 1.5rem; font-size: 1.1rem; color: #cccccc;">
-                        Мы - команда энтузиастов, создающая любительские озвучки аниме для русскоязычного комьюнити. Присоединяйтесь к нам!
+                        Мы - команда энтузиастов, создающая любительские озвучки аниме для русскоязычного комьюнити.
                     </p>
                     <a href="#" class="btn" onclick="showPage('projects')">Наши работы</a>
                 </div>
@@ -690,7 +676,7 @@
                     <div class="card">
                         <div class="card-content">
                             <h3 class="card-title">Наши принципы</h3>
-                            <p class="card-text">Создаем озвучки с душой, сохраняя атмосферу оригинала. Качество звука и актерская игра — наш приоритет.</p>
+                            <p class="card-text">Создаем озвучки с душой, сохраняя атмосферу оригинала</p>
                             <a href="#" class="btn btn-outline">Подробнее</a>
                         </div>
                     </div>
@@ -698,26 +684,9 @@
                     <div class="card">
                         <div class="card-content">
                             <h3 class="card-title">Для сообщества</h3>
-                            <p class="card-text">Наши работы доступны всем совершенно бесплатно. Мы ценим каждого зрителя и члена нашего сообщества.</p>
+                            <p class="card-text">Наши работы доступны всем совершенно бесплатно</p>
                             <a href="#" class="btn btn-outline">Присоединиться</a>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Секция поддержки -->
-                <div class="support-section">
-                    <h3 class="support-title">Поддержите проект!</h3>
-                    <p class="support-text">
-                        Наш проект существует исключительно на энтузиазме команды и вашей поддержке. 
-                        Любая помощь позволит нам развиваться дальше и делать больше качественного контента.
-                    </p>
-                    <div class="support-buttons">
-                        <a href="https://boosty.to/soradubanime/donate" class="support-btn" target="_blank">
-                            <i class="fab fa-btc"></i> Поддержать на Boosty
-                        </a>
-                        <a href="https://www.donationalerts.com/r/soradubanime" class="support-btn" target="_blank">
-                            <i class="fas fa-donate"></i> DonationAlerts
-                        </a>
                     </div>
                 </div>
             </div>
@@ -737,43 +706,29 @@
             <div id="projects-page" class="hidden">
                 <h2 class="page-title">Наши проекты</h2>
 
-                <div class="grid">
-                    <div class="card" onclick="showAnime('solo-leveling')">
-                        <div style="position: relative;">
-                            <img src="https://i.ibb.co/HTN4MSVN/photo-5238158362519138167-x.jpg" alt="Solo Leveling" class="anime-cover">
-                            <div class="anime-title">Solo Leveling</div>
-                        </div>
-                        <div class="card-content">
-                            <p class="card-text">🔥 Озвучка в процессе работы</p>
-                        </div>
-                    </div>
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('anime-tab')">Аниме</div>
+                    <div class="tab" onclick="switchTab('movies-tab')">Фильмы</div>
+                </div>
 
-                    <div class="card">
-                        <div style="position: relative;">
-                            <img src="https://i.ibb.co/5xZfh9H/image.jpg" alt="Яж-ежик" class="anime-cover">
-                            <div class="anime-title">Яж-ежик</div>
-                        </div>
-                        <div class="card-content">
-                            <p class="card-text">🦔 Специальный проект для души</p>
-                            <a href="#" class="btn btn-outline">Подробнее</a>
+                <!-- Вкладка с аниме -->
+                <div id="anime-tab" class="tab-content active">
+                    <div class="grid">
+                        <div class="card" onclick="showAnime('solo-leveling')">
+                            <div style="position: relative;">
+                                <img src="https://i.ibb.co/HTN4MSVN/photo-5238158362519138167-x.jpg" alt="Solo Leveling" class="anime-cover">
+                                <div class="anime-title">Solo Leveling</div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Секция поддержки -->
-                <div class="support-section">
-                    <h3 class="support-title">Хотите новые озвучки быстрее?</h3>
-                    <p class="support-text">
-                        Ваша поддержка ускорит процесс создания новых озвучек и улучшит их качество. 
-                        Мы очень ценим каждого, кто помогает проекту!
-                    </p>
-                    <div class="support-buttons">
-                        <a href="https://boosty.to/soradubanime/donate" class="support-btn" target="_blank">
-                            <i class="fab fa-btc"></i> Boosty
-                        </a>
-                        <a href="https://www.donationalerts.com/r/soradubanime" class="support-btn" target="_blank">
-                            <i class="fas fa-donate"></i> DonationAlerts
-                        </a>
+                <!-- Вкладка с фильмами -->
+                <div id="movies-tab" class="tab-content">
+                    <div class="empty-state">
+                        <i class="fas fa-film"></i>
+                        <h3>Фильмов пока нет</h3>
+                        <p>В этом разделе будут появляться озвученные нами фильмы</p>
                     </div>
                 </div>
             </div>
@@ -785,103 +740,85 @@
                 <div class="team-grid">
                     <!-- Владелец -->
                     <div class="team-card">
-                        <div class="team-avatar">👑</div>
+                        <div class="team-avatar">👑</div> <!-- Смайлик -->
                         <div class="team-role">Владелец</div>
                         <div class="team-name">Ведун</div>
                     </div>
 
                     <!-- Заместитель -->
                     <div class="team-card">
-                        <div class="team-avatar">🦸‍♂️</div>
+                        <div class="team-avatar">🦸‍♂️</div> <!-- Смайлик -->
                         <div class="team-role">Зам. владельца</div>
                         <div class="team-name">Фируко</div>
                     </div>
 
                     <!-- Правая рука -->
                     <div class="team-card">
-                        <div class="team-avatar">🤝</div>
+                        <div class="team-avatar">🤝</div> <!-- Смайлик -->
                         <div class="team-role">Правая рука</div>
                         <div class="team-name">Yorichi</div>
                     </div>
 
                     <!-- Левая рука -->
                     <div class="team-card">
-                        <div class="team-avatar">🤝</div>
+                        <div class="team-avatar">🤝</div> <!-- Смайлик -->
                         <div class="team-role">Левая рука</div>
                         <div class="team-name">чел123</div>
                     </div>
-
+                    <div class="team-card">
+    <div class="team-avatar">🦔</div>
+    <div class="team-role">прогромист\дизайнер</div>   <!-- Смайлик ежа -->
+    <div class="team-name">Яжидзе</div>
+</div>
                     <!-- Остальные участники команды -->
                     <div class="team-card">
-                        <div class="team-avatar">👥</div>
+                        <div class="team-avatar">👥</div> <!-- Смайлик -->
                         <div class="team-name">Kowa</div>
                     </div>
 
                     <div class="team-card">
-                        <div class="team-avatar">👥</div>
+                        <div class="team-avatar">👥</div> <!-- Смайлик -->
                         <div class="team-name">Снежный</div>
                     </div>
 
                     <div class="team-card">
-                        <div class="team-avatar">👥</div>
+                        <div class="team-avatar">👥</div> <!-- Смайлик -->
                         <div class="team-name">Arhi</div>
                     </div>
 
                     <div class="team-card">
-                        <div class="team-avatar">👥</div>
+                        <div class="team-avatar">👥</div> <!-- Смайлик -->
                         <div class="team-name">Kiri</div>
                     </div>
 
                     <div class="team-card">
-                        <div class="team-avatar">👥</div>
+                        <div class="team-avatar">👥</div> <!-- Смайлик -->
                         <div class="team-name">deforced</div>
                     </div>
 
                     <div class="team-card">
-                        <div class="team-avatar">👥</div>
+                        <div class="team-avatar">👥</div> <!-- Смайлик -->
                         <div class="team-name">Аяко</div>
                     </div>
 
                     <div class="team-card">
-                        <div class="team-avatar">👥</div>
+                        <div class="team-avatar">👥</div> <!-- Смайлик -->
                         <div class="team-name">Мяфка</div>
                     </div>
 
                     <div class="team-card">
-                        <div class="team-avatar">👥</div>
+                        <div class="team-avatar">👥</div> <!-- Смайлик -->
                         <div class="team-name">Скарик</div>
                     </div>
 
                     <div class="team-card">
-                        <div class="team-avatar">👥</div>
+                        <div class="team-avatar">👥</div> <!-- Смайлик -->
                         <div class="team-name">Mrsobra</div>
                     </div>
 
                     <div class="team-card">
-                        <div class="team-avatar">🦔</div>
-                        <div class="team-name">Проекты ЯЖ</div>
-                    </div>
-
-                    <div class="team-card">
-                        <div class="team-avatar">👥</div>
+                        <div class="team-avatar">👥</div> <!-- Смайлик -->
                         <div class="team-name">Genko</div>
-                    </div>
-                </div>
-
-                <!-- Секция поддержки -->
-                <div class="support-section">
-                    <h3 class="support-title">Поддержите команду!</h3>
-                    <p class="support-text">
-                        Наша команда работает над проектом в свободное время совершенно бесплатно. 
-                        Ваша поддержка мотивирует нас и помогает развивать проект.
-                    </p>
-                    <div class="support-buttons">
-                        <a href="https://boosty.to/soradubanime/donate" class="support-btn" target="_blank">
-                            <i class="fab fa-btc"></i> Поддержать на Boosty
-                        </a>
-                        <a href="https://www.donationalerts.com/r/soradubanime" class="support-btn" target="_blank">
-                            <i class="fas fa-donate"></i> DonationAlerts
-                        </a>
                     </div>
                 </div>
             </div>
@@ -933,18 +870,7 @@
 
                         <div class="player-placeholder">
                             <i class="fas fa-play-circle"></i>
-                            <p>Здесь будет размещён плеер для просмотра аниме. Работа над озвучкой в процессе!</p>
-                            <p style="margin-top: 1rem; color: var(--primary); font-weight: 500;">Поддержите проект, чтобы ускорить выпуск новых эпизодов!</p>
-                            
-                            <!-- Кнопки поддержки на странице аниме -->
-                            <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap;">
-                                <a href="https://boosty.to/soradubanime/donate" class="support-btn" target="_blank" style="padding: 0.6rem 1.2rem; font-size: 0.9rem;">
-                                    <i class="fab fa-btc"></i> Boosty
-                                </a>
-                                <a href="https://www.donationalerts.com/r/soradubanime" class="support-btn" target="_blank" style="padding: 0.6rem 1.2rem; font-size: 0.9rem;">
-                                    <i class="fas fa-donate"></i> DonationAlerts
-                                </a>
-                            </div>
+                            <p>Здесь будет размещён плеер для просмотра аниме</p>
                         </div>
                     </div>
                 </div>
@@ -952,3 +878,91 @@
         </div>
 
         <footer>
+            <div class="footer-content">
+                <div class="footer-logo">Sora<span>Dub</span>Anime</div>
+                <p class="footer-text">Бесплатная некоммерческая озвучка аниме</p>
+
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                </div>
+
+                <p class="copyright">Сайт создан при поддержке проектов <strong style="color: var(--primary);">RH company</strong></p>
+                <p class="copyright">© 2025 SoraDubAnime.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Функция для переключения между страницами
+        function showPage(pageId) {
+            // Скрыть все страницы
+            document.getElementById('home-page').classList.add('hidden');
+            document.getElementById('news-page').classList.add('hidden');
+            document.getElementById('projects-page').classList.add('hidden');
+            document.getElementById('team-page').classList.add('hidden');
+            document.getElementById('anime-page').classList.add('hidden');
+
+            // Убрать active у всех ссылок
+            document.querySelectorAll('.sidebar-nav a').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Показать выбранную страницу
+            document.getElementById(pageId + '-page').classList.remove('hidden');
+
+            // Добавить active к текущей ссылке
+            if (event) {
+                event.target.classList.add('active');
+            }
+
+            // Прокрутить вверх
+            window.scrollTo(0, 0);
+        }
+
+        // Функция для показа страницы аниме
+        function showAnime(animeId) {
+            // Скрыть все страницы
+            document.getElementById('home-page').classList.add('hidden');
+            document.getElementById('news-page').classList.add('hidden');
+            document.getElementById('projects-page').classList.add('hidden');
+            document.getElementById('team-page').classList.add('hidden');
+
+            // Показать страницу аниме
+            document.getElementById('anime-page').classList.remove('hidden');
+
+            // Прокрутить вверх
+            window.scrollTo(0, 0);
+
+            // Убрать active у всех ссылок
+            document.querySelectorAll('.sidebar-nav a').forEach(link => {
+                link.classList.remove('active');
+            });
+        }
+
+        // Функция для переключения вкладок
+        function switchTab(tabId) {
+            // Убрать active у всех вкладок
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Убрать active у всех контентов
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Добавить active к выбранной вкладке и контенту
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Показать главную страницу при загрузке
+        window.onload = function() {
+            showPage('home');
+        };
+    </script>
+</body>
+</html>
