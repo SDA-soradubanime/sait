@@ -396,6 +396,84 @@
             display: block;
         }
 
+        /* Страница команды */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .team-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            border: 1px solid #333;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3), 0 0 15px rgba(255, 0, 0, 0.2);
+            border-color: var(--primary);
+        }
+
+        .team-role {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+        }
+
+        .team-name {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #e0e0e0;
+        }
+
+        .team-avatar {
+            font-size: 3rem; /* Задаем размер смайликов */
+            margin: 0 auto 1rem;
+        }
+
+        /* Табы для проектов */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 1rem;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            color: #ccc;
+            font-weight: 500;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+        }
+
+        .tab:hover {
+            color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
         footer {
             background-color: #000000;
             color: white;
@@ -519,6 +597,33 @@
             .anime-info {
                 grid-template-columns: 1fr 1fr;
             }
+
+            .team-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .tab {
+                width: 100%;
+                text-align: center;
+                border-bottom: none;
+                border-left: 3px solid transparent;
+            }
+
+            .tab.active {
+                border-bottom: none;
+                border-left: 3px solid var(--primary);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -536,7 +641,7 @@
                 <li><a href="#" class="active" onclick="showPage('home')"><i class="fas fa-home"></i> Главная</a></li>
                 <li><a href="#" onclick="showPage('news')"><i class="fas fa-newspaper"></i> Новости</a></li>
                 <li><a href="#" onclick="showPage('projects')"><i class="fas fa-film"></i> Проекты</a></li>
-                <li><a href="#"><i class="fas fa-users"></i> Команда</a></li>
+                <li><a href="#" onclick="showPage('team')"><i class="fas fa-users"></i> Команда</a></li>
                 <li><a href="#"><i class="fas fa-headphones"></i> Озвучки</a></li>
                 <li><a href="#"><i class="fas fa-envelope"></i> Контакты</a></li>
             </ul>
@@ -601,12 +706,115 @@
             <div id="projects-page" class="hidden">
                 <h2 class="page-title">Наши проекты</h2>
 
-                <div class="grid">
-                    <div class="card" onclick="showAnime('solo-leveling')">
-                        <div style="position: relative;">
-                            <img src="https://i.ibb.co/HTN4MSVN/photo-5238158362519138167-x.jpg" alt="Solo Leveling" class="anime-cover">
-                            <div class="anime-title">Solo Leveling</div>
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('anime-tab')">Аниме</div>
+                    <div class="tab" onclick="switchTab('movies-tab')">Фильмы</div>
+                </div>
+
+                <!-- Вкладка с аниме -->
+                <div id="anime-tab" class="tab-content active">
+                    <div class="grid">
+                        <div class="card" onclick="showAnime('solo-leveling')">
+                            <div style="position: relative;">
+                                <img src="https://i.ibb.co/HTN4MSVN/photo-5238158362519138167-x.jpg" alt="Solo Leveling" class="anime-cover">
+                                <div class="anime-title">Solo Leveling</div>
+                            </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Вкладка с фильмами -->
+                <div id="movies-tab" class="tab-content">
+                    <div class="empty-state">
+                        <i class="fas fa-film"></i>
+                        <h3>Фильмов пока нет</h3>
+                        <p>В этом разделе будут появляться озвученные нами фильмы</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Страница команды -->
+            <div id="team-page" class="hidden">
+                <h2 class="page-title">Наша команда</h2>
+
+                <div class="team-grid">
+                    <!-- Владелец -->
+                    <div class="team-card">
+                        <div class="team-avatar">👑</div> <!-- Смайлик -->
+                        <div class="team-role">Владелец</div>
+                        <div class="team-name">Ведун</div>
+                    </div>
+
+                    <!-- Заместитель -->
+                    <div class="team-card">
+                        <div class="team-avatar">🦸‍♂️</div> <!-- Смайлик -->
+                        <div class="team-role">Зам. владельца</div>
+                        <div class="team-name">Фируко</div>
+                    </div>
+
+                    <!-- Правая рука -->
+                    <div class="team-card">
+                        <div class="team-avatar">🤝</div> <!-- Смайлик -->
+                        <div class="team-role">Правая рука</div>
+                        <div class="team-name">Yorichi</div>
+                    </div>
+
+                    <!-- Левая рука -->
+                    <div class="team-card">
+                        <div class="team-avatar">🤝</div> <!-- Смайлик -->
+                        <div class="team-role">Левая рука</div>
+                        <div class="team-name">чел123</div>
+                    </div>
+
+                    <!-- Остальные участники команды -->
+                    <div class="team-card">
+                        <div class="team-avatar">👥</div> <!-- Смайлик -->
+                        <div class="team-name">Kowa</div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar">👥</div> <!-- Смайлик -->
+                        <div class="team-name">Снежный</div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar">👥</div> <!-- Смайлик -->
+                        <div class="team-name">Arhi</div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar">👥</div> <!-- Смайлик -->
+                        <div class="team-name">Kiri</div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar">👥</div> <!-- Смайлик -->
+                        <div class="team-name">deforced</div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar">👥</div> <!-- Смайлик -->
+                        <div class="team-name">Аяко</div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar">👥</div> <!-- Смайлик -->
+                        <div class="team-name">Мяфка</div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar">👥</div> <!-- Смайлик -->
+                        <div class="team-name">Скарик</div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar">👥</div> <!-- Смайлик -->
+                        <div class="team-name">Mrsobra</div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar">👥</div> <!-- Смайлик -->
+                        <div class="team-name">Genko</div>
                     </div>
                 </div>
             </div>
@@ -677,7 +885,7 @@
                     <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
                 </div>
 
-                <p class="copyright">Сайт создан при поддержке проектов <strong style="color: var(--primary);">Яж</strong> совместно с <strong style="color: var(--primary);">RH company</strong></p>
+                <p class="copyright">Сайт создан при поддержке проектов <strong style="color: var(--primary);">RH company</strong></p>
                 <p class="copyright">© 2025 SoraDubAnime.</p>
             </div>
         </footer>
@@ -690,6 +898,7 @@
             document.getElementById('home-page').classList.add('hidden');
             document.getElementById('news-page').classList.add('hidden');
             document.getElementById('projects-page').classList.add('hidden');
+            document.getElementById('team-page').classList.add('hidden');
             document.getElementById('anime-page').classList.add('hidden');
 
             // Убрать active у всех ссылок
@@ -715,6 +924,7 @@
             document.getElementById('home-page').classList.add('hidden');
             document.getElementById('news-page').classList.add('hidden');
             document.getElementById('projects-page').classList.add('hidden');
+            document.getElementById('team-page').classList.add('hidden');
 
             // Показать страницу аниме
             document.getElementById('anime-page').classList.remove('hidden');
@@ -726,6 +936,23 @@
             document.querySelectorAll('.sidebar-nav a').forEach(link => {
                 link.classList.remove('active');
             });
+        }
+
+        // Функция для переключения вкладок
+        function switchTab(tabId) {
+            // Убрать active у всех вкладок
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Убрать active у всех контентов
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Добавить active к выбранной вкладке и контенту
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
         }
 
         // Показать главную страницу при загрузке
