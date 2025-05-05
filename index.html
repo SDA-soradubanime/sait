@@ -380,20 +380,109 @@
             color: #e0e0e0;
         }
 
-        .player-placeholder {
-            background-color: var(--card-bg);
-            padding: 2rem;
-            text-align: center;
+        /* Стили для плеера */
+        .player-container {
+            margin: 2rem 0;
             border-radius: 10px;
-            margin-top: 2rem;
-            border: 2px dashed #444;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease;
+            opacity: 1;
         }
 
-        .player-placeholder i {
-            font-size: 3rem;
+        .player-container.fade-out {
+            opacity: 0;
+        }
+
+        .player-container.fade-in {
+            opacity: 1;
+        }
+
+        /* Кастомные стили для Plyr */
+        .plyr {
+            --plyr-color-main: var(--primary);
+            --plyr-video-background: var(--card-bg);
+            --plyr-control-radius: 8px;
+            --plyr-control-spacing: 10px;
+            --plyr-control-padding: 10px;
+        }
+
+        .plyr__controls {
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+        }
+
+        .plyr__progress input[type="range"] {
             color: var(--primary);
-            margin-bottom: 1rem;
-            display: block;
+        }
+
+        /* Стили для переключения серий */
+        .episode-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0 2rem;
+            gap: 1rem;
+        }
+
+        .episode-btn {
+            flex: 1;
+            text-align: center;
+            padding: 0.8rem;
+            border-radius: 8px;
+            background-color: var(--card-bg);
+            border: 1px solid #333;
+            color: #e0e0e0;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .episode-btn:hover {
+            background-color: rgba(255, 0, 0, 0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .episode-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .episode-selector {
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .episode-selector select {
+            background-color: var(--card-bg);
+            color: #e0e0e0;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .episode-selector select:hover {
+            border-color: var(--primary);
+        }
+
+        .current-episode {
+            text-align: center;
+            margin: 1rem 0;
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: 500;
+            padding: 0.5rem;
+            background-color: rgba(255, 0, 0, 0.1);
+            border-radius: 8px;
         }
 
         /* Страница команды */
@@ -623,15 +712,32 @@
                 border-bottom: none;
                 border-left: 3px solid var(--primary);
             }
+
+            .episode-navigation {
+                flex-direction: column;
+            }
+
+            .episode-btn {
+                width: 100%;
+            }
         }
 
         @media (max-width: 480px) {
             .team-grid {
                 grid-template-columns: 1fr;
             }
+
+            .anime-name {
+                font-size: 1.8rem;
+            }
+
+            .episode-selector select {
+                max-width: 100%;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 </head>
 <body>
     <!-- Боковая панель -->
@@ -719,13 +825,8 @@
 
                 <!-- Вкладка с аниме -->
                 <div id="anime-tab" class="tab-content active">
-                    <div class="grid">
-                        <div class="card" onclick="showAnime('solo-leveling')">
-                            <div style="position: relative;">
-                                <img src="https://i.ibb.co/HTN4MSVN/photo-5238158362519138167-x.jpg" alt="Solo Leveling" class="anime-cover">
-                                <div class="anime-title">Solo Leveling</div>
-                            </div>
-                        </div>
+                    <div class="grid" id="anime-grid">
+                        <!-- Аниме будут добавлены через JavaScript -->
                     </div>
                 </div>
 
@@ -846,59 +947,8 @@
                 </div>
             </div>
 
-            <!-- Страница аниме -->
-            <div id="anime-page" class="hidden">
-                <div class="anime-page">
-                    <div class="anime-header">
-                        <img src="https://i.ibb.co/HTN4MSVN/photo-5238158362519138167-x.jpg" alt="Solo Leveling" class="anime-poster">
-                        <h1 class="anime-name">Solo Leveling</h1>
-                        <p class="anime-description">
-                            С момента внезапного появления "врат" — путей в другие миры — прошло уже больше десяти лет. За это время очень важной стала профессия "охотников" — людей, получивших сверхъестественные способности и зарабатывающих зачисткой подземелий внутри врат. Сон Джин Ву приобрёл печальную известность как "слабейший охотник человечества". Так что совсем не удивительно, что в одном из заказов он получает смертельное ранение. Вот только вместо проносящейся перед глазами жизни он видит таинственное окно, в котором говорится о каком-то задании. Джин Ву решает его выполнить и с удивлением обнаруживает, что его уровень повысился, хотя подобное считалось невозможным. И так, вооружившись своей новой способностью, Джин Ву отправляется покорять вершины, оставляя позади тех, кто смотрел на него свысока.
-                        </p>
-
-                        <div class="anime-info">
-                            <div class="info-item">
-                                <div class="info-label">Тип</div>
-                                <div class="info-value">ТВ</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">Сезон</div>
-                                <div class="info-value">Зима</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">Жанры</div>
-                                <div class="info-value">Приключения • Фэнтези • Экшен</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">Год выхода</div>
-                                <div class="info-value">2024</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">Длительность</div>
-                                <div class="info-value">~ 24 мин</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">Всего эпизодов</div>
-                                <div class="info-value">12 эпизодов</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">Общее время</div>
-                                <div class="info-value">4 часа, 45 минут</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">Рейтинг</div>
-                                <div class="info-value">16+</div>
-                            </div>
-                        </div>
-
-                        <div class="player-placeholder">
-                            <i class="fas fa-play-circle"></i>
-                            <p>Здесь будет размещён плеер для просмотра аниме</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                  
+            <!-- Динамическая страница аниме -->
+            <div id="dynamic-anime-page" class="hidden"></div>
         </div>
 
         <footer>
@@ -919,57 +969,385 @@
         </footer>
     </div>
 
+    <!-- Подключаем Plyr JS -->
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
     <script>
-        // Функция для переключения между страницами
-        function showPage(pageId) {
-            // Скрыть все страницы
-            const pages = ['home', 'news', 'projects', 'team', 'voice', 'donate', 'anime'];
-            pages.forEach(page => {
-                const element = document.getElementById(`${page}-page`);
-                if(element) element.classList.add('hidden');
-            });
+        // База данных аниме
+        const animeDatabase = [
+            {
+                id: "solo-leveling",
+                title: "Solo Leveling",
+                cover: "https://i.ibb.co/HTN4MSVN/photo-5238158362519138167-x.jpg",
+                poster: "https://i.ibb.co/HTN4MSVN/photo-5238158362519138167-x.jpg",
+                description: "С момента внезапного появления 'врат' — путей в другие миры — прошло уже больше десяти лет. За это время очень важной стала профессия 'охотников' — людей, получивших сверхъестественные способности и зарабатывающих зачисткой подземелий внутри врат. Сон Джин Ву приобрёл печальную известность как 'слабейший охотник человечества'. Так что совсем не удивительно, что в одном из заказов он получает смертельное ранение. Вот только вместо проносящейся перед глазами жизни он видит таинственное окно, в котором говорится о каком-то задании. Джин Ву решает его выполнить и с удивлением обнаруживает, что его уровень повысился, хотя подобное считалось невозможным. И так, вооружившись своей новой способностью, Джин Ву отправляется покорять вершины, оставляя позади тех, кто смотрел на него свысока.",
+                type: "ТВ",
+                season: "Зима",
+                genres: "Приключения • Фэнтези • Экшен",
+                year: "2024",
+                duration: "~ 24 мин",
+                episodes: "12 эпизодов",
+                totalTime: "4 часа, 45 минут",
+                rating: "16+",
+                videos: [
+                    { number: 1, url: "https://example.com/video1.mp4", title: "Эпизод 1: Я самый слабый" },
+                    { number: 2, url: "https://example.com/video2.mp4", title: "Эпизод 2: Пробуждение" },
+                    { number: 3, url: "https://example.com/video3.mp4", title: "Эпизод 3: Первое задание" },
+                    { number: 4, url: "https://example.com/video4.mp4", title: "Эпизод 4: Новые способности" },
+                    { number: 5, url: "https://example.com/video5.mp4", title: "Эпизод 5: Испытание" },
+                    { number: 6, url: "https://example.com/video6.mp4", title: "Эпизод 6: Врата" }
+                ]
+            },
+            {
+                id: "windbreaker-2",
+                title: "Ветролом 2",
+                cover: "https://ibb.org.ru/images/2025/05/05/56fe0400-5437-4895-8618-9ec7fda56d0156e0903a4819b5d4.jpg",
+                poster: "https://ibb.org.ru/images/2025/05/05/56fe0400-5437-4895-8618-9ec7fda56d0156e0903a4819b5d4.jpg",
+                description: "Ветролом 2 - продолжение популярного аниме о велогонщиках. Главный герой продолжает свои приключения в мире профессионального велоспорта, сталкиваясь с новыми вызовами и соперниками. История рассказывает о преодолении себя, дружбе и стремлении к победе.",
+                type: "ТВ",
+                season: "Весна",
+                genres: "Спорт • Драма • Школа",
+                year: "2024",
+                duration: "~ 24 мин",
+                episodes: "12 эпизодов",
+                totalTime: "4 часа, 48 минут",
+                rating: "16+",
+                videos: [
+                    { number: 1, url: "https://example.com/wind1.mp4", title: "Эпизод 1: Возвращение" },
+                    { number: 2, url: "https://example.com/wind2.mp4", title: "Эпизод 2: Новый вызов" },
+                    { number: 3, url: "https://example.com/wind3.mp4", title: "Эпизод 3: Гонка" },
+                    { number: 4, url: "https://example.com/wind4.mp4", title: "Эпизод 4: Соперник" },
+                    { number: 5, url: "https://example.com/wind5.mp4", title: "Эпизод 5: Падение" },
+                    { number: 6, url: "https://example.com/wind6.mp4", title: "Эпизод 6: Восстановление" }
+                ]
+            }
+        ];
 
-            // Убрать active у всех ссылок
-            document.querySelectorAll('.sidebar-nav a').forEach(link => {
-                link.classList.remove('active');
-            });
+        // Глобальные переменные
+        let currentPage = 'home';
+        const pageElements = {};
+        let player = null;
+        let currentAnime = null;
+        let currentEpisodeIndex = 0;
+        let isPlayerLoading = false;
 
-            // Показать выбранную страницу
-            document.getElementById(pageId + '-page').classList.remove('hidden');
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Документ загружен, инициализируем...");
 
-            // Добавить active к текущей ссылке
-            if (event) {
-                event.target.classList.add('active');
+            // Инициализируем элементы страниц
+            pageElements.home = document.getElementById('home-page');
+            pageElements.news = document.getElementById('news-page');
+            pageElements.projects = document.getElementById('projects-page');
+            pageElements.team = document.getElementById('team-page');
+            pageElements.voice = document.getElementById('voice-page');
+            pageElements.donate = document.getElementById('donate-page');
+            pageElements.dynamicAnime = document.getElementById('dynamic-anime-page');
+
+            // Проверяем, что все элементы существуют
+            for (const [key, element] of Object.entries(pageElements)) {
+                if (!element) {
+                    console.error(`Элемент #${key}-page не найден!`);
+                }
             }
 
-            // Прокрутить вверх
-            window.scrollTo(0, 0);
+            renderAnimeCards();
+            showPage(currentPage);
+        });
+
+        // Функция для генерации карточек аниме
+        function renderAnimeCards() {
+            console.log("Рендеринг карточек аниме...");
+            const grid = document.getElementById('anime-grid');
+
+            if (!grid) {
+                console.error("Элемент #anime-grid не найден!");
+                return;
+            }
+
+            grid.innerHTML = '';
+
+            animeDatabase.forEach(anime => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div style="position: relative;">
+                        <img src="${anime.cover}" alt="${anime.title}" class="anime-cover"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/300x400?text=Ошибка+загрузки'">
+                        <div class="anime-title">${anime.title}</div>
+                    </div>
+                `;
+                card.addEventListener('click', () => showAnimePage(anime.id));
+                grid.appendChild(card);
+            });
         }
 
         // Функция для показа страницы аниме
-        function showAnime(animeId) {
-            // Скрыть все страницы
-            document.getElementById('home-page').classList.add('hidden');
-            document.getElementById('news-page').classList.add('hidden');
-            document.getElementById('projects-page').classList.add('hidden');
-            document.getElementById('team-page').classList.add('hidden');
-            document.getElementById('voice-page').classList.add('hidden');
-            document.getElementById('donate-page').classList.add('hidden');
+        function showAnimePage(animeId) {
+            console.log(`Показываем страницу аниме: ${animeId}`);
+            const anime = animeDatabase.find(item => item.id === animeId);
 
-            // Показать страницу аниме
-            document.getElementById('anime-page').classList.remove('hidden');
+            if (!anime) {
+                console.error(`Аниме с ID ${animeId} не найдено!`);
+                return;
+            }
 
-            // Прокрутить вверх
+            currentAnime = anime;
+            currentEpisodeIndex = 0;
+            hideAllPages();
+
+            const animePage = document.getElementById('dynamic-anime-page');
+            if (!animePage) {
+                console.error("Элемент #dynamic-anime-page не найден!");
+                return;
+            }
+
+            animePage.innerHTML = `
+                <div class="anime-page">
+                    <div class="anime-header">
+                        <img src="${anime.poster}" alt="${anime.title}" class="anime-poster"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/800x450?text=Ошибка+загрузки'">
+                        <h1 class="anime-name">${anime.title}</h1>
+                        <p class="anime-description">${anime.description}</p>
+                        <div class="anime-info">
+                            ${generateAnimeInfo(anime)}
+                        </div>
+
+                        <div class="current-episode">${anime.videos[currentEpisodeIndex].title}</div>
+
+                        <div class="episode-navigation">
+                            <button class="episode-btn ${currentEpisodeIndex === 0 ? 'disabled' : ''}"
+                                    onclick="changeEpisode(-1)" ${currentEpisodeIndex === 0 ? 'disabled' : ''}>
+                                <i class="fas fa-arrow-left"></i> Предыдущий эпизод
+                            </button>
+
+                            <div class="episode-selector">
+                                <select id="episode-select" onchange="selectEpisode(this.value)">
+                                    ${anime.videos.map((ep, index) =>
+                                        `<option value="${index}" ${index === currentEpisodeIndex ? 'selected' : ''}>
+                                            Эпизод ${ep.number}: ${ep.title}
+                                        </option>`
+                                    ).join('')}
+                                </select>
+                            </div>
+
+                            <button class="episode-btn ${currentEpisodeIndex === anime.videos.length - 1 ? 'disabled' : ''}"
+                                    onclick="changeEpisode(1)" ${currentEpisodeIndex === anime.videos.length - 1 ? 'disabled' : ''}>
+                                Следующий эпизод <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+
+                        <div class="player-container">
+                            <video id="player" playsinline controls>
+                                <source src="${anime.videos[currentEpisodeIndex].url}" type="video/mp4">
+                                Ваш браузер не поддерживает HTML5 видео.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            animePage.classList.remove('hidden');
             window.scrollTo(0, 0);
 
-            // Убрать active у всех ссылок
-            document.querySelectorAll('.sidebar-nav a').forEach(link => {
+            // Инициализируем плеер после добавления его в DOM
+            initPlayer();
+        }
+
+        // Инициализация плеера Plyr
+        function initPlayer() {
+            // Уничтожаем предыдущий экземпляр плеера
+            if (player) {
+                player.destroy();
+            }
+
+            // Добавляем небольшую задержку для гарантированной инициализации
+            setTimeout(() => {
+                player = new Plyr('#player', {
+                    controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
+                    settings: ['quality', 'speed'],
+                    keyboard: { focused: true, global: true },
+                    tooltips: { controls: true, seek: true },
+                    ratio: '16:9'
+                });
+
+                // Обработчик события готовности плеера
+                player.on('ready', () => {
+                    const container = document.querySelector('.player-container');
+                    container.classList.remove('fade-out');
+                    container.classList.add('fade-in');
+                    isPlayerLoading = false;
+                });
+
+                // Обработчик ошибок
+                player.on('error', (event) => {
+                    console.error('Ошибка плеера:', event.detail);
+                    isPlayerLoading = false;
+                });
+
+                // Применяем кастомные стили
+                document.querySelectorAll('.plyr').forEach(el => {
+                    el.style.borderRadius = '10px';
+                    el.style.overflow = 'hidden';
+                });
+            }, 100);
+        }
+
+        // Плавное изменение эпизода
+        async function changeEpisode(direction) {
+            if (isPlayerLoading) return;
+
+            const newIndex = currentEpisodeIndex + direction;
+            if (newIndex < 0 || newIndex >= currentAnime.videos.length) return;
+
+            isPlayerLoading = true;
+            currentEpisodeIndex = newIndex;
+
+            // Анимация исчезновения
+            const container = document.querySelector('.player-container');
+            container.classList.remove('fade-in');
+            container.classList.add('fade-out');
+
+            // Ждем завершения анимации
+            await new Promise(resolve => setTimeout(resolve, 300));
+
+            // Обновляем данные
+            updateEpisodeInfo();
+
+            // Анимация появления
+            container.classList.remove('fade-out');
+            container.classList.add('fade-in');
+
+            // Инициализируем плеер
+            initPlayer();
+        }
+
+        // Выбор эпизода из списка
+        async function selectEpisode(index) {
+            if (isPlayerLoading) return;
+
+            const newIndex = parseInt(index);
+            if (newIndex === currentEpisodeIndex) return;
+
+            isPlayerLoading = true;
+            currentEpisodeIndex = newIndex;
+
+            // Анимация исчезновения
+            const container = document.querySelector('.player-container');
+            container.classList.remove('fade-in');
+            container.classList.add('fade-out');
+
+            // Ждем завершения анимации
+            await new Promise(resolve => setTimeout(resolve, 300));
+
+            // Обновляем данные
+            updateEpisodeInfo();
+
+            // Анимация появления
+            container.classList.remove('fade-out');
+            container.classList.add('fade-in');
+
+            // Инициализируем плеер
+            initPlayer();
+        }
+
+        // Обновление информации об эпизоде
+        function updateEpisodeInfo() {
+            const video = currentAnime.videos[currentEpisodeIndex];
+
+            // Обновляем заголовок текущего эпизода
+            document.querySelector('.current-episode').textContent = video.title;
+
+            // Обновляем видео источник
+            const videoElement = document.querySelector('#player');
+            videoElement.src = video.url;
+
+            // Обновляем элементы управления
+            updateEpisodeControls();
+        }
+
+        // Обновление элементов управления эпизодами
+        function updateEpisodeControls() {
+            const prevBtn = document.querySelector('.episode-navigation button:nth-child(1)');
+            const nextBtn = document.querySelector('.episode-navigation button:nth-child(3)');
+            const select = document.getElementById('episode-select');
+
+            // Обновляем состояние кнопок
+            if (prevBtn) {
+                prevBtn.disabled = currentEpisodeIndex === 0;
+                prevBtn.classList.toggle('disabled', currentEpisodeIndex === 0);
+            }
+
+            if (nextBtn) {
+                nextBtn.disabled = currentEpisodeIndex === currentAnime.videos.length - 1;
+                nextBtn.classList.toggle('disabled', currentEpisodeIndex === currentAnime.videos.length - 1);
+            }
+
+            // Обновляем выбранный элемент в select
+            if (select) {
+                select.value = currentEpisodeIndex;
+            }
+        }
+
+        // Генерация информации об аниме
+        function generateAnimeInfo(anime) {
+            return `
+                <div class="info-item"><div class="info-label">Тип</div><div class="info-value">${anime.type}</div></div>
+                <div class="info-item"><div class="info-label">Сезон</div><div class="info-value">${anime.season}</div></div>
+                <div class="info-item"><div class="info-label">Жанры</div><div class="info-value">${anime.genres}</div></div>
+                <div class="info-item"><div class="info-label">Год выхода</div><div class="info-value">${anime.year}</div></div>
+                <div class="info-item"><div class="info-label">Длительность</div><div class="info-value">${anime.duration}</div></div>
+                <div class="info-item"><div class="info-label">Всего эпизодов</div><div class="info-value">${anime.episodes}</div></div>
+                <div class="info-item"><div class="info-label">Общее время</div><div class="info-value">${anime.totalTime}</div></div>
+                <div class="info-item"><div class="info-label">Рейтинг</div><div class="info-value">${anime.rating}</div></div>
+            `;
+        }
+
+        // Функция для переключения между страницами
+        function showPage(pageId) {
+            console.log(`Переключаем на страницу: ${pageId}`);
+            currentPage = pageId;
+
+            // Скрыть все страницы
+            hideAllPages();
+
+            // Показать выбранную страницу
+            const pageElement = pageElements[pageId];
+            if (pageElement) {
+                pageElement.classList.remove('hidden');
+            } else {
+                console.error(`Элемент страницы ${pageId} не найден!`);
+            }
+
+            // Обновить активную ссылку в навигации
+            updateActiveNavLink(pageId);
+
+            window.scrollTo(0, 0);
+        }
+
+        // Функция для скрытия всех страниц
+        function hideAllPages() {
+            for (const element of Object.values(pageElements)) {
+                if (element) {
+                    element.classList.add('hidden');
+                }
+            }
+        }
+
+        // Обновление активной ссылки в навигации
+        function updateActiveNavLink(activePage) {
+            const navLinks = document.querySelectorAll('.sidebar-nav a');
+            navLinks.forEach(link => {
                 link.classList.remove('active');
+                if (link.getAttribute('onclick')?.includes(`'${activePage}'`)) {
+                    link.classList.add('active');
+                }
             });
         }
 
         // Функция для переключения вкладок
         function switchTab(tabId) {
+            console.log(`Переключаем на вкладку: ${tabId}`);
+
             // Убрать active у всех вкладок
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.classList.remove('active');
@@ -977,20 +1355,22 @@
 
             // Убрать active у всех контентов
             document.querySelectorAll('.tab-content').forEach(content => {
-                                   content.classList.remove('active');
+                content.classList.remove('active');
             });
 
             // Добавить active к выбранной вкладке и контенту
-            event.target.classList.add('active');
-            document.getElementById(tabId).classList.add('active');
+            const tab = event?.target;
+            if (tab) {
+                tab.classList.add('active');
+            }
+
+            const content = document.getElementById(tabId);
+            if (content) {
+                content.classList.add('active');
+            } else {
+                console.error(`Вкладка с ID ${tabId} не найдена!`);
+            }
         }
-
-        // Показать главную страницу при загрузке
-        window.onload = function() {
-            showPage('home');
-        };
-
-
     </script>
 </body>
 </html>
