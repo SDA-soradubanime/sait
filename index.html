@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SoraDubAnime - Бесплатная озвучка аниме</title>
     <style>
         :root {
@@ -16,6 +16,7 @@
             --card-bg: #222222;
             --glow: 0 0 10px rgba(255, 0, 0, 0.7);
             --sidebar-width: 250px;
+            --mobile-sidebar-height: 60px;
         }
 
         * {
@@ -23,6 +24,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -31,9 +33,10 @@
             line-height: 1.6;
             display: flex;
             min-height: 100vh;
+            flex-direction: column;
         }
 
-        /* Боковая панель */
+        /* Боковая панель - десктоп */
         .sidebar {
             width: var(--sidebar-width);
             background-color: #000;
@@ -41,8 +44,9 @@
             padding: 1.5rem;
             position: fixed;
             height: 100vh;
-            z-index: 10;
+            z-index: 100;
             overflow-y: auto;
+            transition: transform 0.3s ease;
         }
 
         .sidebar-nav {
@@ -101,10 +105,30 @@
             text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
         }
 
+        /* Мобильное меню */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+
         /* Основное содержимое */
         .main-content {
             flex: 1;
             margin-left: var(--sidebar-width);
+            padding-bottom: 60px;
         }
 
         header {
@@ -627,6 +651,7 @@
             color: #999999;
         }
 
+        /* Адаптивные стили */
         @media (max-width: 992px) {
             .sidebar {
                 width: 200px;
@@ -642,97 +667,170 @@
         @media (max-width: 768px) {
             body {
                 flex-direction: column;
+                padding-bottom: var(--mobile-sidebar-height);
             }
 
             .sidebar {
-                position: static;
                 width: 100%;
-                height: auto;
-                padding: 1rem;
+                height: var(--mobile-sidebar-height);
+                bottom: 0;
+                top: auto;
+                transform: translateY(100%);
+                display: flex;
+                align-items: center;
+                padding: 0;
                 border-right: none;
-                border-bottom: 1px solid #333;
+                border-top: 1px solid #333;
+                z-index: 1000;
+            }
+
+            .sidebar.active {
+                transform: translateY(0);
+            }
+
+            .sidebar-logo {
+                display: none;
             }
 
             .sidebar-nav {
-                margin-top: 1rem;
+                margin-top: 0;
+                width: 100%;
             }
 
             .sidebar-nav ul {
                 display: flex;
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 0.5rem;
+                justify-content: space-around;
+                width: 100%;
             }
 
             .sidebar-nav li {
                 margin-bottom: 0;
+                flex: 1;
+                text-align: center;
             }
 
             .sidebar-nav a {
-                padding: 0.5rem 0.8rem;
+                padding: 0.8rem 0.5rem;
+                font-size: 0.9rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .sidebar-nav a i {
+                margin-bottom: 0.3rem;
+                font-size: 1.2rem;
+            }
+
+            .sidebar-nav a span {
+                display: none;
             }
 
             .main-content {
                 margin-left: 0;
+                padding-bottom: var(--mobile-sidebar-height);
             }
 
-            .grid {
-                grid-template-columns: 1fr;
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .header-logo {
+                font-size: 1.5rem;
+            }
+
+            .tagline {
+                font-size: 0.9rem;
             }
 
             .page-title {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
             }
 
             .anime-name {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
-            .anime-info {
-                grid-template-columns: 1fr 1fr;
+            .anime-description {
+                font-size: 1rem;
+            }
+
+            .player-container {
+                margin: 1rem 0;
+            }
+
+            .episode-navigation {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .episode-btn, .episode-selector select {
+                width: 100%;
+            }
+
+            .card-content {
+                padding: 1rem;
+            }
+
+            .card-title {
+                font-size: 1.1rem;
             }
 
             .team-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr;
+            }
+
+            .anime-cover {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-logo {
+                font-size: 1.3rem;
+            }
+
+            .anime-name {
+                font-size: 1.5rem;
+            }
+
+            .anime-info {
+                grid-template-columns: 1fr;
+            }
+
+            .episode-selector select {
+                max-width: 100%;
+                font-size: 0.9rem;
+            }
+
+            .current-episode {
+                font-size: 1rem;
+                padding: 0.3rem;
+            }
+
+            .non-commercial {
+                padding: 1rem;
+            }
+
+            .empty-state {
+                padding: 1.5rem;
+            }
+
+            .empty-state i {
+                font-size: 2rem;
+            }
+
+            .empty-state h3 {
+                font-size: 1.2rem;
             }
 
             .tabs {
                 flex-direction: column;
-                align-items: center;
             }
 
             .tab {
                 width: 100%;
                 text-align: center;
-                border-bottom: none;
-                border-left: 3px solid transparent;
-            }
-
-            .tab.active {
-                border-bottom: none;
-                border-left: 3px solid var(--primary);
-            }
-
-            .episode-navigation {
-                flex-direction: column;
-            }
-
-            .episode-btn {
-                width: 100%;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .team-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .anime-name {
-                font-size: 1.8rem;
-            }
-
-            .episode-selector select {
-                max-width: 100%;
             }
         }
     </style>
@@ -749,16 +847,20 @@
 
         <nav class="sidebar-nav">
             <ul>
-                <li><a href="#" class="active" onclick="showPage('home')"><i class="fas fa-home"></i> Главная</a></li>
-                <li><a href="#" onclick="showPage('news')"><i class="fas fa-newspaper"></i> Новости</a></li>
-                <li><a href="#" onclick="showPage('projects')"><i class="fas fa-film"></i> Проекты</a></li>
-                <li><a href="#" onclick="showPage('team')"><i class="fas fa-users"></i> Команда</a></li>
-                <li><a href="#" onclick="showPage('voice')"><i class="fas fa-headphones"></i> Озвучки</a></li>
-                <li><a href="#" onclick="showPage('donate')"><i class="fas fa-donate"></i> Поддержать</a></li>
-                <li><a href="#"><i class="fas fa-envelope"></i> Контакты</a></li>
+                <li><a href="#" class="active" onclick="showPage('home')"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="#" onclick="showPage('news')"><i class="fas fa-newspaper"></i> <span>Новости</span></a></li>
+                <li><a href="#" onclick="showPage('projects')"><i class="fas fa-film"></i> <span>Проекты</span></a></li>
+                <li><a href="#" onclick="showPage('team')"><i class="fas fa-users"></i> <span>Команда</span></a></li>
+                <li><a href="#" onclick="showPage('voice')"><i class="fas fa-headphones"></i> <span>Озвучки</span></a></li>
+                <li><a href="#" onclick="showPage('donate')"><i class="fas fa-donate"></i> <span>Поддержать</span></a></li>
             </ul>
         </nav>
     </aside>
+
+    <!-- Кнопка мобильного меню -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
 
     <!-- Основное содержимое -->
     <div class="main-content">
@@ -1050,9 +1152,43 @@
                 }
             }
 
+            // Обработчик мобильного меню
+            document.getElementById('mobileMenuToggle').addEventListener('click', function() {
+                document.querySelector('.sidebar').classList.toggle('active');
+                this.innerHTML = document.querySelector('.sidebar').classList.contains('active') ?
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+
+            // Обработчик изменения размера окна
+            window.addEventListener('resize', handleMobileLayout);
+            handleMobileLayout();
+
             renderAnimeCards();
             showPage(currentPage);
         });
+
+        // Обработка мобильного лейаута
+        function handleMobileLayout() {
+            if (window.innerWidth <= 768) {
+                // Оптимизации для мобильных
+                document.querySelectorAll('.anime-cover').forEach(cover => {
+                    cover.style.height = '300px';
+                });
+
+                document.querySelectorAll('.card-content').forEach(content => {
+                    content.style.padding = '0.8rem';
+                });
+            } else {
+                // Восстановление десктопного вида
+                document.querySelectorAll('.anime-cover').forEach(cover => {
+                    cover.style.height = '400px';
+                });
+
+                document.querySelectorAll('.card-content').forEach(content => {
+                    content.style.padding = '1.25rem';
+                });
+            }
+        }
 
         // Функция для генерации карточек аниме
         function renderAnimeCards() {
@@ -1151,6 +1287,12 @@
 
             // Инициализируем плеер после добавления его в DOM
             initPlayer();
+
+            // Закрываем меню на мобильных
+            if (window.innerWidth <= 768) {
+                document.querySelector('.sidebar').classList.remove('active');
+                document.getElementById('mobileMenuToggle').innerHTML = '<i class="fas fa-bars"></i>';
+            }
         }
 
         // Инициализация плеера Plyr
