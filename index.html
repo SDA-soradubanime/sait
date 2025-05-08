@@ -106,23 +106,23 @@
         }
 
         /* Мобильное меню */
-.mobile-menu-toggle {
-    display: none;
-    position: fixed;
-    bottom: 80px; /* Изменили с 20px на 80px */
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background-color: var(--primary);
-    border-radius: 50%;
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-}
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
 
         /* Основное содержимое */
         .main-content {
@@ -587,11 +587,6 @@
             display: block;
         }
 
-        /* Страница озвучек */
-        .voice-page {
-            padding: 2rem 0;
-        }
-
         footer {
             background-color: #000000;
             color: white;
@@ -847,7 +842,8 @@
 
         <nav class="sidebar-nav">
             <ul>
-                <li><a href="#" class="active" onclick="showPage('home')"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="vhod.html"><i class="fas fa-sign-in-alt"></i> <span>Вход</span></a></li>
                 <li><a href="#" onclick="showPage('news')"><i class="fas fa-newspaper"></i> <span>Новости</span></a></li>
                 <li><a href="#" onclick="showPage('projects')"><i class="fas fa-film"></i> <span>Проекты</span></a></li>
                 <li><a href="#" onclick="showPage('team')"><i class="fas fa-users"></i> <span>Команда</span></a></li>
@@ -885,30 +881,11 @@
                     </p>
                     <a href="#" class="btn" onclick="showPage('projects')">Наши работы</a>
                 </div>
-
-                <div class="grid">
-                    <div class="card">
-                        <div class="card-content">
-                            <h3 class="card-title">Наши принципы</h3>
-                            <p class="card-text">Создаем озвучки с душой, сохраняя атмосферу оригинала</p>
-                            <a href="#" class="btn btn-outline">Подробнее</a>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-content">
-                            <h3 class="card-title">Для сообщества</h3>
-                            <p class="card-text">Наши работы доступны всем совершенно бесплатно</p>
-                            <a href="#" class="btn btn-outline">Присоединиться</a>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- Страница новостей -->
             <div id="news-page" class="hidden">
                 <h2 class="page-title">Новости</h2>
-
                 <div class="empty-state">
                     <i class="fas fa-newspaper"></i>
                     <h3>Новостей пока нет</h3>
@@ -1074,6 +1051,12 @@
     <!-- Подключаем Plyr JS -->
     <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
     <script>
+        // Глобальные переменные
+        let player = null;
+        let currentAnime = null;
+        let currentEpisodeIndex = 0;
+        let isPlayerLoading = false;
+
         // База данных аниме
         const animeDatabase = [
             {
@@ -1124,33 +1107,9 @@
             }
         ];
 
-        // Глобальные переменные
-        let currentPage = 'home';
-        const pageElements = {};
-        let player = null;
-        let currentAnime = null;
-        let currentEpisodeIndex = 0;
-        let isPlayerLoading = false;
-
         // Инициализация при загрузке
         document.addEventListener('DOMContentLoaded', function() {
             console.log("Документ загружен, инициализируем...");
-
-            // Инициализируем элементы страниц
-            pageElements.home = document.getElementById('home-page');
-            pageElements.news = document.getElementById('news-page');
-            pageElements.projects = document.getElementById('projects-page');
-            pageElements.team = document.getElementById('team-page');
-            pageElements.voice = document.getElementById('voice-page');
-            pageElements.donate = document.getElementById('donate-page');
-            pageElements.dynamicAnime = document.getElementById('dynamic-anime-page');
-
-            // Проверяем, что все элементы существуют
-            for (const [key, element] of Object.entries(pageElements)) {
-                if (!element) {
-                    console.error(`Элемент #${key}-page не найден!`);
-                }
-            }
 
             // Обработчик мобильного меню
             document.getElementById('mobileMenuToggle').addEventListener('click', function() {
@@ -1164,7 +1123,7 @@
             handleMobileLayout();
 
             renderAnimeCards();
-            showPage(currentPage);
+            showPage('home');
         });
 
         // Обработка мобильного лейаута
@@ -1447,13 +1406,12 @@
         // Функция для переключения между страницами
         function showPage(pageId) {
             console.log(`Переключаем на страницу: ${pageId}`);
-            currentPage = pageId;
 
             // Скрыть все страницы
             hideAllPages();
 
             // Показать выбранную страницу
-            const pageElement = pageElements[pageId];
+            const pageElement = document.getElementById(pageId + '-page');
             if (pageElement) {
                 pageElement.classList.remove('hidden');
             } else {
@@ -1468,11 +1426,12 @@
 
         // Функция для скрытия всех страниц
         function hideAllPages() {
-            for (const element of Object.values(pageElements)) {
-                if (element) {
-                    element.classList.add('hidden');
+            document.querySelectorAll('.container > div').forEach(page => {
+                if (page.id !== 'dynamic-anime-page') {
+                    page.classList.add('hidden');
                 }
-            }
+            });
+            document.getElementById('dynamic-anime-page').classList.add('hidden');
         }
 
         // Обновление активной ссылки в навигации
@@ -1480,7 +1439,8 @@
             const navLinks = document.querySelectorAll('.sidebar-nav a');
             navLinks.forEach(link => {
                 link.classList.remove('active');
-                if (link.getAttribute('onclick')?.includes(`'${activePage}'`)) {
+                if (link.getAttribute('onclick')?.includes(`'${activePage}'`) ||
+                    (link.getAttribute('href') === 'index.html' && activePage === 'home')) {
                     link.classList.add('active');
                 }
             });
@@ -1513,6 +1473,13 @@
                 console.error(`Вкладка с ID ${tabId} не найдена!`);
             }
         }
+
+        // Сделаем функции глобальными для использования в HTML
+        window.changeEpisode = changeEpisode;
+        window.selectEpisode = selectEpisode;
+        window.showPage = showPage;
+        window.switchTab = switchTab;
+        window.showAnimePage = showAnimePage;
     </script>
 </body>
 </html>
