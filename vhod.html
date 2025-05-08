@@ -2,34 +2,215 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SoraDubAnime - Вход</title>
     <style>
-        /* Основные стили из вашего кода */
-        body {
-            background-color: #1a1a1a;
-            color: #e0e0e0;
+        :root {
+            --primary: #ff0000;
+            --primary-dark: #cc0000;
+            --secondary: #333333;
+            --light: #f8f9fa;
+            --dark: #121212;
+            --gray: #666666;
+            --bg-dark: #1a1a1a;
+            --card-bg: #222222;
+            --glow: 0 0 10px rgba(255, 0, 0, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
         .auth-container {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 2rem;
-            background: #222222;
+            width: 100%;
+            max-width: 500px;
+            background: var(--card-bg);
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
             border: 1px solid #333;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Добавьте остальные необходимые стили для форм */
+        .auth-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), #990000);
+        }
+
+        .auth-title {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .auth-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .auth-form-label {
+            color: #e0e0e0;
+            font-size: 0.95rem;
+        }
+
+        .auth-form-input {
+            padding: 0.8rem 1rem;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background-color: #333;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .auth-form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+        }
+
+        .auth-form-error {
+            color: #ff4444;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .auth-form-error.show {
+            display: block;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), #990000);
+            color: white;
+            padding: 0.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3), 0 0 8px rgba(255, 0, 0, 0.2);
+            text-align: center;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 0, 0, 0.5), 0 0 12px rgba(255, 0, 0, 0.3);
+            background: linear-gradient(135deg, #ff3333, #990000);
+        }
+
+        .btn-google {
+            background: #fff;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-google:hover {
+            background: #eee;
+        }
+
+        .auth-form-footer {
+            text-align: center;
+            margin-top: 1rem;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .auth-form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #444;
+            margin: 0 10px;
+        }
+
+        @media (max-width: 768px) {
+            .auth-container {
+                padding: 1.5rem;
+            }
+
+            .auth-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .auth-container {
+                padding: 1.2rem;
+            }
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="auth-container">
-        <h2 class="auth-title">Вход в аккаунт</h2>
+        <!-- Форма входа -->
         <form class="auth-form" id="login-form">
+            <h2 class="auth-title">Вход в аккаунт</h2>
+
             <div class="auth-form-group">
                 <label for="login-email" class="auth-form-label">Email</label>
                 <input type="email" id="login-email" class="auth-form-input" required>
@@ -43,13 +224,21 @@
 
             <button type="submit" class="btn">Войти</button>
 
+            <div class="divider">или</div>
+
+            <button type="button" class="btn btn-google" id="google-login">
+                <i class="fab fa-google"></i> Войти через Google
+            </button>
+
             <div class="auth-form-footer">
                 Нет аккаунта? <a href="#" id="show-register">Зарегистрируйтесь</a>
             </div>
         </form>
 
+        <!-- Форма регистрации -->
         <form class="auth-form hidden" id="register-form">
             <h2 class="auth-title">Регистрация</h2>
+
             <div class="auth-form-group">
                 <label for="register-email" class="auth-form-label">Email</label>
                 <input type="email" id="register-email" class="auth-form-input" required>
@@ -68,6 +257,12 @@
 
             <button type="submit" class="btn">Зарегистрироваться</button>
 
+            <div class="divider">или</div>
+
+            <button type="button" class="btn btn-google" id="google-register">
+                <i class="fab fa-google"></i> Зарегистрироваться через Google
+            </button>
+
             <div class="auth-form-footer">
                 Уже есть аккаунт? <a href="#" id="show-login">Войдите</a>
             </div>
@@ -80,10 +275,11 @@
             getAuth,
             createUserWithEmailAndPassword,
             signInWithEmailAndPassword,
-            GoogleAuthProvider,
-            signInWithPopup
+            signInWithPopup,
+            GoogleAuthProvider
         } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+        // Конфигурация Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyAgVkir32JGRpIqWwerZrP6YWVSRgNehf8",
             authDomain: "soradubanime-6a8bf.firebaseapp.com",
@@ -94,6 +290,7 @@
             measurementId: "G-P4GQKVLCF5"
         };
 
+        // Инициализация Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
@@ -111,38 +308,83 @@
             document.getElementById('login-form').classList.remove('hidden');
         });
 
-        // Обработка форм
+        // Обработка входа по email
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
+            const errorElement = document.getElementById('login-error');
 
             try {
                 await signInWithEmailAndPassword(auth, email, password);
-                window.location.href = "index.html"; // Перенаправление после входа
+                window.location.href = "index.html";
             } catch (error) {
-                document.getElementById('login-error').textContent = error.message;
+                errorElement.textContent = getAuthErrorMessage(error.code);
+                errorElement.classList.add('show');
             }
         });
 
+        // Обработка регистрации по email
         document.getElementById('register-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('register-email').value;
             const password = document.getElementById('register-password').value;
             const confirm = document.getElementById('register-confirm').value;
+            const errorElement = document.getElementById('register-error');
 
             if (password !== confirm) {
-                document.getElementById('register-error').textContent = "Пароли не совпадают";
+                errorElement.textContent = "Пароли не совпадают";
+                errorElement.classList.add('show');
                 return;
             }
 
             try {
                 await createUserWithEmailAndPassword(auth, email, password);
-                window.location.href = "index.html"; // Перенаправление после регистрации
+                window.location.href = "index.html";
             } catch (error) {
-                document.getElementById('register-error').textContent = error.message;
+                errorElement.textContent = getAuthErrorMessage(error.code);
+                errorElement.classList.add('show');
             }
         });
+
+        // Обработка входа через Google
+        document.getElementById('google-login').addEventListener('click', handleGoogleAuth);
+        document.getElementById('google-register').addEventListener('click', handleGoogleAuth);
+
+        async function handleGoogleAuth() {
+            try {
+                await signInWithPopup(auth, provider);
+                window.location.href = "index.html";
+            } catch (error) {
+                const errorElement = document.getElementById('login-form').classList.contains('hidden') ?
+                    document.getElementById('register-error') :
+                    document.getElementById('login-error');
+
+                if (errorElement) {
+                    errorElement.textContent = getAuthErrorMessage(error.code);
+                    errorElement.classList.add('show');
+                }
+            }
+        }
+
+        // Преобразование кодов ошибок Firebase в читаемые сообщения
+        function getAuthErrorMessage(errorCode) {
+            const messages = {
+                'auth/email-already-in-use': 'Этот email уже используется',
+                'auth/invalid-email': 'Неверный формат email',
+                'auth/operation-not-allowed': 'Операция не разрешена',
+                'auth/weak-password': 'Пароль слишком слабый (минимум 6 символов)',
+                'auth/user-disabled': 'Аккаунт отключен',
+                'auth/user-not-found': 'Пользователь не найден',
+                'auth/wrong-password': 'Неверный пароль',
+                'auth/too-many-requests': 'Слишком много запросов. Попробуйте позже',
+                'auth/popup-closed-by-user': 'Окно входа было закрыто',
+                'auth/cancelled-popup-request': 'Повторный запрос входа был отменен',
+                'auth/popup-blocked': 'Всплывающее окно было заблокировано браузером'
+            };
+
+            return messages[errorCode] || 'Произошла ошибка. Пожалуйста, попробуйте снова';
+        }
     </script>
 </body>
 </html>
