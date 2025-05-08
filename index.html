@@ -102,7 +102,35 @@
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary);
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5));
+        }
+
+        /* Информация о пользователе */
+        .user-info {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #333;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .user-name {
+            font-size: 0.9rem;
+            color: #ccc;
+            word-break: break-all;
         }
 
         /* Мобильное меню */
@@ -118,7 +146,7 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5));
             border: none;
             color: white;
             font-size: 1.5rem;
@@ -155,7 +183,7 @@
             font-size: 2rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7));
             background: linear-gradient(to right, #ff0000, #cc0000);
             -webkit-background-clip: text;
             background-clip: text;
@@ -163,14 +191,14 @@
         }
 
         .header-logo span {
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.9));
         }
 
         .tagline {
             font-size: 1.1rem;
             opacity: 0.9;
             color: #cccccc;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2));
         }
 
         .container {
@@ -185,7 +213,7 @@
             color: var(--primary);
             font-size: 2rem;
             position: relative;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5));
         }
 
         .page-title::after {
@@ -259,7 +287,7 @@
             font-size: 1.25rem;
             margin-bottom: 0.75rem;
             color: var(--primary);
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3));
         }
 
         .card-text {
@@ -320,7 +348,7 @@
             margin-bottom: 1rem;
             color: var(--primary);
             opacity: 0.7;
-            text-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.3));
         }
 
         .empty-state h3 {
@@ -341,7 +369,7 @@
         .non-commercial h3 {
             color: var(--primary);
             margin-bottom: 0.5rem;
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3));
         }
 
         /* Страница аниме */
@@ -367,7 +395,7 @@
             font-weight: 700;
             color: var(--primary);
             margin-bottom: 1rem;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5));
         }
 
         .anime-description {
@@ -537,7 +565,7 @@
             color: var(--primary);
             font-weight: 600;
             margin-bottom: 0.5rem;
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3));
         }
 
         .team-name {
@@ -572,7 +600,7 @@
         .tab.active {
             color: var(--primary);
             border-bottom: 3px solid var(--primary);
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3));
         }
 
         .tab:hover {
@@ -606,12 +634,12 @@
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5));
         }
 
         .footer-logo span {
             color: var(--primary);
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7));
         }
 
         .footer-text {
@@ -637,7 +665,7 @@
         .social-link:hover {
             color: var(--primary);
             transform: translateY(-3px);
-            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5));
         }
 
         .copyright {
@@ -778,6 +806,10 @@
             .anime-cover {
                 height: 300px;
             }
+
+            .user-info {
+                display: none !important;
+            }
         }
 
         @media (max-width: 480px) {
@@ -840,10 +872,18 @@
             <div class="sidebar-logo-text">SoraDubAnime</div>
         </div>
 
+        <!-- Блок информации о пользователе -->
+        <div class="user-info" id="user-info">
+            <div class="user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="user-name" id="user-email"></div>
+        </div>
+
         <nav class="sidebar-nav">
             <ul>
                 <li><a href="index.html" class="active"><i class="fas fa-home"></i> <span>Главная</span></a></li>
-                <li><a href="vhod.html"><i class="fas fa-sign-in-alt"></i> <span>Вход</span></a></li>
+                <li><a href="vhod.html" class="login-link"><i class="fas fa-sign-in-alt"></i> <span>Войти</span></a></li>
                 <li><a href="#" onclick="showPage('news')"><i class="fas fa-newspaper"></i> <span>Новости</span></a></li>
                 <li><a href="#" onclick="showPage('projects')"><i class="fas fa-film"></i> <span>Проекты</span></a></li>
                 <li><a href="#" onclick="showPage('team')"><i class="fas fa-users"></i> <span>Команда</span></a></li>
@@ -886,6 +926,7 @@
             <!-- Страница новостей -->
             <div id="news-page" class="hidden">
                 <h2 class="page-title">Новости</h2>
+
                 <div class="empty-state">
                     <i class="fas fa-newspaper"></i>
                     <h3>Новостей пока нет</h3>
@@ -1124,7 +1165,89 @@
 
             renderAnimeCards();
             showPage('home');
+            initAuth();
         });
+
+        // Инициализация аутентификации
+        function initAuth() {
+            // Проверяем состояние аутентификации при загрузке
+            checkAuthState();
+        }
+
+        // Проверка состояния аутентификации
+        function checkAuthState() {
+            // Здесь будет код проверки состояния аутентификации
+            // В демо-версии просто скроем кнопку "Войти" после перезагрузки
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            updateAuthUI(isLoggedIn);
+        }
+
+        // Обновление UI в зависимости от состояния аутентификации
+        function updateAuthUI(isLoggedIn) {
+            const loginLink = document.querySelector('.login-link');
+            const userInfo = document.getElementById('user-info');
+            const userEmail = document.getElementById('user-email');
+
+            if (isLoggedIn) {
+                // Пользователь авторизован
+                if (loginLink) loginLink.style.display = 'none';
+                if (userInfo) userInfo.style.display = 'block';
+
+                // Добавляем кнопку "Выйти"
+                addLogoutButton();
+
+                // Устанавливаем email пользователя (в реальном приложении получаем из Firebase)
+                if (userEmail) {
+                    userEmail.textContent = localStorage.getItem('userEmail') || 'Пользователь';
+                }
+            } else {
+                // Пользователь не авторизован
+                if (loginLink) loginLink.style.display = 'block';
+                if (userInfo) userInfo.style.display = 'none';
+
+                // Удаляем кнопку "Выйти", если она есть
+                removeLogoutButton();
+            }
+        }
+
+        // Добавление кнопки "Выйти"
+        function addLogoutButton() {
+            // Проверяем, есть ли уже кнопка "Выйти"
+            if (!document.querySelector('.logout-link')) {
+                const logoutItem = document.createElement('li');
+                logoutItem.innerHTML = `
+                    <a href="#" class="logout-link">
+                        <i class="fas fa-sign-out-alt"></i> <span>Выйти</span>
+                    </a>
+                `;
+                document.querySelector('.sidebar-nav ul').appendChild(logoutItem);
+
+                // Добавляем обработчик для кнопки "Выйти"
+                logoutItem.querySelector('a').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    logoutUser();
+                });
+            }
+        }
+
+        // Удаление кнопки "Выйти"
+        function removeLogoutButton() {
+            const logoutLink = document.querySelector('.logout-link');
+            if (logoutLink) {
+                logoutLink.parentElement.remove();
+            }
+        }
+
+        // Выход пользователя
+        function logoutUser() {
+            // В реальном приложении здесь будет вызов Firebase signOut()
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userEmail');
+            updateAuthUI(false);
+
+            // Перенаправляем на страницу входа
+            window.location.href = 'vhod.html';
+        }
 
         // Обработка мобильного лейаута
         function handleMobileLayout() {
@@ -1480,6 +1603,91 @@
         window.showPage = showPage;
         window.switchTab = switchTab;
         window.showAnimePage = showAnimePage;
+    </script>
+
+    <!-- Firebase Auth Integration -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import {
+            getAuth,
+            onAuthStateChanged,
+            signOut,
+            GoogleAuthProvider,
+            signInWithPopup
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAgVkir32JGRpIqWwerZrP6YWVSRgNehf8",
+            authDomain: "soradubanime-6a8bf.firebaseapp.com",
+            projectId: "soradubanime-6a8bf",
+            storageBucket: "soradubanime-6a8bf.firebasestorage.app",
+            messagingSenderId: "217538373824",
+            appId: "1:217538373824:web:6d3a60a4e894417f40e525",
+            measurementId: "G-P4GQKVLCF5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        // Отслеживаем состояние аутентификации
+        onAuthStateChanged(auth, (user) => {
+            const loginLink = document.querySelector('.login-link');
+            const userInfo = document.getElementById('user-info');
+            const userEmail = document.getElementById('user-email');
+            const logoutLink = document.querySelector('.logout-link');
+
+            if (user) {
+                // Пользователь авторизован
+                if (loginLink) loginLink.style.display = 'none';
+                if (userInfo) userInfo.style.display = 'block';
+                if (userEmail) userEmail.textContent = user.email || 'Пользователь';
+
+                // Добавляем кнопку "Выйти", если её нет
+                if (!logoutLink) {
+                    const logoutItem = document.createElement('li');
+                    logoutItem.innerHTML = `
+                        <a href="#" class="logout-link">
+                            <i class="fas fa-sign-out-alt"></i> <span>Выйти</span>
+                        </a>
+                    `;
+                    document.querySelector('.sidebar-nav ul').appendChild(logoutItem);
+
+                    // Обработчик для кнопки "Выйти"
+                    logoutItem.querySelector('a').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        signOut(auth).then(() => {
+                            window.location.reload();
+                        });
+                    });
+                }
+            } else {
+                // Пользователь не авторизован
+                if (loginLink) loginLink.style.display = 'block';
+                if (userInfo) userInfo.style.display = 'none';
+
+                // Удаляем кнопку "Выйти", если она есть
+                if (logoutLink) {
+                    logoutLink.parentElement.remove();
+                }
+            }
+        });
+
+        // Обработчик для входа через Google (если нужно на главной странице)
+        document.addEventListener('DOMContentLoaded', () => {
+            const googleLoginBtn = document.getElementById('google-login-btn');
+            if (googleLoginBtn) {
+                googleLoginBtn.addEventListener('click', () => {
+                    signInWithPopup(auth, provider)
+                        .then(() => {
+                            window.location.reload();
+                        })
+                        .catch((error) => {
+                            console.error('Ошибка входа через Google:', error);
+                        });
+                });
+            }
+        });
     </script>
 </body>
 </html>
