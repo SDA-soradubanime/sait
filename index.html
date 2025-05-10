@@ -151,7 +151,7 @@
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary);
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5));
             animation: slideInFromBottom 0.7s ease-out;
         }
 
@@ -210,7 +210,7 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5));
             border: none;
             color: white;
             font-size: 1.5rem;
@@ -220,7 +220,7 @@
 
         .mobile-menu-toggle:hover {
             transform: scale(1.1) rotate(90deg);
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7));
         }
 
         /* Основное содержимое */
@@ -256,7 +256,7 @@
             font-size: 2rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7));
             background: linear-gradient(to right, #ff0000, #cc0000);
             -webkit-background-clip: text;
             background-clip: text;
@@ -268,11 +268,11 @@
 
         .header-logo:hover {
             transform: scale(1.05);
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.9));
         }
 
         .header-logo span {
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.9));
             animation: glow 2s infinite;
         }
 
@@ -280,7 +280,7 @@
             font-size: 1.1rem;
             opacity: 0.9;
             color: #cccccc;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2));
             animation: fadeIn 1s ease-out;
         }
 
@@ -296,7 +296,7 @@
             color: var(--primary);
             font-size: 2rem;
             position: relative;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5));
             animation: slideInFromTop 0.7s ease-out;
         }
 
@@ -386,7 +386,7 @@
             font-size: 1.25rem;
             margin-bottom: 0.75rem;
             color: var(--primary);
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3));
             transition: all 0.3s;
         }
 
@@ -478,7 +478,7 @@
             margin-bottom: 1rem;
             color: var(--primary);
             opacity: 0.7;
-            text-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.3));
             animation: pulse 2s infinite;
         }
 
@@ -506,104 +506,31 @@
         .non-commercial h3 {
             color: var(--primary);
             margin-bottom: 0.5rem;
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3));
         }
 
-        /* Новый стиль для футера */
+        /* Подвал как в примере */
         footer {
-            background: linear-gradient(to right, #000000, var(--dark));
+            background-color: var(--dark);
             color: #888;
             text-align: center;
-            padding: 2.5rem 1.5rem;
+            padding: 1rem 0;
             border-top: 1px solid #333;
-            position: relative;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
             margin-left: var(--sidebar-width);
-            animation: slideInFromBottom 0.7s ease-out;
-            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .footer-logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: white;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-            background: linear-gradient(to right, #ff0000, #cc0000);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 0.5rem;
-            transition: all 0.3s;
-        }
-
-        .footer-logo:hover {
-            transform: scale(1.05);
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
-        }
-
-        .footer-text {
-            font-size: 1.1rem;
-            color: #aaa;
-            margin-bottom: 1rem;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 1rem 0;
-        }
-
-        .social-link {
-            color: #ccc;
-            font-size: 1.5rem;
-            transition: all 0.3s;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .social-link:hover {
+        footer a {
             color: var(--primary);
-            transform: translateY(-5px) scale(1.1);
-            background: rgba(255, 0, 0, 0.1);
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            text-decoration: none;
+            transition: color 0.3s;
         }
 
-        .footer-bottom {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .copyright {
-            font-size: 0.9rem;
-            color: #777;
-            margin: 0.5rem 0;
-        }
-
-        .copyright strong {
-            color: var(--primary);
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .copyright strong:hover {
-            color: #ff3333;
-            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+        footer a:hover {
+            color: var(--primary-dark);
         }
 
         /* Адаптивные стили */
@@ -617,24 +544,6 @@
             .sidebar-logo-img {
                 width: 100px;
                 height: 100px;
-            }
-
-            footer {
-                padding: 2rem 1.5rem;
-            }
-
-            .footer-logo {
-                font-size: 1.6rem;
-            }
-
-            .social-links {
-                gap: 1.2rem;
-            }
-
-            .social-link {
-                font-size: 1.3rem;
-                width: 45px;
-                height: 45px;
             }
         }
 
@@ -735,33 +644,6 @@
 
             footer {
                 margin-left: 0;
-                padding: 1.5rem 1rem;
-            }
-
-            .footer-content {
-                gap: 1.2rem;
-            }
-
-            .footer-logo {
-                font-size: 1.5rem;
-            }
-
-            .footer-text {
-                font-size: 1rem;
-            }
-
-            .social-links {
-                gap: 1rem;
-            }
-
-            .social-link {
-                font-size: 1.2rem;
-                width: 42px;
-                height: 42px;
-            }
-
-            .copyright {
-                font-size: 0.85rem;
             }
         }
 
@@ -784,24 +666,6 @@
 
             .non-commercial {
                 padding: 1rem;
-            }
-
-            .footer-logo {
-                font-size: 1.4rem;
-            }
-
-            .social-links {
-                gap: 0.8rem;
-            }
-
-            .social-link {
-                font-size: 1.1rem;
-                width: 38px;
-                height: 38px;
-            }
-
-            .copyright {
-                font-size: 0.8rem;
             }
         }
     </style>
@@ -883,24 +747,9 @@
             </div>
         </div>
 
-        <!-- Новый футер -->
+        <!-- Подвал как в примере -->
         <footer>
-            <div class="footer-content">
-                <div class="footer-logo">Sora<span>Dub</span>Anime</div>
-                <p class="footer-text">Бесплатная некоммерческая озвучка аниме</p>
-
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="ВКонтакте"><i class="fab fa-vk"></i></a>
-                    <a href="#" class="social-link" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
-                    <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                    <a href="#" class="social-link" aria-label="Discord"><i class="fab fa-discord"></i></a>
-                </div>
-
-                <div class="footer-bottom">
-                    <p class="copyright">Сайт создан при поддержке проектов <strong>RH company</strong></p>
-                    <p class="copyright">© 2025 SoraDubAnime. Все права защищены</p>
-                </div>
-            </div>
+            © 2025 SoraDubAnime | <a href="#">Сайт разработан проектами RH company</a>
         </footer>
     </div>
 
@@ -1085,7 +934,7 @@
             apiKey: "AIzaSyAgVkir32JGRpIqWwerZrP6YWVSRgNehf8",
             authDomain: "soradubanime-6a8bf.firebaseapp.com",
             projectId: "soradubanime-6a8bf",
-            storageBucket: "soradubanime-6a8bf.firebasestorage.app",
+            storageBucket: "soradubanime-6a8bf.appspot.com",
             messagingSenderId: "217538373824",
             appId: "1:217538373824:web:6d3a60a4e894417f40e525",
             measurementId: "G-P4GQKVLCF5"
