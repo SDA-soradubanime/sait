@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SoraDubAnime - Бесплатная озвучка аниме</title>
+    <link rel="preload" href="https://i.ibb.co/tTjwgmHv/d5c1325d-ea3f-4780-905e-4321068d3426.jpg" as="image">
     <style>
         :root {
             --primary: #ff0000;
@@ -36,6 +37,44 @@
             flex-direction: column;
         }
 
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInFromLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInFromRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInFromTop {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideInFromBottom {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(255, 0, 0, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.7); }
+            100% { box-shadow: 0 0 5px rgba(255, 0, 0, 0.3); }
+        }
+
         /* Боковая панель - десктоп */
         .sidebar {
             width: var(--sidebar-width);
@@ -47,6 +86,7 @@
             z-index: 100;
             overflow-y: auto;
             transition: transform 0.3s ease;
+            animation: slideInFromLeft 0.5s ease-out;
         }
 
         .sidebar-nav {
@@ -75,6 +115,7 @@
             background-color: rgba(255, 0, 0, 0.1);
             color: var(--primary);
             text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+            transform: translateX(5px);
         }
 
         .sidebar-nav a.active {
@@ -82,6 +123,7 @@
             color: var(--primary);
             font-weight: 600;
             text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+            animation: pulse 2s infinite;
         }
 
         .sidebar-logo {
@@ -96,6 +138,13 @@
             object-fit: contain;
             margin-bottom: 1rem;
             filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
+            transition: all 0.3s;
+            animation: fadeIn 1s ease-in, pulse 3s infinite;
+        }
+
+        .sidebar-logo-img:hover {
+            transform: rotate(5deg) scale(1.05);
+            filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.7));
         }
 
         .sidebar-logo-text {
@@ -103,6 +152,7 @@
             font-weight: 700;
             color: var(--primary);
             text-shadow: 0 0 5px rgba(255, 0, 0, 0.5));
+            animation: slideInFromBottom 0.7s ease-out;
         }
 
         /* Информация о пользователе */
@@ -112,6 +162,7 @@
             border-bottom: 1px solid #333;
             margin-bottom: 1rem;
             display: none;
+            animation: fadeIn 0.5s ease-out;
         }
 
         .user-avatar {
@@ -125,12 +176,25 @@
             margin: 0 auto 0.5rem;
             font-size: 1.5rem;
             color: var(--primary);
+            transition: all 0.3s;
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.1);
+            background: rgba(255, 0, 0, 0.2);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
         }
 
         .user-name {
             font-size: 0.9rem;
             color: #ccc;
             word-break: break-all;
+            transition: all 0.3s;
+        }
+
+        .user-name:hover {
+            color: var(--primary);
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
         }
 
         /* Мобильное меню */
@@ -150,6 +214,13 @@
             border: none;
             color: white;
             font-size: 1.5rem;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+        }
+
+        .mobile-menu-toggle:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
         }
 
         /* Основное содержимое */
@@ -157,6 +228,7 @@
             flex: 1;
             margin-left: var(--sidebar-width);
             padding-bottom: 60px;
+            animation: fadeIn 0.7s ease-out;
         }
 
         header {
@@ -166,6 +238,7 @@
             text-align: center;
             position: relative;
             border-bottom: 3px solid var(--primary);
+            animation: slideInFromTop 0.5s ease-out;
         }
 
         header::before {
@@ -188,10 +261,19 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            position: relative;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
         }
 
         .header-logo span {
             text-shadow: 0 0 15px rgba(255, 0, 0, 0.9));
+            animation: glow 2s infinite;
         }
 
         .tagline {
@@ -199,6 +281,7 @@
             opacity: 0.9;
             color: #cccccc;
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.2));
+            animation: fadeIn 1s ease-out;
         }
 
         .container {
@@ -214,6 +297,7 @@
             font-size: 2rem;
             position: relative;
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.5));
+            animation: slideInFromTop 0.7s ease-out;
         }
 
         .page-title::after {
@@ -227,6 +311,7 @@
             background: linear-gradient(90deg, var(--primary), #990000);
             border-radius: 3px;
             box-shadow: var(--glow);
+            animation: slideInFromLeft 1s ease-out;
         }
 
         .grid {
@@ -243,12 +328,14 @@
             transition: all 0.3s;
             position: relative;
             border: 1px solid #333;
+            animation: fadeIn 0.5s ease-out;
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.02);
             box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3), 0 0 15px rgba(255, 0, 0, 0.2);
             border-color: var(--primary);
+            animation: pulse 1.5s infinite;
         }
 
         .anime-cover {
@@ -256,6 +343,11 @@
             height: 400px;
             object-fit: cover;
             position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .anime-cover:hover {
+            transform: scale(1.05);
         }
 
         .anime-cover::after {
@@ -277,10 +369,17 @@
             color: white;
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
             z-index: 2;
+            transition: all 0.3s;
+        }
+
+        .card:hover .anime-title {
+            transform: translateY(-10px);
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
         }
 
         .card-content {
             padding: 1.25rem;
+            transition: all 0.3s;
         }
 
         .card-title {
@@ -288,12 +387,23 @@
             margin-bottom: 0.75rem;
             color: var(--primary);
             text-shadow: 0 0 5px rgba(255, 0, 0, 0.3));
+            transition: all 0.3s;
+        }
+
+        .card:hover .card-title {
+            color: #ff3333;
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
         }
 
         .card-text {
             color: var(--gray);
             margin-bottom: 1rem;
             font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .card:hover .card-text {
+            color: #e0e0e0;
         }
 
         .btn {
@@ -308,12 +418,31 @@
             border: none;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3), 0 0 8px rgba(255, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
         }
 
         .btn:hover {
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.05);
             box-shadow: 0 6px 15px rgba(255, 0, 0, 0.5), 0 0 12px rgba(255, 0, 0, 0.3);
             background: linear-gradient(135deg, #ff3333, #990000);
+            animation: pulse 1.5s infinite;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+            transition: all 0.3s;
+        }
+
+        .btn:hover::after {
+            left: 100%;
         }
 
         .btn-outline {
@@ -341,6 +470,7 @@
             border-radius: 10px;
             border: 1px solid #333;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-out;
         }
 
         .empty-state i {
@@ -349,11 +479,13 @@
             color: var(--primary);
             opacity: 0.7;
             text-shadow: 0 0 8px rgba(255, 0, 0, 0.3));
+            animation: pulse 2s infinite;
         }
 
         .empty-state h3 {
             margin-bottom: 0.75rem;
             color: #e0e0e0;
+            animation: slideInFromBottom 0.7s ease-out;
         }
 
         .non-commercial {
@@ -364,6 +496,11 @@
             text-align: center;
             border: 1px solid var(--primary);
             box-shadow: 0 0 12px rgba(255, 0, 0, 0.1);
+            animation: slideInFromLeft 0.7s ease-out;
+        }
+
+        .non-commercial:hover {
+            animation: pulse 2s infinite;
         }
 
         .non-commercial h3 {
@@ -372,256 +509,17 @@
             text-shadow: 0 0 5px rgba(255, 0, 0, 0.3));
         }
 
-        /* Страница аниме */
-        .anime-page {
-            padding: 2rem 0;
-        }
-
-        .anime-header {
-            position: relative;
-            margin-bottom: 2rem;
-        }
-
-        .anime-poster {
-            width: 100%;
-            max-height: 500px;
-            object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .anime-name {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5));
-        }
-
-        .anime-description {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            color: #cccccc;
-            margin-bottom: 2rem;
-            max-width: 800px;
-        }
-
-        .anime-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .info-item {
-            background-color: var(--card-bg);
-            padding: 1rem;
-            border-radius: 8px;
-            border-left: 3px solid var(--primary);
-        }
-
-        .info-label {
-            font-size: 0.9rem;
-            color: var(--gray);
-            margin-bottom: 0.3rem;
-        }
-
-        .info-value {
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: #e0e0e0;
-        }
-
-        /* Стили для плеера */
-        .player-container {
-            margin: 2rem 0;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            transition: opacity 0.3s ease;
-            opacity: 1;
-        }
-
-        .player-container.fade-out {
-            opacity: 0;
-        }
-
-        .player-container.fade-in {
-            opacity: 1;
-        }
-
-        /* Кастомные стили для Plyr */
-        .plyr {
-            --plyr-color-main: var(--primary);
-            --plyr-video-background: var(--card-bg);
-            --plyr-control-radius: 8px;
-            --plyr-control-spacing: 10px;
-            --plyr-control-padding: 10px;
-        }
-
-        .plyr__controls {
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-        }
-
-        .plyr__progress input[type="range"] {
-            color: var(--primary);
-        }
-
-        /* Стили для переключения серий */
-        .episode-navigation {
-            display: flex;
-            justify-content: space-between;
-            margin: 1rem 0 2rem;
-            gap: 1rem;
-        }
-
-        .episode-btn {
-            flex: 1;
-            text-align: center;
-            padding: 0.8rem;
-            border-radius: 8px;
-            background-color: var(--card-bg);
-            border: 1px solid #333;
-            color: #e0e0e0;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .episode-btn:hover {
-            background-color: rgba(255, 0, 0, 0.1);
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        .episode-btn.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-
-        .episode-selector {
-            margin: 1rem 0;
-            text-align: center;
-        }
-
-        .episode-selector select {
-            background-color: var(--card-bg);
-            color: #e0e0e0;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        .episode-selector select:hover {
-            border-color: var(--primary);
-        }
-
-        .current-episode {
-            text-align: center;
-            margin: 1rem 0;
-            font-size: 1.1rem;
-            color: var(--primary);
-            font-weight: 500;
-            padding: 0.5rem;
-            background-color: rgba(255, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-
-        /* Страница команды */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .team-card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s;
-            border: 1px solid #333;
-        }
-
-        .team-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3), 0 0 15px rgba(255, 0, 0, 0.2);
-            border-color: var(--primary);
-        }
-
-        .team-role {
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3));
-        }
-
-        .team-name {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: #e0e0e0;
-        }
-
-        .team-avatar {
-            font-size: 3rem;
-            margin: 0 auto 1rem;
-        }
-
-        /* Табы */
-        .tabs {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid #333;
-            padding-bottom: 1rem;
-        }
-
-        .tab {
-            padding: 0.75rem 1.5rem;
-            cursor: pointer;
-            color: #ccc;
-            font-weight: 500;
-            transition: all 0.3s;
-            border-bottom: 3px solid transparent;
-        }
-
-        .tab.active {
-            color: var(--primary);
-            border-bottom: 3px solid var(--primary);
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3));
-        }
-
-        .tab:hover {
-            color: var(--primary);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
+        /* Новые стили для подвала */
         footer {
-            background-color: #000000;
-            color: white;
+            background-color: var(--dark);
+            color: #888;
             text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
-            border-top: 3px solid var(--primary);
+            padding: 1.5rem 0;
+            border-top: 1px solid #333;
+            position: relative;
+            width: 100%;
+            margin-top: 2rem;
+            animation: slideInFromBottom 0.7s ease-out;
         }
 
         .footer-content {
@@ -633,57 +531,52 @@
         .footer-logo {
             font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 1rem;
-            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5));
-        }
-
-        .footer-logo span {
+            margin-bottom: 0.5rem;
             color: var(--primary);
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7));
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
         }
 
         .footer-text {
-            opacity: 0.7;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
             font-size: 0.9rem;
-            color: #cccccc;
+            color: #aaa;
         }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 1.25rem;
-            margin-bottom: 1.25rem;
+            gap: 1.5rem;
+            margin: 1rem 0;
         }
 
         .social-link {
-            color: #cccccc;
-            font-size: 1.4rem;
+            color: #aaa;
+            font-size: 1.5rem;
             transition: all 0.3s;
         }
 
         .social-link:hover {
             color: var(--primary);
             transform: translateY(-3px);
-            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5));
         }
 
         .copyright {
-            opacity: 0.6;
-            font-size: 0.85rem;
-            color: #999999;
+            font-size: 0.8rem;
+            margin-top: 1rem;
+            color: #777;
         }
 
-        /* Адаптивные стили */
-        @media (max-width: 992px) {
-            .sidebar {
-                width: 200px;
-                padding: 1rem;
+        @media (max-width: 768px) {
+            footer {
+                padding: 1rem 0;
             }
 
-            .sidebar-logo-img {
-                width: 100px;
-                height: 100px;
+            .social-links {
+                gap: 1rem;
+            }
+
+            .social-link {
+                font-size: 1.2rem;
             }
         }
 
@@ -705,6 +598,7 @@
                 border-right: none;
                 border-top: 1px solid #333;
                 z-index: 1000;
+                animation: slideInFromBottom 0.4s ease-out;
             }
 
             .sidebar.active {
@@ -738,6 +632,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                animation: none;
             }
 
             .sidebar-nav a i {
@@ -750,12 +645,15 @@
             }
 
             .main-content {
-                margin-left: 0;
-                padding-bottom: var(--mobile-sidebar-height);
+                flex: 1;
+                margin-left: var(--sidebar-width);
+                padding-bottom: 2rem; /* Изменили с 60px на 2rem */
+                animation: fadeIn 0.7s ease-out;
             }
 
             .mobile-menu-toggle {
                 display: flex;
+                animation: pulse 2s infinite;
             }
 
             .header-logo {
@@ -768,39 +666,6 @@
 
             .page-title {
                 font-size: 1.5rem;
-            }
-
-            .anime-name {
-                font-size: 1.8rem;
-            }
-
-            .anime-description {
-                font-size: 1rem;
-            }
-
-            .player-container {
-                margin: 1rem 0;
-            }
-
-            .episode-navigation {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-
-            .episode-btn, .episode-selector select {
-                width: 100%;
-            }
-
-            .card-content {
-                padding: 1rem;
-            }
-
-            .card-title {
-                font-size: 1.1rem;
-            }
-
-            .team-grid {
-                grid-template-columns: 1fr;
             }
 
             .anime-cover {
@@ -817,28 +682,6 @@
                 font-size: 1.3rem;
             }
 
-            .anime-name {
-                font-size: 1.5rem;
-            }
-
-            .anime-info {
-                grid-template-columns: 1fr;
-            }
-
-            .episode-selector select {
-                max-width: 100%;
-                font-size: 0.9rem;
-            }
-
-            .current-episode {
-                font-size: 1rem;
-                padding: 0.3rem;
-            }
-
-            .non-commercial {
-                padding: 1rem;
-            }
-
             .empty-state {
                 padding: 1.5rem;
             }
@@ -851,13 +694,8 @@
                 font-size: 1.2rem;
             }
 
-            .tabs {
-                flex-direction: column;
-            }
-
-            .tab {
-                width: 100%;
-                text-align: center;
+            .non-commercial {
+                padding: 1rem;
             }
         }
     </style>
@@ -868,7 +706,11 @@
     <!-- Боковая панель -->
     <aside class="sidebar">
         <div class="sidebar-logo">
-            <img src="https://i.ibb.co/tTjwgmHv/d5c1325d-ea3f-4780-905e-4321068d3426.jpg" alt="SoraDubAnime Logo" class="sidebar-logo-img">
+            <img src="https://i.ibb.co/tTjwgmHv/d5c1325d-ea3f-4780-905e-4321068d3426.jpg"
+                 alt="SoraDubAnime Logo"
+                 class="sidebar-logo-img"
+                 loading="eager"
+                 decoding="async">
             <div class="sidebar-logo-text">SoraDubAnime</div>
         </div>
 
@@ -884,11 +726,11 @@
             <ul>
                 <li><a href="index.html" class="active"><i class="fas fa-home"></i> <span>Главная</span></a></li>
                 <li><a href="vhod.html" class="login-link"><i class="fas fa-sign-in-alt"></i> <span>Войти</span></a></li>
-                <li><a href="#" onclick="showPage('news')"><i class="fas fa-newspaper"></i> <span>Новости</span></a></li>
-                <li><a href="#" onclick="showPage('projects')"><i class="fas fa-film"></i> <span>Проекты</span></a></li>
-                <li><a href="#" onclick="showPage('team')"><i class="fas fa-users"></i> <span>Команда</span></a></li>
-                <li><a href="#" onclick="showPage('voice')"><i class="fas fa-headphones"></i> <span>Озвучки</span></a></li>
-                <li><a href="#" onclick="showPage('donate')"><i class="fas fa-donate"></i> <span>Поддержать</span></a></li>
+                <li><a href="nov.html"><i class="fas fa-newspaper"></i> <span>Новости</span></a></li>
+                <li><a href="proekt.html"><i class="fas fa-film"></i> <span>Проекты</span></a></li>
+                <li><a href="ycha.html"><i class="fas fa-users"></i> <span>Команда</span></a></li>
+                <li><a href="ozv.html"><i class="fas fa-headphones"></i> <span>Озвучки</span></a></li>
+                <li><a href="donat.html"><i class="fas fa-donate"></i> <span>Поддержать</span></a></li>
             </ul>
         </nav>
     </aside>
@@ -917,158 +759,22 @@
 
                 <div style="text-align: center; margin-bottom: 2.5rem;">
                     <p style="max-width: 800px; margin: 0 auto 1.5rem; font-size: 1.1rem; color: #cccccc;">
-                        Мы - команда энтузиастов, создающая любительские озвучки аниме для русскоязычного комьюнити.
+                      SoraDubAnime – некоммерческая команда энтузиастов, создающая любительские озвучки аниме, манги и манхвы для русскоязычного комьюнити. Все наши работы распространяются бесплатно и предназначены исключительно для некоммерческого просмотра.
+
+Мы сосредоточены на качественном и душевном подходе к озвучке, подбирая голоса, которые максимально передают характер и эмоции персонажей. Наша команда работает только с теми проектами, которые действительно любит, будь то популярные аниме-сериалы, полнометражные фильмы, манга или манхва.
+
+Основные направления:
+- Дубляж аниме (сериалы и фильмы)
+- Озвучка манги и манхвы в формате voiceover
+- Экспериментальные проекты, такие как радиопостановки и драматические чтения
+
+Мы открыты для сотрудничества с другими фанатами аниме-культуры и всегда рады новым идеям. Присоединяйтесь к нашему сообществу, чтобы следить за новыми релизами и участвовать в развитии проекта.
+
+Подробнее о нашей работе можно узнать в наших официальных сообществах.
                     </p>
-                    <a href="#" class="btn" onclick="showPage('projects')">Наши работы</a>
+                    <a href="proekt.html" class="btn">Наши работы</a>
                 </div>
             </div>
-
-            <!-- Страница новостей -->
-            <div id="news-page" class="hidden">
-                <h2 class="page-title">Новости</h2>
-
-                <div class="empty-state">
-                    <i class="fas fa-newspaper"></i>
-                    <h3>Новостей пока нет</h3>
-                    <p>Следите за обновлениями, скоро здесь появятся свежие новости нашего проекта</p>
-                </div>
-            </div>
-
-            <!-- Страница проектов -->
-            <div id="projects-page" class="hidden">
-                <h2 class="page-title">Наши проекты</h2>
-
-                <div class="tabs">
-                    <div class="tab active" onclick="switchTab('anime-tab')">Аниме</div>
-                    <div class="tab" onclick="switchTab('movies-tab')">Фильмы</div>
-                </div>
-
-                <!-- Вкладка с аниме -->
-                <div id="anime-tab" class="tab-content active">
-                    <div class="grid" id="anime-grid">
-                        <!-- Аниме будут добавлены через JavaScript -->
-                    </div>
-                </div>
-
-                <!-- Вкладка с фильмами -->
-                <div id="movies-tab" class="tab-content">
-                    <div class="empty-state">
-                        <i class="fas fa-film"></i>
-                        <h3>Фильмов пока нет</h3>
-                        <p>В этом разделе будут появляться озвученные нами фильмы</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Страница команды -->
-            <div id="team-page" class="hidden">
-                <h2 class="page-title">Наша команда</h2>
-
-                <div class="team-grid">
-                    <!-- Владелец -->
-                    <div class="team-card">
-                        <div class="team-avatar">👑</div>
-                        <div class="team-role">Владелец</div>
-                        <div class="team-name">Ведун</div>
-                    </div>
-
-                    <!-- Заместитель -->
-                    <div class="team-card">
-                        <div class="team-avatar">🦸‍♂️</div>
-                        <div class="team-role">Зам. владельца</div>
-                        <div class="team-name">Фируко</div>
-                    </div>
-
-                    <!-- Правая рука -->
-                    <div class="team-card">
-                        <div class="team-avatar">🤝</div>
-                        <div class="team-role">Правая рука</div>
-                        <div class="team-name">Yorichi</div>
-                    </div>
-
-                    <!-- Левая рука -->
-                    <div class="team-card">
-                        <div class="team-avatar">🤝</div>
-                        <div class="team-role">Левая рука</div>
-                        <div class="team-name">чел123</div>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-avatar">🦔</div>
-                        <div class="team-role">прогромист\дизайнер</div>
-                        <div class="team-name">Яжидзе</div>
-                    </div>
-                    <!-- Остальные участники команды -->
-                    <div class="team-card">
-                        <div class="team-avatar">👥</div>
-                        <div class="team-name">Аяко</div>
-                    </div>
-
-                    <div class="team-card">
-                        <div class="team-avatar">👥</div>
-                        <div class="team-name">Мяфка</div>
-                    </div>
-
-                    <div class="team-card">
-                        <div class="team-avatar">👥</div>
-                        <div class="team-name">Скарик</div>
-                    </div>
-
-                    <div class="team-card">
-                        <div class="team-avatar">👥</div>
-                        <div class="team-name">Mrsobra</div>
-                    </div>
-
-                    <div class="team-card">
-                        <div class="team-avatar">👥</div>
-                        <div class="team-name">Genko</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Страница озвучек -->
-            <div id="voice-page" class="hidden">
-                <h2 class="page-title">Наши озвучки</h2>
-
-                <div class="tabs">
-                    <div class="tab active" onclick="switchTab('manga-tab')">Манга</div>
-                    <div class="tab" onclick="switchTab('manhwa-tab')">Манхва</div>
-                </div>
-
-                <!-- Вкладка с мангой -->
-                <div id="manga-tab" class="tab-content active">
-                    <div class="empty-state">
-                        <i class="fas fa-book"></i>
-                        <h3>Манги пока нет</h3>
-                        <p>В этом разделе будут появляться озвученные нами манги</p>
-                    </div>
-                </div>
-
-                <!-- Вкладка с манхвой -->
-                <div id="manhwa-tab" class="tab-content">
-                    <div class="empty-state">
-                        <i class="fas fa-book-open"></i>
-                        <h3>Манхвы пока нет</h3>
-                        <p>В этом разделе будут появляться озвученные нами манхвы</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Страница пожертвований -->
-            <div id="donate-page" class="hidden">
-                <h2 class="page-title">Поддержите нас</h2>
-                <div class="empty-state">
-                    <i class="fas fa-donate"></i>
-                    <h3>Ваши пожертвования помогут нам развиваться!</h3>
-                    <p>Если вам нравится наш проект и вы хотите поддержать нашу команду, это можно сделать через следующие ссылки:</p>
-                    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem;">
-                        <a href="https://www.donationalerts.com/r/soradubanime" target="_blank" class="btn">DonationAlerts</a>
-                        <a href="https://boosty.to/soradubanime" target="_blank" class="btn">Boosty</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Динамическая страница аниме -->
-            <div id="dynamic-anime-page" class="hidden"></div>
         </div>
 
         <footer>
@@ -1092,62 +798,6 @@
     <!-- Подключаем Plyr JS -->
     <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
     <script>
-        // Глобальные переменные
-        let player = null;
-        let currentAnime = null;
-        let currentEpisodeIndex = 0;
-        let isPlayerLoading = false;
-
-        // База данных аниме
-        const animeDatabase = [
-            {
-                id: "solo-leveling",
-                title: "Solo Leveling",
-                cover: "https://i.ibb.co/HTN4MSVN/photo-5238158362519138167-x.jpg",
-                poster: "https://i.ibb.co/HTN4MSVN/photo-5238158362519138167-x.jpg",
-                description: "С момента внезапного появления 'врат' — путей в другие миры — прошло уже больше десяти лет. За это время очень важной стала профессия 'охотников' — людей, получивших сверхъестественные способности и зарабатывающих зачисткой подземелий внутри врат. Сон Джин Ву приобрёл печальную известность как 'слабейший охотник человечества'. Так что совсем не удивительно, что в одном из заказов он получает смертельное ранение. Вот только вместо проносящейся перед глазами жизни он видит таинственное окно, в котором говорится о каком-то задании. Джин Ву решает его выполнить и с удивлением обнаруживает, что его уровень повысился, хотя подобное считалось невозможным. И так, вооружившись своей новой способностью, Джин Ву отправляется покорять вершины, оставляя позади тех, кто смотрел на него свысока.",
-                type: "ТВ",
-                season: "Зима",
-                genres: "Приключения • Фэнтези • Экшен",
-                year: "2024",
-                duration: "~ 24 мин",
-                episodes: "12 эпизодов",
-                totalTime: "4 часа, 45 минут",
-                rating: "16+",
-                videos: [
-                    { number: 1, url: "https://example.com/video1.mp4", title: "Эпизод 1: Я самый слабый" },
-                    { number: 2, url: "https://example.com/video2.mp4", title: "Эпизод 2: Пробуждение" },
-                    { number: 3, url: "https://example.com/video3.mp4", title: "Эпизод 3: Первое задание" },
-                    { number: 4, url: "https://example.com/video4.mp4", title: "Эпизод 4: Новые способности" },
-                    { number: 5, url: "https://example.com/video5.mp4", title: "Эпизод 5: Испытание" },
-                    { number: 6, url: "https://example.com/video6.mp4", title: "Эпизод 6: Врата" }
-                ]
-            },
-            {
-                id: "windbreaker-2",
-                title: "Ветролом 2",
-                cover: "https://ibb.org.ru/images/2025/05/05/56fe0400-5437-4895-8618-9ec7fda56d0156e0903a4819b5d4.jpg",
-                poster: "https://ibb.org.ru/images/2025/05/05/56fe0400-5437-4895-8618-9ec7fda56d0156e0903a4819b5d4.jpg",
-                description: "Ветролом 2 - продолжение популярного аниме о велогонщиках. Главный герой продолжает свои приключения в мире профессионального велоспорта, сталкиваясь с новыми вызовами и соперниками. История рассказывает о преодолении себя, дружбе и стремлении к победе.",
-                type: "ТВ",
-                season: "Весна",
-                genres: "Спорт • Драма • Школа",
-                year: "2024",
-                duration: "~ 24 мин",
-                episodes: "12 эпизодов",
-                totalTime: "4 часа, 48 минут",
-                rating: "16+",
-                videos: [
-                    { number: 1, url: "https://example.com/wind1.mp4", title: "Эпизод 1: Возвращение" },
-                    { number: 2, url: "https://example.com/wind2.mp4", title: "Эпизод 2: Новый вызов" },
-                    { number: 3, url: "https://example.com/wind3.mp4", title: "Эпизод 3: Гонка" },
-                    { number: 4, url: "https://example.com/wind4.mp4", title: "Эпизод 4: Соперник" },
-                    { number: 5, url: "https://example.com/wind5.mp4", title: "Эпизод 5: Падение" },
-                    { number: 6, url: "https://example.com/wind6.mp4", title: "Эпизод 6: Восстановление" }
-                ]
-            }
-        ];
-
         // Инициализация при загрузке
         document.addEventListener('DOMContentLoaded', function() {
             console.log("Документ загружен, инициализируем...");
@@ -1163,10 +813,48 @@
             window.addEventListener('resize', handleMobileLayout);
             handleMobileLayout();
 
-            renderAnimeCards();
-            showPage('home');
             initAuth();
+
+            // Обработка ошибок загрузки изображения
+            const logo = document.querySelector('.sidebar-logo-img');
+            if (logo) {
+                logo.onerror = function() {
+                    console.error('Ошибка загрузки логотипа');
+                    this.style.opacity = '0';
+                };
+
+                // Принудительная перезагрузка изображения при возврате на страницу
+                window.addEventListener('pageshow', function(event) {
+                    if (event.persisted) {
+                        const temp = logo.src;
+                        logo.src = '';
+                        logo.src = temp;
+                    }
+                });
+            }
+
+            // Добавляем анимацию при скролле
+            addScrollAnimations();
         });
+
+        // Добавление анимаций при скролле
+        function addScrollAnimations() {
+            const animateElements = document.querySelectorAll('.card, .non-commercial, .btn');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeIn 0.8s ease-out forwards';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            animateElements.forEach(el => {
+                el.style.opacity = '0';
+                observer.observe(el);
+            });
+        }
 
         // Инициализация аутентификации
         function initAuth() {
@@ -1271,338 +959,6 @@
                 });
             }
         }
-
-        // Функция для генерации карточек аниме
-        function renderAnimeCards() {
-            console.log("Рендеринг карточек аниме...");
-            const grid = document.getElementById('anime-grid');
-
-            if (!grid) {
-                console.error("Элемент #anime-grid не найден!");
-                return;
-            }
-
-            grid.innerHTML = '';
-
-            animeDatabase.forEach(anime => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <div style="position: relative;">
-                        <img src="${anime.cover}" alt="${anime.title}" class="anime-cover"
-                             onerror="this.onerror=null; this.src='https://via.placeholder.com/300x400?text=Ошибка+загрузки'">
-                        <div class="anime-title">${anime.title}</div>
-                    </div>
-                `;
-                card.addEventListener('click', () => showAnimePage(anime.id));
-                grid.appendChild(card);
-            });
-        }
-
-        // Функция для показа страницы аниме
-        function showAnimePage(animeId) {
-            console.log(`Показываем страницу аниме: ${animeId}`);
-            const anime = animeDatabase.find(item => item.id === animeId);
-
-            if (!anime) {
-                console.error(`Аниме с ID ${animeId} не найдено!`);
-                return;
-            }
-
-            currentAnime = anime;
-            currentEpisodeIndex = 0;
-            hideAllPages();
-
-            const animePage = document.getElementById('dynamic-anime-page');
-            if (!animePage) {
-                console.error("Элемент #dynamic-anime-page не найден!");
-                return;
-            }
-
-            animePage.innerHTML = `
-                <div class="anime-page">
-                    <div class="anime-header">
-                        <img src="${anime.poster}" alt="${anime.title}" class="anime-poster"
-                             onerror="this.onerror=null; this.src='https://via.placeholder.com/800x450?text=Ошибка+загрузки'">
-                        <h1 class="anime-name">${anime.title}</h1>
-                        <p class="anime-description">${anime.description}</p>
-                        <div class="anime-info">
-                            ${generateAnimeInfo(anime)}
-                        </div>
-
-                        <div class="current-episode">${anime.videos[currentEpisodeIndex].title}</div>
-
-                        <div class="episode-navigation">
-                            <button class="episode-btn ${currentEpisodeIndex === 0 ? 'disabled' : ''}"
-                                    onclick="changeEpisode(-1)" ${currentEpisodeIndex === 0 ? 'disabled' : ''}>
-                                <i class="fas fa-arrow-left"></i> Предыдущий эпизод
-                            </button>
-
-                            <div class="episode-selector">
-                                <select id="episode-select" onchange="selectEpisode(this.value)">
-                                    ${anime.videos.map((ep, index) =>
-                                        `<option value="${index}" ${index === currentEpisodeIndex ? 'selected' : ''}>
-                                            Эпизод ${ep.number}: ${ep.title}
-                                        </option>`
-                                    ).join('')}
-                                </select>
-                            </div>
-
-                            <button class="episode-btn ${currentEpisodeIndex === anime.videos.length - 1 ? 'disabled' : ''}"
-                                    onclick="changeEpisode(1)" ${currentEpisodeIndex === anime.videos.length - 1 ? 'disabled' : ''}>
-                                Следующий эпизод <i class="fas fa-arrow-right"></i>
-                            </button>
-                        </div>
-
-                        <div class="player-container">
-                            <video id="player" playsinline controls>
-                                <source src="${anime.videos[currentEpisodeIndex].url}" type="video/mp4">
-                                Ваш браузер не поддерживает HTML5 видео.
-                            </video>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            animePage.classList.remove('hidden');
-            window.scrollTo(0, 0);
-
-            // Инициализируем плеер после добавления его в DOM
-            initPlayer();
-
-            // Закрываем меню на мобильных
-            if (window.innerWidth <= 768) {
-                document.querySelector('.sidebar').classList.remove('active');
-                document.getElementById('mobileMenuToggle').innerHTML = '<i class="fas fa-bars"></i>';
-            }
-        }
-
-        // Инициализация плеера Plyr
-        function initPlayer() {
-            // Уничтожаем предыдущий экземпляр плеера
-            if (player) {
-                player.destroy();
-            }
-
-            // Добавляем небольшую задержку для гарантированной инициализации
-            setTimeout(() => {
-                player = new Plyr('#player', {
-                    controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
-                    settings: ['quality', 'speed'],
-                    keyboard: { focused: true, global: true },
-                    tooltips: { controls: true, seek: true },
-                    ratio: '16:9'
-                });
-
-                // Обработчик события готовности плеера
-                player.on('ready', () => {
-                    const container = document.querySelector('.player-container');
-                    container.classList.remove('fade-out');
-                    container.classList.add('fade-in');
-                    isPlayerLoading = false;
-                });
-
-                // Обработчик ошибок
-                player.on('error', (event) => {
-                    console.error('Ошибка плеера:', event.detail);
-                    isPlayerLoading = false;
-                });
-
-                // Применяем кастомные стили
-                document.querySelectorAll('.plyr').forEach(el => {
-                    el.style.borderRadius = '10px';
-                    el.style.overflow = 'hidden';
-                });
-            }, 100);
-        }
-
-        // Плавное изменение эпизода
-        async function changeEpisode(direction) {
-            if (isPlayerLoading) return;
-
-            const newIndex = currentEpisodeIndex + direction;
-            if (newIndex < 0 || newIndex >= currentAnime.videos.length) return;
-
-            isPlayerLoading = true;
-            currentEpisodeIndex = newIndex;
-
-            // Анимация исчезновения
-            const container = document.querySelector('.player-container');
-            container.classList.remove('fade-in');
-            container.classList.add('fade-out');
-
-            // Ждем завершения анимации
-            await new Promise(resolve => setTimeout(resolve, 300));
-
-            // Обновляем данные
-            updateEpisodeInfo();
-
-            // Анимация появления
-            container.classList.remove('fade-out');
-            container.classList.add('fade-in');
-
-            // Инициализируем плеер
-            initPlayer();
-        }
-
-        // Выбор эпизода из списка
-        async function selectEpisode(index) {
-            if (isPlayerLoading) return;
-
-            const newIndex = parseInt(index);
-            if (newIndex === currentEpisodeIndex) return;
-
-            isPlayerLoading = true;
-            currentEpisodeIndex = newIndex;
-
-            // Анимация исчезновения
-            const container = document.querySelector('.player-container');
-            container.classList.remove('fade-in');
-            container.classList.add('fade-out');
-
-            // Ждем завершения анимации
-            await new Promise(resolve => setTimeout(resolve, 300));
-
-            // Обновляем данные
-            updateEpisodeInfo();
-
-            // Анимация появления
-            container.classList.remove('fade-out');
-            container.classList.add('fade-in');
-
-            // Инициализируем плеер
-            initPlayer();
-        }
-
-        // Обновление информации об эпизоде
-        function updateEpisodeInfo() {
-            const video = currentAnime.videos[currentEpisodeIndex];
-
-            // Обновляем заголовок текущего эпизода
-            document.querySelector('.current-episode').textContent = video.title;
-
-            // Обновляем видео источник
-            const videoElement = document.querySelector('#player');
-            videoElement.src = video.url;
-
-            // Обновляем элементы управления
-            updateEpisodeControls();
-        }
-
-        // Обновление элементов управления эпизодами
-        function updateEpisodeControls() {
-            const prevBtn = document.querySelector('.episode-navigation button:nth-child(1)');
-            const nextBtn = document.querySelector('.episode-navigation button:nth-child(3)');
-            const select = document.getElementById('episode-select');
-
-            // Обновляем состояние кнопок
-            if (prevBtn) {
-                prevBtn.disabled = currentEpisodeIndex === 0;
-                prevBtn.classList.toggle('disabled', currentEpisodeIndex === 0);
-            }
-
-            if (nextBtn) {
-                nextBtn.disabled = currentEpisodeIndex === currentAnime.videos.length - 1;
-                nextBtn.classList.toggle('disabled', currentEpisodeIndex === currentAnime.videos.length - 1);
-            }
-
-            // Обновляем выбранный элемент в select
-            if (select) {
-                select.value = currentEpisodeIndex;
-            }
-        }
-
-        // Генерация информации об аниме
-        function generateAnimeInfo(anime) {
-            return `
-                <div class="info-item"><div class="info-label">Тип</div><div class="info-value">${anime.type}</div></div>
-                <div class="info-item"><div class="info-label">Сезон</div><div class="info-value">${anime.season}</div></div>
-                <div class="info-item"><div class="info-label">Жанры</div><div class="info-value">${anime.genres}</div></div>
-                <div class="info-item"><div class="info-label">Год выхода</div><div class="info-value">${anime.year}</div></div>
-                <div class="info-item"><div class="info-label">Длительность</div><div class="info-value">${anime.duration}</div></div>
-                <div class="info-item"><div class="info-label">Всего эпизодов</div><div class="info-value">${anime.episodes}</div></div>
-                <div class="info-item"><div class="info-label">Общее время</div><div class="info-value">${anime.totalTime}</div></div>
-                <div class="info-item"><div class="info-label">Рейтинг</div><div class="info-value">${anime.rating}</div></div>
-            `;
-        }
-
-        // Функция для переключения между страницами
-        function showPage(pageId) {
-            console.log(`Переключаем на страницу: ${pageId}`);
-
-            // Скрыть все страницы
-            hideAllPages();
-
-            // Показать выбранную страницу
-            const pageElement = document.getElementById(pageId + '-page');
-            if (pageElement) {
-                pageElement.classList.remove('hidden');
-            } else {
-                console.error(`Элемент страницы ${pageId} не найден!`);
-            }
-
-            // Обновить активную ссылку в навигации
-            updateActiveNavLink(pageId);
-
-            window.scrollTo(0, 0);
-        }
-
-        // Функция для скрытия всех страниц
-        function hideAllPages() {
-            document.querySelectorAll('.container > div').forEach(page => {
-                if (page.id !== 'dynamic-anime-page') {
-                    page.classList.add('hidden');
-                }
-            });
-            document.getElementById('dynamic-anime-page').classList.add('hidden');
-        }
-
-        // Обновление активной ссылки в навигации
-        function updateActiveNavLink(activePage) {
-            const navLinks = document.querySelectorAll('.sidebar-nav a');
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('onclick')?.includes(`'${activePage}'`) ||
-                    (link.getAttribute('href') === 'index.html' && activePage === 'home')) {
-                    link.classList.add('active');
-                }
-            });
-        }
-
-        // Функция для переключения вкладок
-        function switchTab(tabId) {
-            console.log(`Переключаем на вкладку: ${tabId}`);
-
-            // Убрать active у всех вкладок
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-
-            // Убрать active у всех контентов
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-
-            // Добавить active к выбранной вкладке и контенту
-            const tab = event?.target;
-            if (tab) {
-                tab.classList.add('active');
-            }
-
-            const content = document.getElementById(tabId);
-            if (content) {
-                content.classList.add('active');
-            } else {
-                console.error(`Вкладка с ID ${tabId} не найдена!`);
-            }
-        }
-
-        // Сделаем функции глобальными для использования в HTML
-        window.changeEpisode = changeEpisode;
-        window.selectEpisode = selectEpisode;
-        window.showPage = showPage;
-        window.switchTab = switchTab;
-        window.showAnimePage = showAnimePage;
     </script>
 
     <!-- Firebase Auth Integration -->

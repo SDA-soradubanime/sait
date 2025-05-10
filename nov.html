@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SoraDubAnime - Бесплатная озвучка аниме</title>
+    <link rel="preload" href="https://i.ibb.co/tTjwgmHv/d5c1325d-ea3f-4780-905e-4321068d3426.jpg" as="image">
+    <style>
+        :root {
+            --primary: #ff0000;
+            --primary-dark: #cc0000;
+            --secondary: #333333;
+            --light: #f8f9fa;
+            --dark: #121212;
+            --gray: #666666;
+            --bg-dark: #1a1a1a;
+            --card-bg: #222222;
+            --glow: 0 0 10px rgba(255, 0, 0, 0.7);
+            --sidebar-width: 250px;
+            --mobile-sidebar-height: 60px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #e0e0e0;
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        /* Боковая панель - десктоп */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: #000;
+            border-right: 1px solid #333;
+            padding: 1.5rem;
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-nav {
+            margin-top: 2rem;
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            color: #ccc;
+            text-decoration: none;
+            padding: 0.8rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .sidebar-nav a:hover {
+            background-color: rgba(255, 0, 0, 0.1);
+            color: var(--primary);
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+        }
+
+        .sidebar-nav a.active {
+            background-color: rgba(255, 0, 0, 0.2);
+            color: var(--primary);
+            font-weight: 600;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+        }
+
+        .sidebar-logo {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .sidebar-logo-img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
+            transition: opacity 0.3s;
+        }
+
+        .sidebar-logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Информация о пользователе */
+        .user-info {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #333;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .user-name {
+            font-size: 0.9rem;
+            color: #ccc;
+            word-break: break-all;
+        }
+
+        /* Мобильное меню */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Основное содержимое */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding-bottom: 60px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #000000, var(--dark));
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            position: relative;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255,0,0,0.2) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .header-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            background: linear-gradient(to right, #ff0000, #cc0000);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .header-logo span {
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            color: #cccccc;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            font-size: 2rem;
+            position: relative;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), #990000);
+            border-radius: 3px;
+            box-shadow: var(--glow);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            position: relative;
+            border: 1px solid #333;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3), 0 0 15px rgba(255, 0, 0, 0.2);
+            border-color: var(--primary);
+        }
+
+        .anime-cover {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            position: relative;
+        }
+
+        .anime-cover::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        }
+
+        .anime-title {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            z-index: 2;
+        }
+
+        .card-content {
+            padding: 1.25rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--primary);
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+        }
+
+        .card-text {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .card-link {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .card-link:hover {
+            background-color: var(--primary-dark);
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: #888;
+            text-align: center;
+            padding: 1rem 0;
+            border-top: 1px solid #333;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            margin-left: var(--sidebar-width);
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Пустое состояние */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            border: 1px solid #333;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .empty-state h3 {
+            color: #ccc;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            color: var(--gray);
+        }
+
+        /* Стили для адаптива */
+        @media (max-width: 768px) {
+            :root {
+                --sidebar-width: 100%;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                padding: 0;
+                border-right: none;
+                border-top: 1px solid #333;
+                transform: translateY(100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateY(0);
+            }
+
+            .sidebar-logo {
+                display: none;
+            }
+
+            .sidebar-nav {
+                margin-top: 0;
+            }
+
+            .sidebar-nav ul {
+                display: flex;
+                justify-content: space-around;
+                padding: 0.5rem 0;
+            }
+
+            .sidebar-nav li {
+                margin-bottom: 0;
+            }
+
+            .sidebar-nav a {
+                padding: 0.5rem;
+                border-radius: 0;
+                text-align: center;
+                font-size: 0.8rem;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding-bottom: 120px; /* Высота мобильной панели + отступ */
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            footer {
+                margin-left: 0;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Боковая панель -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <img src="https://i.ibb.co/tTjwgmHv/d5c1325d-ea3f-4780-905e-4321068d3426.jpg"
+                 alt="SoraDubAnime Logo"
+                 class="sidebar-logo-img"
+                 loading="eager"
+                 decoding="async">
+            <div class="sidebar-logo-text">Sora<span>Dub</span>Anime</div>
+        </div>
+
+        <!-- Информация о пользователе (скрыта по умолчанию) -->
+        <div class="user-info">
+            <div class="user-avatar">JD</div>
+            <div class="user-name">John Doe</div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Главная</a></li>
+                <li><a href="vhod.html"><i class="fas fa-sign-in-alt"></i> Войти</a></li>
+                <li><a href="nov.html" class="active"><i class="fas fa-newspaper"></i> Новости</a></li>
+                <li><a href="ycha.html"><i class="fas fa-users"></i> Участники</a></li>
+                <li><a href="proekt.html"><i class="fas fa-tasks"></i> Проекты</a></li>
+                <li><a href="ozv.html"><i class="fas fa-microphone"></i> Озвучки</a></li>
+                <li><a href="donat.html"><i class="fas fa-heart"></i> Донат</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Кнопка мобильного меню -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Основное содержимое -->
+    <div class="main-content">
+        <header>
+            <div class="header-logo">Sora<span>Dub</span>Anime</div>
+            <div class="tagline">Бесплатная некоммерческая озвучка аниме</div>
+        </header>
+
+        <div class="container">
+            <h2 class="page-title">Новости</h2>
+
+            <div class="empty-state">
+                <i class="fas fa-newspaper"></i>
+                <h3>Новостей пока нет</h3>
+                <p>Следите за обновлениями, скоро здесь появятся свежие новости нашего проекта</p>
+            </div>
+        </div>
+
+        <footer>
+            © 2024 SoraDubAnime | <a href="#">сайт разработан проетами ЯЖ</a>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const sidebar = document.querySelector('.sidebar');
+            const logo = document.querySelector('.sidebar-logo-img');
+
+            // Обработчик мобильного меню
+            mobileMenuToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+            });
+
+            // Обработка ошибок загрузки изображения
+            if (logo) {
+                logo.onerror = function() {
+                    console.error('Ошибка загрузки логотипа');
+                    this.style.opacity = '0';
+                    // Можно добавить запасной вариант логотипа
+                    // this.src = 'путь_к_резервному_изображению.jpg';
+                };
+
+                // Принудительная перезагрузка изображения при возврате на страницу
+                window.addEventListener('pageshow', function(event) {
+                    if (event.persisted) {
+                        const temp = logo.src;
+                        logo.src = '';
+                        logo.src = temp;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
