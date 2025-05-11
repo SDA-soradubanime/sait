@@ -2,22 +2,18 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SoraDubAnime - Бесплатная озвучка аниме</title>
-    <link rel="preload" href="https://i.ibb.co/tTjwgmHv/d5c1325d-ea3f-4780-905e-4321068d3426.jpg" as="image">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoraDubAnime - Новости</title>
     <style>
         :root {
-            --primary: #ff0000;
-            --primary-dark: #cc0000;
-            --secondary: #333333;
-            --light: #f8f9fa;
-            --dark: #121212;
-            --gray: #666666;
-            --bg-dark: #1a1a1a;
-            --card-bg: #222222;
+            --black: #000000;
+            --dark-gray: #1a1a1a;
+            --red: #ff0000;
+            --dark-red: #cc0000;
+            --light-red: #ff3333;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
             --glow: 0 0 10px rgba(255, 0, 0, 0.7);
-            --sidebar-width: 250px;
-            --mobile-sidebar-height: 60px;
         }
 
         * {
@@ -25,242 +21,202 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: #e0e0e0;
+            background-color: var(--black);
+            color: var(--white);
             line-height: 1.6;
-            display: flex;
-            min-height: 100vh;
-            flex-direction: column;
         }
 
-        /* Боковая панель - десктоп */
-        .sidebar {
-            width: var(--sidebar-width);
-            background-color: #000;
-            border-right: 1px solid #333;
-            padding: 1.5rem;
-            position: fixed;
-            height: 100vh;
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: var(--glow); }
+            50% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.9); }
+            100% { box-shadow: var(--glow); }
+        }
+
+        /* Шапка */
+        header {
+            background-color: var(--black);
+            padding: 1rem 0;
+            border-bottom: 3px solid var(--red);
+            position: sticky;
+            top: 0;
             z-index: 100;
-            overflow-y: auto;
-            transition: transform 0.3s ease;
         }
 
-        .sidebar-nav {
-            margin-top: 2rem;
-        }
-
-        .sidebar-nav ul {
-            list-style: none;
-        }
-
-        .sidebar-nav li {
-            margin-bottom: 0.5rem;
-        }
-
-        .sidebar-nav a {
-            display: block;
-            color: #ccc;
-            text-decoration: none;
-            padding: 0.8rem 1rem;
-            border-radius: 5px;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
-
-        .sidebar-nav a:hover {
-            background-color: rgba(255, 0, 0, 0.1);
-            color: var(--primary);
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
-        }
-
-        .sidebar-nav a.active {
-            background-color: rgba(255, 0, 0, 0.2);
-            color: var(--primary);
-            font-weight: 600;
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
-        }
-
-        .sidebar-logo {
-            text-align: center;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid #333;
-        }
-
-        .sidebar-logo-img {
-            width: 120px;
-            height: 120px;
-            object-fit: contain;
-            margin-bottom: 1rem;
-            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
-            transition: opacity 0.3s;
-        }
-
-        .sidebar-logo-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
-        }
-
-        /* Информация о пользователе */
-        .user-info {
-            padding: 1rem;
-            text-align: center;
-            border-bottom: 1px solid #333;
-            margin-bottom: 1rem;
-            display: none;
-        }
-
-        .user-avatar {
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 0, 0, 0.1);
-            border-radius: 50%;
+        .header-container {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            margin: 0 auto 0.5rem;
-            font-size: 1.5rem;
-            color: var(--primary);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
 
-        .user-name {
-            font-size: 0.9rem;
-            color: #ccc;
-            word-break: break-all;
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--red);
+            text-decoration: none;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+            transition: all 0.3s;
         }
 
-        /* Мобильное меню */
-        .mobile-menu-toggle {
-            display: none;
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary);
-            border-radius: 50%;
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
-            border: none;
-            color: white;
-            font-size: 1.5rem;
+        .logo span {
+            color: var(--white);
+        }
+
+        .logo:hover {
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Навигация */
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 500;
+            padding: 0.5rem 0;
+            transition: all 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--red);
+        }
+
+        nav a.active {
+            color: var(--red);
+        }
+
+        nav a.active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--red);
+            animation: glow 2s infinite;
+        }
+
+        /* Специальные стили для кнопок */
+        .btn-login {
+            background-color: rgba(255, 0, 0, 0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--red);
+            animation: glow 2s infinite;
+        }
+
+        .btn-login:hover {
+            background-color: rgba(255, 0, 0, 0.3);
+            transform: scale(1.05);
+        }
+
+        .btn-donate {
+            background: linear-gradient(135deg, var(--red), var(--dark-red));
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .btn-donate:hover {
+            background: linear-gradient(135deg, var(--light-red), var(--red));
+            transform: scale(1.05);
         }
 
         /* Основное содержимое */
-        .main-content {
-            flex: 1;
-            margin-left: var(--sidebar-width);
-            padding-bottom: 60px;
-        }
-
-        header {
-            background: linear-gradient(135deg, #000000, var(--dark));
-            color: white;
-            padding: 1.5rem 0;
-            text-align: center;
-            position: relative;
-            border-bottom: 3px solid var(--primary);
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(255,0,0,0.2) 0%, transparent 70%);
-            z-index: 0;
-        }
-
-        .header-logo {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
-            background: linear-gradient(to right, #ff0000, #cc0000);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .header-logo span {
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
-        }
-
-        .tagline {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            color: #cccccc;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-        }
-
         .container {
             max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
+            margin: 0 auto;
+            padding: 2rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
         }
 
         .page-title {
-            text-align: center;
-            margin-bottom: 2rem;
-            color: var(--primary);
-            font-size: 2rem;
-            position: relative;
+            font-size: 2.5rem;
+            color: var(--red);
+            margin-bottom: 1rem;
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            position: relative;
         }
 
-        .page-title::after {
+        .page-title:after {
             content: '';
             position: absolute;
             bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 50%;
+            width: 100px;
             height: 3px;
-            background: linear-gradient(90deg, var(--primary), #990000);
-            border-radius: 3px;
+            background-color: var(--red);
             box-shadow: var(--glow);
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
+        .page-subtitle {
+            color: #cccccc;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
-        .card {
-            background: var(--card-bg);
+        /* Статьи */
+        .articles {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .article-card {
+            background-color: var(--dark-gray);
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             transition: all 0.3s;
-            position: relative;
             border: 1px solid #333;
         }
 
-        .card:hover {
+        .article-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3), 0 0 15px rgba(255, 0, 0, 0.2);
-            border-color: var(--primary);
+            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
+            border-color: var(--red);
         }
 
-        .anime-cover {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
+        .article-image {
+            height: 250px;
+            background-color: #333;
+            background-size: cover;
+            background-position: center;
             position: relative;
         }
 
-        .anime-cover::after {
+        .article-image::after {
             content: '';
             position: absolute;
             bottom: 0;
@@ -270,248 +226,322 @@
             background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
         }
 
-        .anime-title {
+        .article-date {
             position: absolute;
-            bottom: 20px;
+            top: 20px;
             left: 20px;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: white;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            background-color: var(--red);
+            color: var(--white);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
             z-index: 2;
         }
 
-        .card-content {
-            padding: 1.25rem;
+        .article-content {
+            padding: 1.5rem;
         }
 
-        .card-title {
-            font-size: 1.25rem;
-            margin-bottom: 0.75rem;
-            color: var(--primary);
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
-        }
-
-        .card-text {
-            color: var(--gray);
+        .article-title {
+            font-size: 1.5rem;
             margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .article-excerpt {
+            color: #cccccc;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            color: #999;
             font-size: 0.9rem;
+            margin-bottom: 1rem;
         }
 
-        .card-link {
+        .article-author {
+            color: var(--red);
+            margin-right: 1rem;
+        }
+
+        .article-read-more {
             display: inline-block;
-            padding: 0.6rem 1.2rem;
-            background-color: var(--primary);
-            color: white;
+            padding: 0.7rem 1.5rem;
+            background-color: var(--red);
+            color: var(--white);
             text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
         }
 
-        .card-link:hover {
-            background-color: var(--primary-dark);
+        .article-read-more:hover {
+            background-color: var(--dark-red);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
         }
 
+        /* Подвал */
         footer {
-            background-color: var(--dark);
-            color: #888;
-            text-align: center;
-            padding: 1rem 0;
-            border-top: 1px solid #333;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            margin-left: var(--sidebar-width);
+            background-color: var(--dark-gray);
+            padding: 3rem 0;
+            border-top: 3px solid var(--red);
         }
 
-        footer a {
-            color: var(--primary);
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--red);
+            margin-bottom: 1rem;
+            display: block;
+            text-decoration: none;
+        }
+
+        .footer-links h3 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #cccccc;
             text-decoration: none;
             transition: color 0.3s;
         }
 
-        footer a:hover {
-            color: var(--primary-dark);
+        .footer-links a:hover {
+            color: var(--red);
         }
 
-        /* Пустое состояние */
-        .empty-state {
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--black);
+            color: var(--white);
+            border-radius: 50%;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background-color: var(--red);
+            transform: scale(1.1);
+        }
+
+        .copyright {
             text-align: center;
-            padding: 3rem;
-            background: var(--card-bg);
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-            border: 1px solid #333;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #333;
+            color: #999;
         }
 
-        .empty-state i {
-            font-size: 4rem;
-            color: var(--gray);
-            margin-bottom: 1rem;
-        }
-
-        .empty-state h3 {
-            color: #ccc;
-            margin-bottom: 0.5rem;
-        }
-
-        .empty-state p {
-            color: var(--gray);
-        }
-
-        /* Стили для адаптива */
+        /* Адаптивность */
         @media (max-width: 768px) {
-            :root {
-                --sidebar-width: 100%;
-            }
-
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                padding: 0;
-                border-right: none;
-                border-top: 1px solid #333;
-                transform: translateY(100%);
-                transition: transform 0.3s ease;
-            }
-
-            .sidebar.open {
-                transform: translateY(0);
-            }
-
-            .sidebar-logo {
-                display: none;
-            }
-
-            .sidebar-nav {
-                margin-top: 0;
-            }
-
-            .sidebar-nav ul {
-                display: flex;
-                justify-content: space-around;
-                padding: 0.5rem 0;
-            }
-
-            .sidebar-nav li {
-                margin-bottom: 0;
-            }
-
-            .sidebar-nav a {
-                padding: 0.5rem;
-                border-radius: 0;
+            .header-container {
+                flex-direction: column;
                 text-align: center;
-                font-size: 0.8rem;
             }
 
-            .main-content {
-                margin-left: 0;
-                padding-bottom: 120px; /* Высота мобильной панели + отступ */
+            nav ul {
+                margin-top: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
             }
 
-            .mobile-menu-toggle {
-                display: flex;
+            nav li {
+                margin: 0.5rem;
             }
 
-            footer {
-                margin-left: 0;
+            .article-image {
+                height: 200px;
             }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- Боковая панель -->
-    <aside class="sidebar">
-        <div class="sidebar-logo">
-            <img src="https://i.ibb.co/tTjwgmHv/d5c1325d-ea3f-4780-905e-4321068d3426.jpg"
-                 alt="SoraDubAnime Logo"
-                 class="sidebar-logo-img"
-                 loading="eager"
-                 decoding="async">
-            <div class="sidebar-logo-text">Sora<span>Dub</span>Anime</div>
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">Sora<span>Dub</span>Anime</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="nov.html" class="active">Новости</a></li>
+                    <li><a href="proekt.html">Проекты</a></li>
+                    <li><a href="ozv.html">Озвучки</a></li>
+                    <li><a href="ycha.html">Участники</a></li>
+                    <li><a href="vhod.html" class="btn-login">Вход</a></li>
+                    <li><a href="donat.html" class="btn-donate">Донат</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <h1 class="page-title">Последние новости</h1>
+            <p class="page-subtitle">Следите за обновлениями нашего проекта, анонсами новых озвучек и событиями команды</p>
         </div>
 
-        <!-- Информация о пользователе (скрыта по умолчанию) -->
-        <div class="user-info">
-            <div class="user-avatar">JD</div>
-            <div class="user-name">John Doe</div>
+        <div class="articles">
+            <!-- Статья 1 -->
+            <article class="article-card">
+                <div class="article-image" style="background-image: url('https://i.ibb.co/0jq7X9p/anime-studio.jpg');">
+                    <span class="article-date">15.06.2024</span>
+                </div>
+                <div class="article-content">
+                    <h2 class="article-title">Завершена озвучка "Токийские мстители"</h2>
+                    <div class="article-meta">
+                        <span class="article-author">Алексей В.</span>
+                        <span>5 мин чтения</span>
+                    </div>
+                    <p class="article-excerpt">Мы рады сообщить, что завершили работу над полной озвучкой аниме "Токийские мстители". Все 24 серии теперь доступны на нашем канале с профессиональной русской озвучкой и качественным звуком.</p>
+                    <a href="#" class="article-read-more">Читать далее</a>
+                </div>
+            </article>
+
+            <!-- Статья 2 -->
+            <article class="article-card">
+                <div class="article-image" style="background-image: url('https://i.ibb.co/4WJYk1X/voice-acting.jpg');">
+                    <span class="article-date">10.06.2024</span>
+                </div>
+                <div class="article-content">
+                    <h2 class="article-title">Новые голоса в команде</h2>
+                    <div class="article-meta">
+                        <span class="article-author">Мария К.</span>
+                        <span>3 мин чтения</span>
+                    </div>
+                    <p class="article-excerpt">К нашей команде присоединились два новых актера озвучки: Дмитрий С. (голос Кенширо) и Анна П. (голос Рей Аянами). Ознакомьтесь с их портфолио и первыми работами в наших проектах.</p>
+                    <a href="#" class="article-read-more">Читать далее</a>
+                </div>
+            </article>
+
+            <!-- Статья 3 -->
+            <article class="article-card">
+                <div class="article-image" style="background-image: url('https://i.ibb.co/6n4hZ0G/anime-festival.jpg');">
+                    <span class="article-date">05.06.2024</span>
+                </div>
+                <div class="article-content">
+                    <h2 class="article-title">Участие в AnimeCon 2024</h2>
+                    <div class="article-meta">
+                        <span class="article-author">Сергей Л.</span>
+                        <span>4 мин чтения</span>
+                    </div>
+                    <p class="article-excerpt">Команда SoraDubAnime примет участие в крупнейшем аниме-фестивале страны! Мы представим эксклюзивные материалы, проведем мастер-классы по озвучке и разыграем мерч.</p>
+                    <a href="#" class="article-read-more">Читать далее</a>
+                </div>
+            </article>
+
+            <!-- Статья 4 -->
+            <article class="article-card">
+                <div class="article-image" style="background-image: url('https://i.ibb.co/0nQqW1P/recording-studio.jpg');">
+                    <span class="article-date">01.06.2024</span>
+                </div>
+                <div class="article-content">
+                    <h2 class="article-title">Обновление студийного оборудования</h2>
+                    <div class="article-meta">
+                        <span class="article-author">Денис П.</span>
+                        <span>6 мин чтения</span>
+                    </div>
+                    <p class="article-excerpt">Благодаря вашей поддержке мы полностью обновили звукозаписывающее оборудование. Теперь качество наших озвучек стало еще лучше! Подробности о новых микрофонах и ПО внутри статьи.</p>
+                    <a href="#" class="article-read-more">Читать далее</a>
+                </div>
+            </article>
+
+            <!-- Статья 5 -->
+            <article class="article-card">
+                <div class="article-image" style="background-image: url('https://i.ibb.co/7yX4HkP/anime-collab.jpg');">
+                    <span class="article-date">25.05.2024</span>
+                </div>
+                <div class="article-content">
+                    <h2 class="article-title">Коллаборация с AniDub Studio</h2>
+                    <div class="article-meta">
+                        <span class="article-author">Ольга М.</span>
+                        <span>5 мин чтения</span>
+                    </div>
+                    <p class="article-excerpt">Мы начинаем совместный проект с AniDub Studio по озвучке нового сезона "Атаки титанов". Узнайте подробности о распределении ролей и сроках выхода первых серий.</p>
+                    <a href="#" class="article-read-more">Читать далее</a>
+                </div>
+            </article>
         </div>
+    </main>
 
-        <nav class="sidebar-nav">
-            <ul>
-                <li><a href="index.html"><i class="fas fa-home"></i> Главная</a></li>
-                <li><a href="vhod.html"><i class="fas fa-sign-in-alt"></i> Войти</a></li>
-                <li><a href="nov.html" class="active"><i class="fas fa-newspaper"></i> Новости</a></li>
-                <li><a href="ycha.html"><i class="fas fa-users"></i> Участники</a></li>
-                <li><a href="proekt.html"><i class="fas fa-tasks"></i> Проекты</a></li>
-                <li><a href="ozv.html"><i class="fas fa-microphone"></i> Озвучки</a></li>
-                <li><a href="donat.html"><i class="fas fa-heart"></i> Донат</a></li>
-            </ul>
-        </nav>
-    </aside>
+    <footer>
+        <div class="footer-container">
+            <div>
+                <a href="index.html" class="footer-logo">Sora<span>Dub</span>Anime</a>
+                <p>Качественная озвучка аниме с 2015 года</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
 
-    <!-- Кнопка мобильного меню -->
-    <button class="mobile-menu-toggle" id="mobileMenuToggle">
-        <i class="fas fa-bars"></i>
-    </button>
+            <div class="footer-links">
+                <h3>Навигация</h3>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="nov.html">Новости</a></li>
+                    <li><a href="proekt.html">Проекты</a></li>
+                    <li><a href="ozv.html">Озвучки</a></li>
+                </ul>
+            </div>
 
-    <!-- Основное содержимое -->
-    <div class="main-content">
-        <header>
-            <div class="header-logo">Sora<span>Dub</span>Anime</div>
-            <div class="tagline">Бесплатная некоммерческая озвучка аниме</div>
-        </header>
+            <div class="footer-links">
+                <h3>Команда</h3>
+                <ul>
+                    <li><a href="ycha.html">Участники</a></li>
+                    <li><a href="#">Вакансии</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+            </div>
 
-        <div class="container">
-            <h2 class="page-title">Новости</h2>
-
-            <div class="empty-state">
-                <i class="fas fa-newspaper"></i>
-                <h3>Новостей пока нет</h3>
-                <p>Следите за обновлениями, скоро здесь появятся свежие новости нашего проекта</p>
+            <div class="footer-links">
+                <h3>Поддержка</h3>
+                <ul>
+                    <li><a href="donat.html">Донат</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="vhod.html">Вход</a></li>
+                </ul>
             </div>
         </div>
 
-        <footer>
-            © 2024 SoraDubAnime | <a href="#">сайт разработан проетами ЯЖ</a>
-        </footer>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-            const sidebar = document.querySelector('.sidebar');
-            const logo = document.querySelector('.sidebar-logo-img');
-
-            // Обработчик мобильного меню
-            mobileMenuToggle.addEventListener('click', function() {
-                sidebar.classList.toggle('open');
-            });
-
-            // Обработка ошибок загрузки изображения
-            if (logo) {
-                logo.onerror = function() {
-                    console.error('Ошибка загрузки логотипа');
-                    this.style.opacity = '0';
-                    // Можно добавить запасной вариант логотипа
-                    // this.src = 'путь_к_резервному_изображению.jpg';
-                };
-
-                // Принудительная перезагрузка изображения при возврате на страницу
-                window.addEventListener('pageshow', function(event) {
-                    if (event.persisted) {
-                        const temp = logo.src;
-                        logo.src = '';
-                        logo.src = temp;
-                    }
-                });
-            }
-        });
-    </script>
+        <div class="copyright">
+            &copy; 2024 SoraDubAnime. Все права защищены.
+        </div>
+    </footer>
 </body>
 </html>

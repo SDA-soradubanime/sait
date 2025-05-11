@@ -2,22 +2,18 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SoraDubAnime - Бесплатная озвучка аниме</title>
-    <link rel="preload" href="https://i.ibb.co/tTjwgmHv/d5c1325d-ea3f-4780-905e-4321068d3426.jpg" as="image">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoraDubAnime - фанатская озвучка аниме</title>
     <style>
         :root {
-            --primary: #ff0000;
-            --primary-dark: #cc0000;
-            --secondary: #333333;
-            --light: #f8f9fa;
-            --dark: #121212;
-            --gray: #666666;
-            --bg-dark: #1a1a1a;
-            --card-bg: #222222;
+            --black: #000000;
+            --dark-gray: #1a1a1a;
+            --red: #ff0000;
+            --dark-red: #cc0000;
+            --light-red: #ff3333;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
             --glow: 0 0 10px rgba(255, 0, 0, 0.7);
-            --sidebar-width: 250px;
-            --mobile-sidebar-height: 60px;
         }
 
         * {
@@ -25,42 +21,18 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: #e0e0e0;
+            background-color: var(--black);
+            color: var(--white);
             line-height: 1.6;
-            display: flex;
-            min-height: 100vh;
-            flex-direction: column;
         }
 
         /* Анимации */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
-        }
-
-        @keyframes slideInFromLeft {
-            from { transform: translateX(-50px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        @keyframes slideInFromRight {
-            from { transform: translateX(50px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        @keyframes slideInFromTop {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes slideInFromBottom {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
 
         @keyframes pulse {
@@ -70,938 +42,535 @@
         }
 
         @keyframes glow {
-            0% { box-shadow: 0 0 5px rgba(255, 0, 0, 0.3); }
-            50% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.7); }
-            100% { box-shadow: 0 0 5px rgba(255, 0, 0, 0.3); }
+            0% { box-shadow: var(--glow); }
+            50% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.9); }
+            100% { box-shadow: var(--glow); }
         }
 
-        /* Боковая панель - десктоп */
-        .sidebar {
-            width: var(--sidebar-width);
-            background-color: #000;
-            border-right: 1px solid #333;
-            padding: 1.5rem;
-            position: fixed;
-            height: 100vh;
+        /* Шапка */
+        header {
+            background-color: var(--black);
+            padding: 1rem 0;
+            border-bottom: 3px solid var(--red);
+            position: sticky;
+            top: 0;
             z-index: 100;
-            overflow-y: auto;
-            transition: transform 0.3s ease;
-            animation: slideInFromLeft 0.5s ease-out;
         }
 
-        .sidebar-nav {
-            margin-top: 2rem;
-        }
-
-        .sidebar-nav ul {
-            list-style: none;
-        }
-
-        .sidebar-nav li {
-            margin-bottom: 0.5rem;
-        }
-
-        .sidebar-nav a {
-            display: block;
-            color: #ccc;
-            text-decoration: none;
-            padding: 0.8rem 1rem;
-            border-radius: 5px;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
-
-        .sidebar-nav a:hover {
-            background-color: rgba(255, 0, 0, 0.1);
-            color: var(--primary);
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
-            transform: translateX(5px);
-        }
-
-        .sidebar-nav a.active {
-            background-color: rgba(255, 0, 0, 0.2);
-            color: var(--primary);
-            font-weight: 600;
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
-            animation: pulse 2s infinite;
-        }
-
-        .sidebar-logo {
-            text-align: center;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid #333;
-        }
-
-        .sidebar-logo-img {
-            width: 120px;
-            height: 120px;
-            object-fit: contain;
-            margin-bottom: 1rem;
-            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
-            transition: all 0.3s;
-            animation: fadeIn 1s ease-in, pulse 3s infinite;
-        }
-
-        .sidebar-logo-img:hover {
-            transform: rotate(5deg) scale(1.05);
-            filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.7));
-        }
-
-        .sidebar-logo-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5));
-            animation: slideInFromBottom 0.7s ease-out;
-        }
-
-        /* Информация о пользователе */
-        .user-info {
-            padding: 1rem;
-            text-align: center;
-            border-bottom: 1px solid #333;
-            margin-bottom: 1rem;
-            display: none;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .user-avatar {
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 0, 0, 0.1);
-            border-radius: 50%;
+        .header-container {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            margin: 0 auto 0.5rem;
-            font-size: 1.5rem;
-            color: var(--primary);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--red);
+            text-decoration: none;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
             transition: all 0.3s;
         }
 
-        .user-avatar:hover {
-            transform: scale(1.1);
-            background: rgba(255, 0, 0, 0.2);
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        .logo span {
+            color: var(--white);
         }
 
-        .user-name {
-            font-size: 0.9rem;
-            color: #ccc;
-            word-break: break-all;
+        .logo:hover {
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Навигация */
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 500;
+            padding: 0.5rem 0;
             transition: all 0.3s;
         }
 
-        .user-name:hover {
-            color: var(--primary);
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+        nav a:hover {
+            color: var(--red);
         }
 
-        /* Мобильное меню */
-        .mobile-menu-toggle {
-            display: none;
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary);
-            border-radius: 50%;
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5));
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            transition: all 0.3s;
-            animation: pulse 2s infinite;
+        nav a.active {
+            color: var(--red);
         }
 
-        .mobile-menu-toggle:hover {
-            transform: scale(1.1) rotate(90deg);
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7));
+        nav a.active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--red);
+            animation: glow 2s infinite;
+        }
+
+        /* Специальные стили для кнопок */
+        .btn-login {
+            background-color: rgba(255, 0, 0, 0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--red);
+            animation: glow 2s infinite;
+        }
+
+        .btn-login:hover {
+            background-color: rgba(255, 0, 0, 0.3);
+            transform: scale(1.05);
+        }
+
+        .btn-donate {
+            background: linear-gradient(135deg, var(--red), var(--dark-red));
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .btn-donate:hover {
+            background: linear-gradient(135deg, var(--light-red), var(--red));
+            transform: scale(1.05);
         }
 
         /* Основное содержимое */
-        .main-content {
-            flex: 1;
-            margin-left: var(--sidebar-width);
-            padding-bottom: 60px;
-            animation: fadeIn 0.7s ease-out;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            animation: fadeIn 0.5s ease-out;
         }
 
-        header {
-            background: linear-gradient(135deg, #000000, var(--dark));
-            color: white;
-            padding: 1.5rem 0;
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+                        url('https://i.ibb.co/tTjwgmHv/d5c1325d-ea3f-4780-905e-4321068d3426.jpg') center/cover;
+            border-radius: 10px;
+            padding: 4rem 2rem;
             text-align: center;
+            margin-bottom: 3rem;
             position: relative;
-            border-bottom: 3px solid var(--primary);
-            animation: slideInFromTop 0.5s ease-out;
+            overflow: hidden;
         }
 
-        header::before {
+        .hero::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(255,0,0,0.2) 0%, transparent 70%);
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255,0,0,0.1) 0%, transparent 70%);
             z-index: 0;
         }
 
-        .header-logo {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7));
-            background: linear-gradient(to right, #ff0000, #cc0000);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            position: relative;
-            display: inline-block;
-            transition: all 0.3s;
-        }
-
-        .header-logo:hover {
-            transform: scale(1.05);
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.9));
-        }
-
-        .header-logo span {
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.9));
-            animation: glow 2s infinite;
-        }
-
-        .tagline {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            color: #cccccc;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2));
-            animation: fadeIn 1s ease-out;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
-        }
-
-        .page-title {
-            text-align: center;
-            margin-bottom: 2rem;
-            color: var(--primary);
-            font-size: 2rem;
-            position: relative;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5));
-            animation: slideInFromTop 0.7s ease-out;
-        }
-
-        .page-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), #990000);
-            border-radius: 3px;
-            box-shadow: var(--glow);
-            animation: slideInFromLeft 1s ease-out;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s;
-            position: relative;
-            border: 1px solid #333;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3), 0 0 15px rgba(255, 0, 0, 0.2);
-            border-color: var(--primary);
-            animation: pulse 1.5s infinite;
-        }
-
-        .anime-cover {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            position: relative;
-            transition: all 0.5s ease;
-        }
-
-        .anime-cover:hover {
-            transform: scale(1.05);
-        }
-
-        .anime-cover::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 100px;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-        }
-
-        .anime-title {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: white;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-            z-index: 2;
-            transition: all 0.3s;
-        }
-
-        .card:hover .anime-title {
-            transform: translateY(-10px);
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
-        }
-
-        .card-content {
-            padding: 1.25rem;
-            transition: all 0.3s;
-        }
-
-        .card-title {
-            font-size: 1.25rem;
-            margin-bottom: 0.75rem;
-            color: var(--primary);
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3));
-            transition: all 0.3s;
-        }
-
-        .card:hover .card-title {
-            color: #ff3333;
-            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
-        }
-
-        .card-text {
-            color: var(--gray);
+        .hero h1 {
+            font-size: 2.5rem;
             margin-bottom: 1rem;
-            font-size: 0.9rem;
-            transition: all 0.3s;
+            color: var(--red);
+            position: relative;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
         }
 
-        .card:hover .card-text {
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            position: relative;
             color: #e0e0e0;
         }
 
         .btn {
             display: inline-block;
-            background: linear-gradient(135deg, var(--primary), #990000);
-            color: white;
-            padding: 0.5rem 1rem;
+            background-color: var(--red);
+            color: var(--white);
+            padding: 0.8rem 1.8rem;
             border-radius: 30px;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3), 0 0 8px rgba(255, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
+            box-shadow: var(--glow);
+            margin: 0.5rem;
         }
 
         .btn:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 6px 15px rgba(255, 0, 0, 0.5), 0 0 12px rgba(255, 0, 0, 0.3);
-            background: linear-gradient(135deg, #ff3333, #990000);
-            animation: pulse 1.5s infinite;
-        }
-
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -60%;
-            width: 200%;
-            height: 200%;
-            background: rgba(255, 255, 255, 0.1);
-            transform: rotate(30deg);
-            transition: all 0.3s;
-        }
-
-        .btn:hover::after {
-            left: 100%;
+            background-color: var(--dark-red);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.5);
         }
 
         .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
+            background-color: transparent;
+            border: 2px solid var(--red);
+            color: var(--red);
             box-shadow: none;
         }
 
         .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 0 12px rgba(255, 0, 0, 0.4);
+            background-color: var(--red);
+            color: var(--white);
         }
 
-        .hidden {
-            display: none;
+        /* Секции */
+        .section {
+            margin-bottom: 4rem;
         }
 
-        .empty-state {
-            text-align: center;
-            padding: 2.5rem;
-            color: var(--gray);
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            border: 1px solid #333;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 1s ease-out;
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--red);
+            position: relative;
+            padding-bottom: 0.5rem;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
         }
 
-        .empty-state i {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-            opacity: 0.7;
-            text-shadow: 0 0 8px rgba(255, 0, 0, 0.3));
-            animation: pulse 2s infinite;
-        }
-
-        .empty-state h3 {
-            margin-bottom: 0.75rem;
-            color: #e0e0e0;
-            animation: slideInFromBottom 0.7s ease-out;
-        }
-
-        .non-commercial {
-            background-color: rgba(255, 0, 0, 0.1);
-            padding: 1.25rem;
-            border-radius: 10px;
-            margin: 1.5rem 0;
-            text-align: center;
-            border: 1px solid var(--primary);
-            box-shadow: 0 0 12px rgba(255, 0, 0, 0.1);
-            animation: slideInFromLeft 0.7s ease-out;
-        }
-
-        .non-commercial:hover {
-            animation: pulse 2s infinite;
-        }
-
-        .non-commercial h3 {
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3));
-        }
-
-        /* Подвал как в примере */
-        footer {
-            background-color: var(--dark);
-            color: #888;
-            text-align: center;
-            padding: 1rem 0;
-            border-top: 1px solid #333;
-            position: fixed;
+        .section-title:after {
+            content: '';
+            position: absolute;
             bottom: 0;
             left: 0;
-            width: 100%;
-            margin-left: var(--sidebar-width);
+            width: 60px;
+            height: 3px;
+            background-color: var(--red);
+            box-shadow: var(--glow);
         }
 
-        footer a {
-            color: var(--primary);
+        /* Карточки */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: var(--dark-gray);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid #333;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
+            border-color: var(--red);
+        }
+
+        .card-image {
+            height: 200px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--red);
+        }
+
+        .card-text {
+            color: #cccccc;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Новости */
+        .news-item {
+            background-color: var(--dark-gray);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+            border-left: 4px solid var(--red);
+        }
+
+        .news-item:hover {
+            transform: translateX(5px);
+        }
+
+        .news-date {
+            display: inline-block;
+            background-color: var(--red);
+            color: var(--white);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .news-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .news-excerpt {
+            color: #cccccc;
+            margin-bottom: 1rem;
+        }
+
+        /* Подвал */
+        footer {
+            background-color: var(--dark-gray);
+            padding: 3rem 0;
+            border-top: 3px solid var(--red);
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--red);
+            margin-bottom: 1rem;
+            display: block;
+            text-decoration: none;
+        }
+
+        .footer-links h3 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #cccccc;
             text-decoration: none;
             transition: color 0.3s;
         }
 
-        footer a:hover {
-            color: var(--primary-dark);
+        .footer-links a:hover {
+            color: var(--red);
         }
 
-        /* Адаптивные стили */
-        @media (max-width: 992px) {
-            .sidebar {
-                width: 200px;
-                padding: 1rem;
-                animation: slideInFromLeft 0.4s ease-out;
-            }
-
-            .sidebar-logo-img {
-                width: 100px;
-                height: 100px;
-            }
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
         }
 
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--black);
+            color: var(--white);
+            border-radius: 50%;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background-color: var(--red);
+            transform: scale(1.1);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #333;
+            color: #999;
+        }
+
+        /* Адаптивность */
         @media (max-width: 768px) {
-            body {
+            .header-container {
                 flex-direction: column;
-                padding-bottom: var(--mobile-sidebar-height);
-            }
-
-            .sidebar {
-                width: 100%;
-                height: var(--mobile-sidebar-height);
-                bottom: 0;
-                top: auto;
-                transform: translateY(100%);
-                display: flex;
-                align-items: center;
-                padding: 0;
-                border-right: none;
-                border-top: 1px solid #333;
-                z-index: 1000;
-                animation: slideInFromBottom 0.4s ease-out;
-            }
-
-            .sidebar.active {
-                transform: translateY(0);
-            }
-
-            .sidebar-logo {
-                display: none;
-            }
-
-            .sidebar-nav {
-                margin-top: 0;
-                width: 100%;
-            }
-
-            .sidebar-nav ul {
-                display: flex;
-                justify-content: space-around;
-                width: 100%;
-            }
-
-            .sidebar-nav li {
-                margin-bottom: 0;
-                flex: 1;
                 text-align: center;
             }
 
-            .sidebar-nav a {
-                padding: 0.8rem 0.5rem;
-                font-size: 0.9rem;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                animation: none;
+            nav ul {
+                margin-top: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
             }
 
-            .sidebar-nav a i {
-                margin-bottom: 0.3rem;
-                font-size: 1.2rem;
+            nav li {
+                margin: 0.5rem;
             }
 
-            .sidebar-nav a span {
-                display: none;
+            .hero {
+                padding: 2rem 1rem;
             }
 
-            .main-content {
-                margin-left: 0;
-                padding-bottom: var(--mobile-sidebar-height);
-                animation: fadeIn 0.5s ease-out;
-            }
-
-            .mobile-menu-toggle {
-                display: flex;
-                animation: pulse 2s infinite;
-            }
-
-            .header-logo {
-                font-size: 1.5rem;
-            }
-
-            .tagline {
-                font-size: 0.9rem;
-            }
-
-            .page-title {
-                font-size: 1.5rem;
-            }
-
-            .anime-cover {
-                height: 300px;
-            }
-
-            .user-info {
-                display: none !important;
-            }
-
-            footer {
-                margin-left: 0;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header-logo {
-                font-size: 1.3rem;
-            }
-
-            .empty-state {
-                padding: 1.5rem;
-            }
-
-            .empty-state i {
+            .hero h1 {
                 font-size: 2rem;
             }
 
-            .empty-state h3 {
-                font-size: 1.2rem;
-            }
-
-            .non-commercial {
-                padding: 1rem;
+            .btn {
+                display: block;
+                width: 100%;
+                margin: 0.5rem 0;
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 </head>
 <body>
-    <!-- Боковая панель -->
-    <aside class="sidebar">
-        <div class="sidebar-logo">
-            <img src="https://i.ibb.co/tTjwgmHv/d5c1325d-ea3f-4780-905e-4321068d3426.jpg"
-                 alt="SoraDubAnime Logo"
-                 class="sidebar-logo-img"
-                 loading="eager"
-                 decoding="async">
-            <div class="sidebar-logo-text">SoraDubAnime</div>
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">Sora<span>Dub</span>Anime</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Главная</a></li>
+                    <li><a href="nov.html">Новости</a></li>
+                    <li><a href="proekt.html">Проекты</a></li>
+                    <li><a href="ozv.html">Озвучки</a></li>
+                    <li><a href="ycha.html">Участники</a></li>
+                    <li><a href="vhod.html" class="btn-login">Вход</a></li>
+                    <li><a href="donat.html" class="btn-donate">Донат</a></li>
+                </ul>
+            </nav>
         </div>
+    </header>
 
-        <!-- Блок информации о пользователе -->
-        <div class="user-info" id="user-info">
-            <div class="user-avatar">
-                <i class="fas fa-user"></i>
-            </div>
-            <div class="user-name" id="user-email"></div>
-        </div>
+    <main class="container">
+        <section class="hero">
+            <h1>Фанатская озвучка аниме</h1>
+            <p>SoraDubAnime – некоммерческая команда энтузиастов, создающая любительские озвучки аниме, манги и манхвы для русскоязычного комьюнити. Все наши работы распространяются бесплатно и предназначены исключительно для некоммерческого просмотра. Мы сосредоточены на качественном и душевном подходе к озвучке, подбирая голоса, которые максимально передают характер и эмоции персонажей. Наша команда работает только с теми проектами, которые действительно любит, будь то популярные аниме-сериалы, полнометражные фильмы, манга или манхва. Основные направления: - Дубляж аниме (сериалы и фильмы) - Озвучка манги и манхвы в формате voiceover - Экспериментальные проекты, такие как радиопостановки и драматические чтения Мы открыты для сотрудничества с другими фанатами аниме-культуры и всегда рады новым идеям. Присоединяйтесь к нашему сообществу, чтобы следить за новыми релизами и участвовать в развитии проекта. Подробнее о нашей работе можно узнать в наших официальных сообществах.</p>
+            <a href="proekt.html" class="btn">Наши проекты</a>
+            <a href="ycha.html" class="btn btn-outline">Команда</a>
+        </section>
 
-        <nav class="sidebar-nav">
-            <ul>
-                <li><a href="index.html" class="active"><i class="fas fa-home"></i> <span>Главная</span></a></li>
-                <li><a href="vhod.html" class="login-link"><i class="fas fa-sign-in-alt"></i> <span>Войти</span></a></li>
-                <li><a href="nov.html"><i class="fas fa-newspaper"></i> <span>Новости</span></a></li>
-                <li><a href="proekt.html"><i class="fas fa-film"></i> <span>Проекты</span></a></li>
-                <li><a href="ycha.html"><i class="fas fa-users"></i> <span>Команда</span></a></li>
-                <li><a href="ozv.html"><i class="fas fa-headphones"></i> <span>Озвучки</span></a></li>
-                <li><a href="donat.html"><i class="fas fa-donate"></i> <span>Поддержать</span></a></li>
-            </ul>
-        </nav>
-    </aside>
-
-    <!-- Кнопка мобильного меню -->
-    <button class="mobile-menu-toggle" id="mobileMenuToggle">
-        <i class="fas fa-bars"></i>
-    </button>
-
-    <!-- Основное содержимое -->
-    <div class="main-content">
-        <header>
-            <div class="header-logo">Sora<span>Dub</span>Anime</div>
-            <div class="tagline">Бесплатная некоммерческая озвучка аниме</div>
-        </header>
-
-        <div class="container">
-            <!-- Главная страница -->
-            <div id="home-page">
-                <h2 class="page-title">Добро пожаловать в SoraDubAnime</h2>
-
-                <div class="non-commercial">
-                    <h3>Некоммерческий проект</h3>
-                    <p>Все наши озвучки создаются бесплатно и предназначены только для некоммерческого просмотра</p>
+        <section class="section">
+            <h2 class="section-title">Почему мы?</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-image">Качество</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Высокое качество</h3>
+                        <p class="card-text">Используем профессиональное оборудование и тщательно подходим к подбору актеров.</p>
+                    </div>
                 </div>
 
-                <div style="text-align: center; margin-bottom: 2.5rem;">
-                    <p style="max-width: 800px; margin: 0 auto 1.5rem; font-size: 1.1rem; color: #cccccc;">
-                      SoraDubAnime – некоммерческая команда энтузиастов, создающая любительские озвучки аниме, манги и манхвы для русскоязычного комьюнити. Все наши работы распространяются бесплатно и предназначены исключительно для некоммерческого просмотра.
-
-Мы сосредоточены на качественном и душевном подходе к озвучке, подбирая голоса, которые максимально передают характер и эмоции персонажей. Наша команда работает только с теми проектами, которые действительно любит, будь то популярные аниме-сериалы, полнометражные фильмы, манга или манхва.
-
-Основные направления:
-- Дубляж аниме (сериалы и фильмы)
-- Озвучка манги и манхвы в формате voiceover
-- Экспериментальные проекты, такие как радиопостановки и драматические чтения
-
-Мы открыты для сотрудничества с другими фанатами аниме-культуры и всегда рады новым идеям. Присоединяйтесь к нашему сообществу, чтобы следить за новыми релизами и участвовать в развитии проекта.
-
-Подробнее о нашей работе можно узнать в наших официальных сообществах.
-                    </p>
-                    <a href="proekt.html" class="btn">Наши работы</a>
+                <div class="card">
+                    <div class="card-image">Скорость</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Быстрые релизы</h3>
+                        <p class="card-text">Регулярные выпуски новых эпизодов без потери качества озвучки.</p>
+                    </div>
                 </div>
+
+                <div class="card">
+                    <div class="card-image">Сообщество</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Активное сообщество</h3>
+                        <p class="card-text">Учитываем пожелания фанатов и взаимодействуем с аудиторией.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Последние новости</h2>
+
+            <div class="news-item">
+                <span class="news-date">15.10.2023</span>
+                <h3 class="news-title">Новый проект анонсирован</h3>
+                <p class="news-excerpt">Мы начинаем работу над озвучкой популярного аниме-сериала. Подробности скоро!</p>
+                <a href="nov.html" class="btn btn-outline">Читать далее</a>
+            </div>
+
+            <div class="news-item">
+                <span class="news-date">05.10.2023</span>
+                <h3 class="news-title">Обновление сайта</h3>
+                <p class="news-excerpt">Мы полностью переработали дизайн нашего сайта. Теперь он стал удобнее и современнее!</p>
+                <a href="nov.html" class="btn btn-outline">Читать далее</a>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="nov.html" class="btn">Все новости</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div>
+                <a href="index.html" class="footer-logo">Sora<span>Dub</span>Anime</a>
+                <p>Качественная озвучка аниме с 2015 года</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">VK</a>
+                    <a href="#" class="social-link">TG</a>
+                    <a href="#" class="social-link">YT</a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h3>Навигация</h3>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="nov.html">Новости</a></li>
+                    <li><a href="proekt.html">Проекты</a></li>
+                    <li><a href="ozv.html">Озвучки</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h3>Команда</h3>
+                <ul>
+                    <li><a href="ycha.html">Участники</a></li>
+                    <li><a href="#">Вакансии</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h3>Поддержка</h3>
+                <ul>
+                    <li><a href="donat.html">Донат</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="vhod.html">Вход</a></li>
+                </ul>
             </div>
         </div>
 
-        <!-- Подвал как в примере -->
-        <footer>
-            © 2025 SoraDubAnime | <a href="#">Сайт разработан проектами RH company</a>
-        </footer>
-    </div>
-
-    <!-- Подключаем Plyr JS -->
-    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
-    <script>
-        // Инициализация при загрузке
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("Документ загружен, инициализируем...");
-
-            // Обработчик мобильного меню
-            document.getElementById('mobileMenuToggle').addEventListener('click', function() {
-                document.querySelector('.sidebar').classList.toggle('active');
-                this.innerHTML = document.querySelector('.sidebar').classList.contains('active') ?
-                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-            });
-
-            // Обработчик изменения размера окна
-            window.addEventListener('resize', handleMobileLayout);
-            handleMobileLayout();
-
-            initAuth();
-
-            // Обработка ошибок загрузки изображения
-            const logo = document.querySelector('.sidebar-logo-img');
-            if (logo) {
-                logo.onerror = function() {
-                    console.error('Ошибка загрузки логотипа');
-                    this.style.opacity = '0';
-                };
-
-                // Принудительная перезагрузка изображения при возврате на страницу
-                window.addEventListener('pageshow', function(event) {
-                    if (event.persisted) {
-                        const temp = logo.src;
-                        logo.src = '';
-                        logo.src = temp;
-                    }
-                });
-            }
-
-            // Добавляем анимацию при скролле
-            addScrollAnimations();
-        });
-
-        // Добавление анимаций при скролле
-        function addScrollAnimations() {
-            const animateElements = document.querySelectorAll('.card, .non-commercial, .btn');
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.animation = 'fadeIn 0.8s ease-out forwards';
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            animateElements.forEach(el => {
-                el.style.opacity = '0';
-                observer.observe(el);
-            });
-        }
-
-        // Инициализация аутентификации
-        function initAuth() {
-            // Проверяем состояние аутентификации при загрузке
-            checkAuthState();
-        }
-
-        // Проверка состояния аутентификации
-        function checkAuthState() {
-            // Здесь будет код проверки состояния аутентификации
-            // В демо-версии просто скроем кнопку "Войти" после перезагрузки
-            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-            updateAuthUI(isLoggedIn);
-        }
-
-        // Обновление UI в зависимости от состояния аутентификации
-        function updateAuthUI(isLoggedIn) {
-            const loginLink = document.querySelector('.login-link');
-            const userInfo = document.getElementById('user-info');
-            const userEmail = document.getElementById('user-email');
-
-            if (isLoggedIn) {
-                // Пользователь авторизован
-                if (loginLink) loginLink.style.display = 'none';
-                if (userInfo) userInfo.style.display = 'block';
-
-                // Добавляем кнопку "Выйти"
-                addLogoutButton();
-
-                // Устанавливаем email пользователя (в реальном приложении получаем из Firebase)
-                if (userEmail) {
-                    userEmail.textContent = localStorage.getItem('userEmail') || 'Пользователь';
-                }
-            } else {
-                // Пользователь не авторизован
-                if (loginLink) loginLink.style.display = 'block';
-                if (userInfo) userInfo.style.display = 'none';
-
-                // Удаляем кнопку "Выйти", если она есть
-                removeLogoutButton();
-            }
-        }
-
-        // Добавление кнопки "Выйти"
-        function addLogoutButton() {
-            // Проверяем, есть ли уже кнопка "Выйти"
-            if (!document.querySelector('.logout-link')) {
-                const logoutItem = document.createElement('li');
-                logoutItem.innerHTML = `
-                    <a href="#" class="logout-link">
-                        <i class="fas fa-sign-out-alt"></i> <span>Выйти</span>
-                    </a>
-                `;
-                document.querySelector('.sidebar-nav ul').appendChild(logoutItem);
-
-                // Добавляем обработчик для кнопки "Выйти"
-                logoutItem.querySelector('a').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    logoutUser();
-                });
-            }
-        }
-
-        // Удаление кнопки "Выйти"
-        function removeLogoutButton() {
-            const logoutLink = document.querySelector('.logout-link');
-            if (logoutLink) {
-                logoutLink.parentElement.remove();
-            }
-        }
-
-        // Выход пользователя
-        function logoutUser() {
-            // В реальном приложении здесь будет вызов Firebase signOut()
-            localStorage.removeItem('isLoggedIn');
-            localStorage.removeItem('userEmail');
-            updateAuthUI(false);
-
-            // Перенаправляем на страницу входа
-            window.location.href = 'vhod.html';
-        }
-
-        // Обработка мобильного лейаута
-        function handleMobileLayout() {
-            if (window.innerWidth <= 768) {
-                // Оптимизации для мобильных
-                document.querySelectorAll('.anime-cover').forEach(cover => {
-                    cover.style.height = '300px';
-                });
-
-                document.querySelectorAll('.card-content').forEach(content => {
-                    content.style.padding = '0.8rem';
-                });
-            } else {
-                // Восстановление десктопного вида
-                document.querySelectorAll('.anime-cover').forEach(cover => {
-                    cover.style.height = '400px';
-                });
-
-                document.querySelectorAll('.card-content').forEach(content => {
-                    content.style.padding = '1.25rem';
-                });
-            }
-        }
-    </script>
-
-    <!-- Firebase Auth Integration -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import {
-            getAuth,
-            onAuthStateChanged,
-            signOut,
-            GoogleAuthProvider,
-            signInWithPopup
-        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyAgVkir32JGRpIqWwerZrP6YWVSRgNehf8",
-            authDomain: "soradubanime-6a8bf.firebaseapp.com",
-            projectId: "soradubanime-6a8bf",
-            storageBucket: "soradubanime-6a8bf.appspot.com",
-            messagingSenderId: "217538373824",
-            appId: "1:217538373824:web:6d3a60a4e894417f40e525",
-            measurementId: "G-P4GQKVLCF5"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
-
-        // Отслеживаем состояние аутентификации
-        onAuthStateChanged(auth, (user) => {
-            const loginLink = document.querySelector('.login-link');
-            const userInfo = document.getElementById('user-info');
-            const userEmail = document.getElementById('user-email');
-            const logoutLink = document.querySelector('.logout-link');
-
-            if (user) {
-                // Пользователь авторизован
-                if (loginLink) loginLink.style.display = 'none';
-                if (userInfo) userInfo.style.display = 'block';
-                if (userEmail) userEmail.textContent = user.email || 'Пользователь';
-
-                // Добавляем кнопку "Выйти", если её нет
-                if (!logoutLink) {
-                    const logoutItem = document.createElement('li');
-                    logoutItem.innerHTML = `
-                        <a href="#" class="logout-link">
-                            <i class="fas fa-sign-out-alt"></i> <span>Выйти</span>
-                        </a>
-                    `;
-                    document.querySelector('.sidebar-nav ul').appendChild(logoutItem);
-
-                    // Обработчик для кнопки "Выйти"
-                    logoutItem.querySelector('a').addEventListener('click', (e) => {
-                        e.preventDefault();
-                        signOut(auth).then(() => {
-                            window.location.reload();
-                        });
-                    });
-                }
-            } else {
-                // Пользователь не авторизован
-                if (loginLink) loginLink.style.display = 'block';
-                if (userInfo) userInfo.style.display = 'none';
-
-                // Удаляем кнопку "Выйти", если она есть
-                if (logoutLink) {
-                    logoutLink.parentElement.remove();
-                }
-            }
-        });
-
-        // Обработчик для входа через Google (если нужно на главной странице)
-        document.addEventListener('DOMContentLoaded', () => {
-            const googleLoginBtn = document.getElementById('google-login-btn');
-            if (googleLoginBtn) {
-                googleLoginBtn.addEventListener('click', () => {
-                    signInWithPopup(auth, provider)
-                        .then(() => {
-                            window.location.reload();
-                        })
-                        .catch((error) => {
-                            console.error('Ошибка входа через Google:', error);
-                        });
-                });
-            }
-        });
-    </script>
+        <div class="copyright">
+            &copy; 2023 SoraDubAnime. Все права защищены.
+        </div>
+    </footer>
 </body>
 </html>
