@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Проекты - SoraDubAnime</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
     <style>
         :root {
             --primary: #ff0000;
@@ -158,9 +156,7 @@
         .main-content {
             flex: 1;
             margin-left: var(--sidebar-width);
-            padding-bottom: 20px;
-            display: flex;
-            flex-direction: column;
+            padding-bottom: 60px;
         }
 
         header {
@@ -209,7 +205,6 @@
             max-width: 1200px;
             margin: 2rem auto;
             padding: 0 1.5rem;
-            flex: 1;
         }
 
         .page-title {
@@ -232,6 +227,42 @@
             background: linear-gradient(90deg, var(--primary), #990000);
             border-radius: 3px;
             box-shadow: var(--glow);
+        }
+
+        /* Стили для страницы проектов */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 1rem;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            color: #ccc;
+            font-weight: 500;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3));
+        }
+
+        .tab:hover {
+            color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
 
         .grid {
@@ -374,33 +405,6 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            transition: opacity 0.3s ease;
-            opacity: 1;
-        }
-
-        .player-container.fade-out {
-            opacity: 0;
-        }
-
-        .player-container.fade-in {
-            opacity: 1;
-        }
-
-        /* Кастомные стили для Plyr */
-        .plyr {
-            --plyr-color-main: var(--primary);
-            --plyr-video-background: var(--card-bg);
-            --plyr-control-radius: 8px;
-            --plyr-control-spacing: 10px;
-            --plyr-control-padding: 10px;
-        }
-
-        .plyr__controls {
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-        }
-
-        .plyr__progress input[type="range"] {
-            color: var(--primary);
         }
 
         /* Стили для переключения серий */
@@ -473,46 +477,6 @@
             border-radius: 8px;
         }
 
-        /* Табы */
-        .tabs {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid #333;
-            padding-bottom: 1rem;
-        }
-
-        .tab {
-            padding: 0.75rem 1.5rem;
-            cursor: pointer;
-            color: #ccc;
-            font-weight: 500;
-            transition: all 0.3s;
-            border-bottom: 3px solid transparent;
-        }
-
-        .tab.active {
-            color: var(--primary);
-            border-bottom: 3px solid var(--primary);
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3));
-        }
-
-        .tab:hover {
-            color: var(--primary);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .projects-container {
-            display: block;
-        }
-
         .back-to-projects {
             display: inline-block;
             margin-bottom: 1.5rem;
@@ -526,25 +490,63 @@
             text-decoration: underline;
         }
 
-        /* Новый стиль подвала (не фиксированный) */
         footer {
-            background-color: var(--dark);
-            color: #888;
+            background-color: #000000;
+            color: white;
             text-align: center;
-            padding: 1.5rem 0;
+            padding: 2rem 0;
             margin-top: 3rem;
-            border-top: 1px solid #333;
-            width: 100%;
+            border-top: 3px solid var(--primary);
         }
 
-        footer a {
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5));
+        }
+
+        .footer-logo span {
             color: var(--primary);
-            text-decoration: none;
-            transition: color 0.3s;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7));
         }
 
-        footer a:hover {
-            color: var(--primary-dark);
+        .footer-text {
+            opacity: 0.7;
+            margin-bottom: 1.25rem;
+            font-size: 0.9rem;
+            color: #cccccc;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .social-link {
+            color: #cccccc;
+            font-size: 1.4rem;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5));
+        }
+
+        .copyright {
+            opacity: 0.6;
+            font-size: 0.85rem;
+            color: #999999;
         }
 
         /* Адаптивные стили */
@@ -671,11 +673,6 @@
             .user-info {
                 display: none !important;
             }
-
-            footer {
-                padding: 1rem 0;
-                margin-top: 2rem;
-            }
         }
 
         @media (max-width: 480px) {
@@ -711,6 +708,8 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 </head>
 <body>
     <!-- Боковая панель -->
@@ -789,10 +788,20 @@
             </div>
         </div>
 
-        <!-- Подвал (не фиксированный) -->
         <footer>
-            <div class="container">
-                © 2025 SoraDubAnime | <a href="#">Сайт создан при поддержке проектов RH company</a>
+            <div class="footer-content">
+                <div class="footer-logo">Sora<span>Dub</span>Anime</div>
+                <p class="footer-text">Бесплатная некоммерческая озвучка аниме</p>
+
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                </div>
+
+                <p class="copyright">Сайт создан при поддержке проектов <strong style="color: var(--primary);">RH company</strong></p>
+                <p class="copyright">© 2025 SoraDubAnime.</p>
             </div>
         </footer>
     </div>
@@ -804,7 +813,6 @@
         let player = null;
         let currentAnime = null;
         let currentEpisodeIndex = 0;
-        let isPlayerLoading = false;
 
         // База данных аниме
         const animeDatabase = [
@@ -997,36 +1005,22 @@
         }
 
         // Плавное изменение эпизода
-        async function changeEpisode(direction) {
-            if (isPlayerLoading) return;
-
+        function changeEpisode(direction) {
             const newIndex = currentEpisodeIndex + direction;
             if (newIndex < 0 || newIndex >= currentAnime.videos.length) return;
 
-            isPlayerLoading = true;
             currentEpisodeIndex = newIndex;
-
-            // Обновляем данные
             updateEpisodeInfo();
-
-            // Инициализируем плеер
             initPlayer();
         }
 
         // Выбор эпизода из списка
-        async function selectEpisode(index) {
-            if (isPlayerLoading) return;
-
+        function selectEpisode(index) {
             const newIndex = parseInt(index);
             if (newIndex === currentEpisodeIndex) return;
 
-            isPlayerLoading = true;
             currentEpisodeIndex = newIndex;
-
-            // Обновляем данные
             updateEpisodeInfo();
-
-            // Инициализируем плеер
             initPlayer();
         }
 
