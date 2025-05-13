@@ -2,18 +2,21 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SoraDubAnime - Озвучки</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Озвучки - SoraDubAnime</title>
     <style>
         :root {
-            --black: #000000;
-            --dark-gray: #1a1a1a;
-            --red: #ff0000;
-            --dark-red: #cc0000;
-            --light-red: #ff3333;
-            --white: #ffffff;
-            --light-gray: #f5f5f5;
+            --primary: #ff0000;
+            --primary-dark: #cc0000;
+            --secondary: #333333;
+            --light: #f8f9fa;
+            --dark: #121212;
+            --gray: #666666;
+            --bg-dark: #1a1a1a;
+            --card-bg: #222222;
             --glow: 0 0 10px rgba(255, 0, 0, 0.7);
+            --sidebar-width: 250px;
+            --mobile-sidebar-height: 60px;
         }
 
         * {
@@ -21,171 +24,232 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--black);
-            color: var(--white);
+            background-color: var(--bg-dark);
+            color: #e0e0e0;
             line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
         }
 
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes glow {
-            0% { box-shadow: var(--glow); }
-            50% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.9); }
-            100% { box-shadow: var(--glow); }
-        }
-
-        /* Шапка */
-        header {
-            background-color: var(--black);
-            padding: 1rem 0;
-            border-bottom: 3px solid var(--red);
-            position: sticky;
-            top: 0;
+        /* Боковая панель - десктоп */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: #000;
+            border-right: 1px solid #333;
+            padding: 1.5rem;
+            position: fixed;
+            height: 100vh;
             z-index: 100;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
         }
 
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
+        .sidebar-nav {
+            margin-top: 2rem;
         }
 
-        .logo {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--red);
-            text-decoration: none;
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
-            transition: all 0.3s;
-        }
-
-        .logo span {
-            color: var(--white);
-        }
-
-        .logo:hover {
-            animation: pulse 1.5s infinite;
-        }
-
-        /* Навигация */
-        nav ul {
-            display: flex;
+        .sidebar-nav ul {
             list-style: none;
-            margin: 0;
-            padding: 0;
         }
 
-        nav li {
-            margin-left: 1.5rem;
-            position: relative;
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
         }
 
-        nav a {
+        .sidebar-nav a {
+            display: block;
+            color: #ccc;
             text-decoration: none;
-            color: var(--white);
-            font-weight: 500;
-            padding: 0.5rem 0;
+            padding: 0.8rem 1rem;
+            border-radius: 5px;
             transition: all 0.3s;
+            font-weight: 500;
         }
 
-        nav a:hover {
-            color: var(--red);
+        .sidebar-nav a:hover {
+            background-color: rgba(255, 0, 0, 0.1);
+            color: var(--primary);
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
         }
 
-        nav a.active {
-            color: var(--red);
-        }
-
-        nav a.active:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: var(--red);
-            animation: glow 2s infinite;
-        }
-
-        /* Специальные стили для кнопок */
-        .btn-login {
+        .sidebar-nav a.active {
             background-color: rgba(255, 0, 0, 0.2);
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            border: 1px solid var(--red);
-            animation: glow 2s infinite;
-        }
-
-        .btn-login:hover {
-            background-color: rgba(255, 0, 0, 0.3);
-            transform: scale(1.05);
-        }
-
-        .btn-donate {
-            background: linear-gradient(135deg, var(--red), var(--dark-red));
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
+            color: var(--primary);
             font-weight: 600;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
         }
 
-        .btn-donate:hover {
-            background: linear-gradient(135deg, var(--light-red), var(--red));
-            transform: scale(1.05);
+        .sidebar-logo {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .sidebar-logo-img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
+        }
+
+        .sidebar-logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5));
+        }
+
+        /* Информация о пользователе */
+        .user-info {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #333;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .user-name {
+            font-size: 0.9rem;
+            color: #ccc;
+            word-break: break-all;
+        }
+
+        /* Мобильное меню */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5));
+            border: none;
+            color: white;
+            font-size: 1.5rem;
         }
 
         /* Основное содержимое */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            animation: fadeIn 0.5s ease-out;
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding-bottom: 60px;
         }
 
-        .page-header {
+        header {
+            background: linear-gradient(135deg, #000000, var(--dark));
+            color: white;
+            padding: 1.5rem 0;
             text-align: center;
-            margin-bottom: 3rem;
+            position: relative;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255,0,0,0.2) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .header-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7));
+            background: linear-gradient(to right, #ff0000, #cc0000);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .header-logo span {
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.9));
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            color: #cccccc;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2));
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
         }
 
         .page-title {
-            font-size: 2.5rem;
-            color: var(--red);
-            margin-bottom: 1rem;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            font-size: 2rem;
             position: relative;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5));
         }
 
-        .page-title:after {
+        .page-title::after {
             content: '';
             position: absolute;
             bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 100px;
+            width: 50%;
             height: 3px;
-            background-color: var(--red);
+            background: linear-gradient(90deg, var(--primary), #990000);
+            border-radius: 3px;
             box-shadow: var(--glow);
         }
 
-        .page-subtitle {
-            color: #cccccc;
-            max-width: 700px;
-            margin: 0 auto;
+        .empty-state {
+            text-align: center;
+            padding: 2.5rem;
+            color: var(--gray);
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            border: 1px solid #333;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .empty-state i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            opacity: 0.7;
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.3));
+        }
+
+        .empty-state h3 {
+            margin-bottom: 0.75rem;
+            color: #e0e0e0;
         }
 
         /* Табы */
@@ -193,7 +257,8 @@
             display: flex;
             justify-content: center;
             margin-bottom: 2rem;
-            border-bottom: 2px solid #333;
+            border-bottom: 1px solid #333;
+            padding-bottom: 1rem;
         }
 
         .tab {
@@ -202,473 +267,373 @@
             color: #ccc;
             font-weight: 500;
             transition: all 0.3s;
-            position: relative;
+            border-bottom: 3px solid transparent;
         }
 
         .tab.active {
-            color: var(--red);
-            font-weight: 600;
-        }
-
-        .tab.active:after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: var(--red);
-            animation: glow 2s infinite;
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.3));
         }
 
         .tab:hover {
-            color: var(--red);
+            color: var(--primary);
         }
 
-        /* Сетка озвучек */
-        .dubs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
+        .tab-content {
+            display: none;
         }
 
-        .dub-card {
-            background-color: var(--dark-gray);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: all 0.3s;
-            border: 1px solid #333;
-            position: relative;
+        .tab-content.active {
+            display: block;
         }
 
-        .dub-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
-            border-color: var(--red);
-        }
-
-        .dub-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background-color: var(--red);
-        }
-
-        .dub-cover {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-            position: relative;
-        }
-
-        .dub-cover::after {
-            content: '';
-            position: absolute;
+        /* Новый стиль подвала */
+        footer {
+            background-color: var(--dark);
+            color: #888;
+            text-align: center;
+            padding: 1rem 0;
+            border-top: 1px solid #333;
+            position: fixed;
             bottom: 0;
             left: 0;
-            right: 0;
-            height: 100px;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-        }
-
-        .dub-title {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: white;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-            z-index: 2;
-        }
-
-        .dub-info {
-            padding: 1.5rem;
-        }
-
-        .dub-meta {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            color: #999;
-        }
-
-        .dub-type {
-            background-color: rgba(255, 0, 0, 0.2);
-            color: var(--red);
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-        }
-
-        .dub-year {
-            color: #ccc;
-        }
-
-        .dub-description {
-            color: #cccccc;
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-        }
-
-        .dub-status {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
-
-        .status-ongoing {
-            background-color: rgba(0, 255, 0, 0.1);
-            color: #00ff00;
-        }
-
-        .status-completed {
-            background-color: rgba(0, 162, 255, 0.1);
-            color: #00a2ff;
-        }
-
-        .dub-btn {
-            display: block;
             width: 100%;
-            padding: 0.75rem;
-            text-align: center;
-            background-color: rgba(255, 0, 0, 0.2);
-            color: var(--red);
-            border: 1px solid var(--red);
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
+            margin-left: var(--sidebar-width);
         }
 
-        .dub-btn:hover {
-            background-color: rgba(255, 0, 0, 0.3);
-            transform: translateY(-2px);
-        }
-
-        /* Состояние пустого списка */
-        .empty-state {
-            text-align: center;
-            padding: 3rem;
-            grid-column: 1 / -1;
-            color: #666;
-        }
-
-        .empty-state i {
-            font-size: 3rem;
-            color: var(--red);
-            opacity: 0.5;
-            margin-bottom: 1rem;
-        }
-
-        .empty-state h3 {
-            color: #ccc;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Подвал */
-        footer {
-            background-color: var(--dark-gray);
-            padding: 3rem 0;
-            border-top: 3px solid var(--red);
-        }
-
-        .footer-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--red);
-            margin-bottom: 1rem;
-            display: block;
-            text-decoration: none;
-        }
-
-        .footer-links h3 {
-            color: var(--white);
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-        }
-
-        .footer-links ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links a {
-            color: #cccccc;
+        footer a {
+            color: var(--primary);
             text-decoration: none;
             transition: color 0.3s;
         }
 
-        .footer-links a:hover {
-            color: var(--red);
+        footer a:hover {
+            color: var(--primary-dark);
         }
 
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
+        /* Адаптивные стили */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 200px;
+                padding: 1rem;
+            }
+
+            .sidebar-logo-img {
+                width: 100px;
+                height: 100px;
+            }
         }
 
-        .social-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: var(--black);
-            color: var(--white);
-            border-radius: 50%;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-
-        .social-link:hover {
-            background-color: var(--red);
-            transform: scale(1.1);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid #333;
-            color: #999;
-        }
-
-        /* Адаптивность */
         @media (max-width: 768px) {
-            .header-container {
+            body {
                 flex-direction: column;
+                padding-bottom: var(--mobile-sidebar-height);
+            }
+
+            .sidebar {
+                width: 100%;
+                height: var(--mobile-sidebar-height);
+                bottom: 0;
+                top: auto;
+                transform: translateY(100%);
+                display: flex;
+                align-items: center;
+                padding: 0;
+                border-right: none;
+                border-top: 1px solid #333;
+                z-index: 1000;
+            }
+
+            .sidebar.active {
+                transform: translateY(0);
+            }
+
+            .sidebar-logo {
+                display: none;
+            }
+
+            .sidebar-nav {
+                margin-top: 0;
+                width: 100%;
+            }
+
+            .sidebar-nav ul {
+                display: flex;
+                justify-content: space-around;
+                width: 100%;
+            }
+
+            .sidebar-nav li {
+                margin-bottom: 0;
+                flex: 1;
                 text-align: center;
             }
 
-            nav ul {
-                margin-top: 1.5rem;
-                flex-wrap: wrap;
-                justify-content: center;
+            .sidebar-nav a {
+                padding: 0.8rem 0.5rem;
+                font-size: 0.9rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
 
-            nav li {
-                margin: 0.5rem;
+            .sidebar-nav a i {
+                margin-bottom: 0.3rem;
+                font-size: 1.2rem;
+            }
+
+            .sidebar-nav a span {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding-bottom: var(--mobile-sidebar-height);
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .header-logo {
+                font-size: 1.5rem;
+            }
+
+            .tagline {
+                font-size: 0.9rem;
             }
 
             .page-title {
+                font-size: 1.5rem;
+            }
+
+            .empty-state {
+                padding: 1.5rem;
+            }
+
+            .empty-state i {
                 font-size: 2rem;
             }
 
+            .empty-state h3 {
+                font-size: 1.2rem;
+            }
+
             .tabs {
-                flex-wrap: wrap;
+                flex-direction: column;
             }
 
             .tab {
-                padding: 0.5rem 1rem;
+                width: 100%;
+                text-align: center;
             }
 
-            .dub-cover {
-                height: 300px;
+            .user-info {
+                display: none !important;
+            }
+
+            footer {
+                margin-left: 0;
             }
         }
 
         @media (max-width: 480px) {
-            .dubs-grid {
-                grid-template-columns: 1fr;
+            .header-logo {
+                font-size: 1.3rem;
             }
 
-            .page-title {
-                font-size: 1.8rem;
+            .empty-state {
+                padding: 1rem;
             }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <a href="index.html" class="logo">Sora<span>Dub</span>Anime</a>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Главная</a></li>
-                    <li><a href="nov.html">Новости</a></li>
-                    <li><a href="proekt.html">Проекты</a></li>
-                    <li><a href="ozv.html" class="active">Озвучки</a></li>
-                    <li><a href="ycha.html">Участники</a></li>
-                    <li><a href="vhod.html" class="btn-login">Вход</a></li>
-                    <li><a href="donat.html" class="btn-donate">Донат</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <main class="container">
-        <div class="page-header">
-            <h1 class="page-title">Аудиоозвучки</h1>
-            <p class="page-subtitle">Озвученные манги и манхвы в аудиоформате</p>
+    <!-- Боковая панель -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <img src="https://i.ibb.co/tTjwgmHv/d5c1325d-ea3f-4780-905e-4321068d3426.jpg" alt="SoraDubAnime Logo" class="sidebar-logo-img">
+            <div class="sidebar-logo-text">SoraDubAnime</div>
         </div>
 
-        <div class="tabs">
-            <div class="tab active" onclick="switchTab('manga')">Манга</div>
-            <div class="tab" onclick="switchTab('manhwa')">Манхва</div>
+        <!-- Блок информации о пользователе -->
+        <div class="user-info" id="user-info">
+            <div class="user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="user-name" id="user-email"></div>
         </div>
 
-        <div class="dubs-grid" id="manga-tab">
-            <!-- Пример аудио манги -->
-            <div class="dub-card">
-                <div style="position: relative;">
-                    <img src="https://via.placeholder.com/300x400" alt="Название манги" class="dub-cover">
-                    <div class="dub-title">Берсерк</div>
-                </div>
-                <div class="dub-info">
-                    <div class="dub-meta">
-                        <span class="dub-type">Манга</span>
-                        <span class="dub-year">2023</span>
-                    </div>
-                    <span class="dub-status status-completed">Завершено</span>
-                    <p class="dub-description">Полная аудиоозвучка первых 10 томов культовой манги.</p>
-                    <a href="#" class="dub-btn">Слушать</a>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+                <li><a href="vhod.html" class="login-link"><i class="fas fa-sign-in-alt"></i> <span>Войти</span></a></li>
+                <li><a href="nov.html"><i class="fas fa-newspaper"></i> <span>Новости</span></a></li>
+                <li><a href="proekt.html"><i class="fas fa-film"></i> <span>Проекты</span></a></li>
+                <li><a href="ycha.html"><i class="fas fa-users"></i> <span>Команда</span></a></li>
+                <li><a href="ozv.html" class="active"><i class="fas fa-headphones"></i> <span>Озвучки</span></a></li>
+                <li><a href="donat.html"><i class="fas fa-donate"></i> <span>Поддержать</span></a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Кнопка мобильного меню -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Основное содержимое -->
+    <div class="main-content">
+        <header>
+            <div class="header-logo">Sora<span>Dub</span>Anime</div>
+            <div class="tagline">Бесплатная некоммерческая озвучка аниме</div>
+        </header>
+
+        <div class="container">
+            <h2 class="page-title">Наши озвучки</h2>
+
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab('manga-tab')">Манга</div>
+                <div class="tab" onclick="switchTab('manhwa-tab')">Манхва</div>
+            </div>
+
+            <!-- Вкладка с мангой -->
+            <div id="manga-tab" class="tab-content active">
+                <div class="empty-state">
+                    <i class="fas fa-book"></i>
+                    <h3>Манги пока нет</h3>
+                    <p>В этом разделе будут появляться озвученные нами манги</p>
                 </div>
             </div>
 
-            <!-- Еще пример -->
-            <div class="dub-card">
-                <div style="position: relative;">
-                    <img src="https://via.placeholder.com/300x400" alt="Название манги" class="dub-cover">
-                    <div class="dub-title">Токийский гуль</div>
-                </div>
-                <div class="dub-info">
-                    <div class="dub-meta">
-                        <span class="dub-type">Манга</span>
-                        <span class="dub-year">2024</span>
-                    </div>
-                    <span class="dub-status status-ongoing">В процессе</span>
-                    <p class="dub-description">Озвучка новых глав выходит еженедельно.</p>
-                    <a href="#" class="dub-btn">Слушать</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="dubs-grid" id="manhwa-tab" style="display: none;">
-            <!-- Пример аудио манхвы -->
-            <div class="dub-card">
-                <div style="position: relative;">
-                    <img src="https://via.placeholder.com/300x400" alt="Название манхвы" class="dub-cover">
-                    <div class="dub-title">Solo Leveling</div>
-                </div>
-                <div class="dub-info">
-                    <div class="dub-meta">
-                        <span class="dub-type">Манхва</span>
-                        <span class="dub-year">2024</span>
-                    </div>
-                    <span class="dub-status status-completed">Завершено</span>
-                    <p class="dub-description">Полная аудиоозвучка всей манхвы с музыкальным сопровождением.</p>
-                    <a href="#" class="dub-btn">Слушать</a>
-                </div>
-            </div>
-
-            <!-- Еще пример -->
-            <div class="dub-card">
-                <div style="position: relative;">
-                    <img src="https://via.placeholder.com/300x400" alt="Название манхвы" class="dub-cover">
-                    <div class="dub-title">Второе пришествие</div>
-                </div>
-                <div class="dub-info">
-                    <div class="dub-meta">
-                        <span class="dub-type">Манхва</span>
-                        <span class="dub-year">2023</span>
-                    </div>
-                    <span class="dub-status status-ongoing">В процессе</span>
-                    <p class="dub-description">Озвучка новых глав выходит каждые 2 недели.</p>
-                    <a href="#" class="dub-btn">Слушать</a>
+            <!-- Вкладка с манхвой -->
+            <div id="manhwa-tab" class="tab-content">
+                <div class="empty-state">
+                    <i class="fas fa-book-open"></i>
+                    <h3>Манхвы пока нет</h3>
+                    <p>В этом разделе будут появляться озвученные нами манхвы</p>
                 </div>
             </div>
         </div>
-    </main>
 
-    <footer>
-        <div class="footer-container">
-            <div>
-                <a href="index.html" class="footer-logo">Sora<span>Dub</span>Anime</a>
-                <p>Качественные аудиоозвучки с 2025 года</p>
-                <div class="social-links">
-                    <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
-                </div>
-            </div>
-
-            <div class="footer-links">
-                <h3>Навигация</h3>
-                <ul>
-                    <li><a href="index.html">Главная</a></li>
-                    <li><a href="nov.html">Новости</a></li>
-                    <li><a href="proekt.html">Проекты</a></li>
-                    <li><a href="ozv.html">Озвучки</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-links">
-                <h3>Команда</h3>
-                <ul>
-                    <li><a href="ycha.html">Участники</a></li>
-                    <li><a href="#">Вакансии</a></li>
-                    <li><a href="#">Контакты</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-links">
-                <h3>Поддержка</h3>
-                <ul>
-                    <li><a href="donat.html">Донат</a></li>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="vhod.html">Вход</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="copyright">
-            &copy; 2025 SoraDubAnime. Все права защищены.
-        </div>
-    </footer>
+        <!-- Новый подвал -->
+        <footer>
+            © 2025 SoraDubAnime | <a href="#">Сайт создан при поддержке проектов RH company</a>
+        </footer>
+    </div>
 
     <script>
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            // Обработчик мобильного меню
+            document.getElementById('mobileMenuToggle').addEventListener('click', function() {
+                document.querySelector('.sidebar').classList.toggle('active');
+                this.innerHTML = document.querySelector('.sidebar').classList.contains('active') ?
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+
+            // Проверка состояния аутентификации
+            checkAuthState();
+        });
+
+        // Проверка состояния аутентификации
+        function checkAuthState() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            updateAuthUI(isLoggedIn);
+        }
+
+        // Обновление UI в зависимости от состояния аутентификации
+        function updateAuthUI(isLoggedIn) {
+            const loginLink = document.querySelector('.login-link');
+            const userInfo = document.getElementById('user-info');
+            const userEmail = document.getElementById('user-email');
+
+            if (isLoggedIn) {
+                // Пользователь авторизован
+                if (loginLink) loginLink.style.display = 'none';
+                if (userInfo) userInfo.style.display = 'block';
+
+                // Добавляем кнопку "Выйти"
+                addLogoutButton();
+
+                // Устанавливаем email пользователя
+                if (userEmail) {
+                    userEmail.textContent = localStorage.getItem('userEmail') || 'Пользователь';
+                }
+            } else {
+                // Пользователь не авторизован
+                if (loginLink) loginLink.style.display = 'block';
+                if (userInfo) userInfo.style.display = 'none';
+
+                // Удаляем кнопку "Выйти", если она есть
+                removeLogoutButton();
+            }
+        }
+
+        // Добавление кнопки "Выйти"
+        function addLogoutButton() {
+            // Проверяем, есть ли уже кнопка "Выйти"
+            if (!document.querySelector('.logout-link')) {
+                const logoutItem = document.createElement('li');
+                logoutItem.innerHTML = `
+                    <a href="#" class="logout-link">
+                        <i class="fas fa-sign-out-alt"></i> <span>Выйти</span>
+                    </a>
+                `;
+                document.querySelector('.sidebar-nav ul').appendChild(logoutItem);
+
+                // Добавляем обработчик для кнопки "Выйти"
+                logoutItem.querySelector('a').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    logoutUser();
+                });
+            }
+        }
+
+        // Удаление кнопки "Выйти"
+        function removeLogoutButton() {
+            const logoutLink = document.querySelector('.logout-link');
+            if (logoutLink) {
+                logoutLink.parentElement.remove();
+            }
+        }
+
+        // Выход пользователя
+        function logoutUser() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userEmail');
+            updateAuthUI(false);
+            window.location.href = 'vhod.html';
+        }
+
         // Функция для переключения вкладок
         function switchTab(tabId) {
-            // Убираем активный класс у всех табов
+            // Убрать active у всех вкладок
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.classList.remove('active');
             });
 
-            // Добавляем активный класс к выбранному табу
-            event.target.classList.add('active');
+            // Убрать active у всех контентов
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
 
-            // Скрываем все вкладки контента
-            document.getElementById('manga-tab').style.display = 'none';
-            document.getElementById('manhwa-tab').style.display = 'none';
+            // Добавить active к выбранной вкладке и контенту
+            const tab = event?.target;
+            if (tab) {
+                tab.classList.add('active');
+            }
 
-            // Показываем выбранную вкладку контента
-            document.getElementById(tabId + '-tab').style.display = 'grid';
+            const content = document.getElementById(tabId);
+            if (content) {
+                content.classList.add('active');
+            }
         }
+
+        // Сделаем функцию глобальной для использования в HTML
+        window.switchTab = switchTab;
     </script>
 </body>
 </html>
